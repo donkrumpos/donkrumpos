@@ -1,6 +1,6 @@
-# Foggy Portfolio
+# Don Krumpos — Portfolio
 
-Astro-powered portfolio site. Clean, fast, markdown-driven.
+Astro-powered design portfolio. Clean, fast, markdown-driven case studies.
 
 ## Quick Start
 
@@ -21,25 +21,41 @@ npm run preview    # Preview the build
 
 ## Adding Projects
 
-Create a new `.md` file in `src/content/projects/`:
+Create a new `.md` file in `src/content/projects/` (copy `_template.md` to start):
 
 ```markdown
 ---
 title: "Project Name"
 description: "One-liner for the grid card."
-date: 2025-01-01
-category: "Mural"
+date: 2024-01-01
+client: "Client Name"
+role: "Art Director"
+category: "UI/UX"          # Options: UI/UX, Branding, Design Systems, Print
+tools: ["Figma", "Adobe Creative Suite"]
 thumbnail: "/images/projects/my-project-thumb.jpg"
 images:
-  - "/images/projects/my-project-1.jpg"
-  - "/images/projects/my-project-2.jpg"
-  - "/images/projects/my-project-3.jpg"
-featured: true       # Show on home page
-order: 1             # Lower number = appears first
-draft: false         # Set true to hide
+  - "/images/projects/my-project-hero.jpg"
+  - "/images/projects/my-project-detail-1.jpg"
+featured: true
+order: 1
+draft: false
 ---
 
-Write your project description here. Full markdown supported.
+## The Challenge
+
+What problem were you solving?
+
+## Approach
+
+Your process, key decisions, research.
+
+## Solution
+
+Walk through the final design.
+
+## Results
+
+Outcomes — metrics, feedback, adoption.
 ```
 
 Put images in `public/images/projects/`.
@@ -53,7 +69,7 @@ Create a new `.md` file in `src/content/blog/`:
 title: "Post Title"
 description: "Short description for the list page."
 date: 2025-02-24
-tags: ["murals", "process"]
+tags: ["process", "design thinking"]
 draft: false
 ---
 
@@ -64,26 +80,27 @@ Write your post here.
 
 ```
 src/
-├── components/       # Header, Footer, ProjectCard
+├── components/          # Header, Footer, ProjectCard
 ├── content/
-│   ├── projects/     # Project markdown files
-│   └── blog/         # Blog post markdown files
-├── layouts/          # Base layout
+│   ├── projects/        # Case study markdown files
+│   │   └── _template.md # Copy this to start a new project
+│   └── blog/            # Journal posts
+├── layouts/             # Base layout
 ├── pages/
-│   ├── index.astro   # Home (featured projects)
+│   ├── index.astro      # Home (featured projects)
 │   ├── about.astro
 │   ├── contact.astro
-│   ├── work/         # Project grid + detail pages
-│   └── blog/         # Journal list + post pages
+│   ├── work/            # Work grid (grouped by category) + detail pages
+│   └── blog/            # Journal list + post pages
 └── styles/
-    └── global.css    # All styles
+    └── global.css
 public/
-└── images/           # Static images
+└── images/projects/     # Project images
 ```
 
 ## Customization
 
-- **Site name / bio**: Edit `Header.astro`, `index.astro`, `about.astro`
-- **Colors / typography**: Edit CSS variables at the top of `global.css`
+- **Bio / contact info**: Edit `about.astro` and `contact.astro`
+- **Colors / typography**: CSS variables at top of `global.css`
 - **Domain**: Update `site` in `astro.config.mjs`
-- **Contact links**: Edit `contact.astro`
+- **Categories**: Defined in `content.config.ts` — currently UI/UX, Branding, Design Systems, Print

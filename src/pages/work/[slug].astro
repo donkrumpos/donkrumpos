@@ -1,0 +1,79 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  return projects.map(project => ({
+    params: { slug: project.id },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+const { Content } = await render(project);
+
+const dateFormatted = project.data.date.toLocaleDateString('en-US', {
+  year: 'numeric',
+});
+---
+
+<Base title={`${project.data.title} — Don Krumpos`} description={project.data.description}>
+  <div class="project-detail">
+    <a href="/work/" class="back-link">&larr; Back to work</a>
+
+    <div class="project-detail__header">
+      <span class="project-detail__category">{project.data.category}</span>
+      <h1 class="project-detail__title">{project.data.title}</h1>
+      <p class="project-detail__lede">{project.data.description}</p>
+    </div>
+
+    {/* Case study metadata */}
+    <div class="project-detail__meta-grid">
+      {project.data.client && (
+        <div class="meta-item">
+          <span class="meta-label">Client</span>
+          <span class="meta-value">{project.data.client}</span>
+        </div>
+      )}
+      {project.data.role && (
+        <div class="meta-item">
+          <span class="meta-label">Role</span>
+          <span class="meta-value">{project.data.role}</span>
+        </div>
+      )}
+      <div class="meta-item">
+        <span class="meta-label">Year</span>
+        <span class="meta-value">{dateFormatted}</span>
+      </div>
+      {project.data.tools && project.data.tools.length > 0 && (
+        <div class="meta-item">
+          <span class="meta-label">Tools</span>
+          <span class="meta-value">{project.data.tools.join(', ')}</span>
+        </div>
+      )}
+    </div>
+
+    {/* Hero image */}
+    <div class="project-detail__hero">
+      <img
+        src={project.data.images?.[0] || project.data.thumbnail}
+        alt={project.data.title}
+      />
+    </div>
+
+    {/* Case study body — markdown */}
+    <div class="project-detail__body post-body">
+      <Content />
+    </div>
+
+    {/* Additional images */}
+    {project.data.images && project.data.images.length > 1 && (
+      <div class="project-detail__gallery">
+        {project.data.images.slice(1).map((img, i) => (
+          <img src={img} alt={`${project.data.title} — detail ${i + 2}`} loading="lazy" />
+        ))}
+      </div>
+    )}
+  </div>
+</Base>

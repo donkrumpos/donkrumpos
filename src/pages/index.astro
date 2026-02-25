@@ -1,0 +1,44 @@
+---
+import Base from '../layouts/Base.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import { getCollection } from 'astro:content';
+
+const projects = (await getCollection('projects', ({ data }) => !data.draft))
+  .sort((a, b) => {
+    if (a.data.order !== undefined && b.data.order !== undefined) {
+      return a.data.order - b.data.order;
+    }
+    if (a.data.order !== undefined) return -1;
+    if (b.data.order !== undefined) return 1;
+    return b.data.date.getTime() - a.data.date.getTime();
+  });
+
+const featured = projects.filter(p => p.data.featured);
+const displayProjects = featured.length > 0 ? featured : projects.slice(0, 8);
+---
+
+<Base title="Don Krumpos — Art Director & Designer">
+  <div class="page-header">
+    <h1 class="page-header__title">Don Krumpos</h1>
+    <p class="page-header__subtitle">Art Director & Designer — 25 years crafting user-centered experiences across digital and print.</p>
+  </div>
+
+  <div class="project-grid">
+    {displayProjects.map(project => (
+      <ProjectCard
+        title={project.data.title}
+        description={project.data.description}
+        thumbnail={project.data.thumbnail}
+        slug={project.id}
+        category={project.data.category}
+        client={project.data.client}
+      />
+    ))}
+  </div>
+
+  {projects.length > displayProjects.length && (
+    <p style="margin-top: var(--space-xl);">
+      <a href="/work/">View all work &rarr;</a>
+    </p>
+  )}
+</Base>

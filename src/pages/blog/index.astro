@@ -1,0 +1,42 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+---
+
+<Base title="Journal — Foggy">
+  <div class="page-header">
+    <h1 class="page-header__title">Journal</h1>
+    <p class="page-header__subtitle">Notes on making, thinking, and the work in between.</p>
+  </div>
+
+  <div class="blog-list">
+    {posts.length === 0 && (
+      <p style="color: var(--color-text-muted); margin-top: var(--space-lg);">
+        Nothing here yet. Check back soon.
+      </p>
+    )}
+
+    {posts.map(post => {
+      const dateFormatted = post.data.date.toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+      });
+
+      return (
+        <article class="blog-item">
+          <time class="blog-item__date" datetime={post.data.date.toISOString()}>
+            {dateFormatted}
+          </time>
+          <h2 class="blog-item__title">
+            <a href={`/blog/${post.id}/`}>{post.data.title}</a>
+          </h2>
+          <p class="blog-item__excerpt">{post.data.description}</p>
+        </article>
+      );
+    })}
+  </div>
+</Base>
