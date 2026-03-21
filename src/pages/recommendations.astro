@@ -1,0 +1,124 @@
+---
+import Base from '../layouts/Base.astro';
+
+const recommendations = [
+  {
+    name: 'Jason Houge',
+    title: 'Artist, Mentor, Collaborator. Photographer and Digital Fine Art Master Printer.',
+    relationship: 'Jason and Don studied together',
+    date: 'December 26, 2018',
+    text: "All long as I have known Don, he's been a leader in the arts. His distinctive personal voice comes through in every design and printmaking project he's involved with. He is deeply invested in the proliferation of the arts through academics and by meeting people in the streets through curated shows at his gallery, the Jabberwock in Algoma, Wisconsin. Due to his extensive expertise and ability to connect with people, he has been asked to teach at various universities throughout the region. Don's work as an educator and gallerist has played a vital role in refining the Fine Arts culture throughout the Northeastern Wisconsin region.",
+  },
+  {
+    name: 'Erin Minsart',
+    title: 'Sr. Account Manager @StackAdapt',
+    relationship: 'Erin worked with Don on the same team',
+    date: 'December 11, 2018',
+    text: 'I had the pleasure of working with Don on several website projects. As an account and project manager, Don was always great to work with. Whether it was a full website build, redesign or updates and maintenance, Don made sure that the client got exactly what he or she wanted, on time and on budget.',
+  },
+  {
+    name: 'Andrew Vickers',
+    title: 'Technology and Digital Director at CUSTOM RETAIL\u00AE',
+    relationship: 'Andrew managed Don directly',
+    date: 'October 31, 2018',
+    text: "Working with Don was a great experience! Not only is Don an extremely talented illustrator and artist but also a solid front-end developer. In my time managing Don, he developed the branding and provided the front-end architecture for a microsite that eventually won an AWWWARDS Site of the Day. Don was always personal, contributed to office culture and generally... just a really nice guy. If given the opportunity again I would welcome Don's skillset and work-ethic with open arms. Don would be an essential asset to any creative team, especially if you are looking for award-winning work.",
+  },
+  {
+    name: 'Nicole Virant',
+    title: 'Custom Training, Conference Services, Professional Development Solutions',
+    relationship: 'Nicole managed Don directly',
+    date: 'September 19, 2017',
+    text: "Both brilliantly creative and technically apt, Don brings a welcome mixture of knowledge of coding for your website while also producing a positive design and user experience. Patient, well-spoken and a dynamic team player\u2014 you'd be crazy not to hire him!",
+  },
+  {
+    name: 'Kelly Warning',
+    title: 'Account Management and Marketing Specialist',
+    relationship: 'Kelly worked with Don on the same team',
+    date: 'September 27, 2015',
+    text: "Don and I worked together during my time as an Account Manager at Christiansen Creative. Don is creative, hardworking, responsive and flexible. He is receptive to direction, feedback and was willing to move projects forward with little direction. Don was a valuable resource because he could pick up an existing project or assist our team with overflow projects; ensuring all deliverables were to the highest of standards. I appreciated his attentiveness to each project, his constant updates on the status of projects, and his creative vision.\n\nI recommend Don for interactive design work. Don has talent, a great personality and is an asset to any team.",
+  },
+  {
+    name: 'Susan Morin, EdD',
+    title: 'Communicator, Online Higher Education Instructional Design',
+    relationship: 'Susan worked with Don but on different teams',
+    date: 'May 21, 2013',
+    text: "Don is a creative and hard-working interactive designer. His easy-going personality makes him very approachable and fun to work with. Don contributed greatly to the artistic design of several deliverables for a significant external client, and the client was most pleased with the deliverables. Don built these deliverables from start to finish and was flexible with last-minute content and design changes which made working with him outstanding. I recommend Don for interactive design work; he is a very talented interactive designer and graphic artist.",
+  },
+  {
+    name: 'Ten W',
+    title: 'Manager UX @ Sun Country Airlines',
+    relationship: 'Ten worked with Don on the same team',
+    date: 'April 16, 2013',
+    text: 'Don is an excellent interactive designer because he has both the ideas and the skills necessary to create high quality work. He is always thinking and looking for ways to be more innovative. He is smart and informed, and full of resources. Don is also an accomplished artist with an eye for detail and a strong dedication to his craft.',
+  },
+  {
+    name: 'Mike Sanders',
+    title: 'Account Executive at Patterson Companies, Inc.',
+    relationship: 'Mike worked with Don on the same team',
+    date: 'January 15, 2013',
+    text: "Don's great! Very creative and forward thinking. Don possesses a breadth and depth of knowledge with web design/development that was lacking in our group prior to his arrival. During his time at Patterson, Don worked on many high profile projects and trained designers as well. I'd love to work with Don again in the future.",
+  },
+  {
+    name: 'Maria Berte',
+    title: 'Senior Manager of UX/UI, Lead Designer at Getac',
+    relationship: 'Maria reported to Don directly',
+    date: 'January 12, 2013',
+    text: "I had the pleasure of working with Don at Patterson Companies while I was there as a consultant for a Flash contract and Don was Interactive Art Director. Don has such creative energy that is energizing, fun and contagious to be around. He's a great web designer and he is also highly skilled in front-end development. This combined talent of design and front-end development make him a true gem.",
+  },
+  {
+    name: 'Johnathan Kuehl',
+    title: 'Illustrator, Animator & Motion Graphics Artist',
+    relationship: 'Johnathan worked with Don on the same team',
+    date: 'January 11, 2013',
+    text: "I had the pleasure of working along side Don Krumpos at Patterson. What made Don stand out was his ability to come up with great ideas and solutions for the customers utilizing new and emerging media. His art direction and leadership of our team made a huge difference in bringing Patterson's online media presence to the forefront of their industry. Together we were able to create some truly excellent designs, create multimedia applications, animations, unique and engaging interfaces and motion graphics videos that still make me shudder with their greatness.\n\nI highly recommend Don Krumpos, and continue to find new opportunities to collaborate with him.",
+  },
+  {
+    name: 'Mike Nihart',
+    title: 'General and Marketing Manager at Window World',
+    relationship: 'Mike managed Don directly',
+    date: 'April 27, 2011',
+    text: 'Don is a very talented Web designer with not only a great eye for detail but a wealth of knowledge into front end as well as back end design. He is always looking for the next best way to approach any given task and is willing to put in the extra effort to get the job done. I would recommend Don to anyone who is looking for a talented designer with a passion to deliver the best.',
+  },
+  {
+    name: 'Christopher Rand',
+    title: 'Operations Leader | Marine Veteran | Driving Digital & Cultural Transformation for IT & Public Sector Orgs',
+    relationship: 'Christopher and Don studied together',
+    date: 'March 28, 2011',
+    text: 'Don is a brilliant artist with a bold creative flair. He was inspiring to discuss relevant artistic issues that he holds a great passion for. Don would be an incredible asset to any organization that is looking for intuitive ingenious.',
+  },
+  {
+    name: 'Christine Style',
+    title: 'Started new studio with exhibition space in August 2025, after becoming Professor Emerita, Art & Design, UW-Green Bay in 2019',
+    relationship: "Christine was Don's teacher",
+    date: 'January 31, 2011',
+    text: "Don was a terrific student who went above and beyond in everything he took on while an Art major at UW-Green Bay. He's very creative in his visual solutions and communicates ideas in visually engaging and surprising ways.",
+  },
+  {
+    name: 'Josh Braaten',
+    title: 'AI Entrepreneurship, Brand Research, Marketing Performance | Co-Founder at Daisy | Principal Consultant at Brandata',
+    relationship: 'Josh worked with Don but on different teams',
+    date: 'June 23, 2010',
+    text: "Don is a top-notch designer who creates value by building a bridge between the client's goals and the creation of art. Don is an excellent listener and is extremely patient with clients as he helps them develop their creative goals, careful to pick up important details about what will make any great project excellent. Lastly, Don is just flat-out a pleasure to work with.",
+  },
+];
+---
+
+<Base title="Recommendations — Don Krumpos">
+  <div class="page-header">
+    <h1 class="page-header__title">Recommendations</h1>
+    <p class="page-header__subtitle">What colleagues, managers, and collaborators have said on LinkedIn.</p>
+  </div>
+
+  <div class="recommendations">
+    {recommendations.map((rec) => (
+      <blockquote class="recommendation">
+        <p class="recommendation__text">{rec.text}</p>
+        <footer class="recommendation__footer">
+          <cite class="recommendation__name">{rec.name}</cite>
+          <span class="recommendation__title">{rec.title}</span>
+          <span class="recommendation__meta">{rec.relationship} &middot; {rec.date}</span>
+        </footer>
+      </blockquote>
+    ))}
+  </div>
+</Base>

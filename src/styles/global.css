@@ -534,6 +534,56 @@ p + p { margin-top: var(--space-md); }
 }
 
 /* ============================================
+   RECOMMENDATIONS
+   ============================================ */
+
+.recommendations {
+  max-width: var(--max-width-prose);
+  margin-top: var(--space-xl);
+}
+
+.recommendation {
+  padding: var(--space-lg) 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.recommendation:first-child {
+  padding-top: 0;
+}
+
+.recommendation__text {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--color-text);
+  white-space: pre-line;
+}
+
+.recommendation__footer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  margin-top: var(--space-md);
+}
+
+.recommendation__name {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--color-text);
+}
+
+.recommendation__title {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  line-height: 1.4;
+}
+
+.recommendation__meta {
+  font-size: 0.8rem;
+  color: var(--color-text-light);
+}
+
+/* ============================================
    BACK LINK
    ============================================ */
 
