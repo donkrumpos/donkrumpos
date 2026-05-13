@@ -1,0 +1,144 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base title="Services — Don Krumpos">
+  <div class="page-header">
+    <h1 class="page-header__title">Services</h1>
+    <p class="page-header__subtitle">One practice. Three current shapes.</p>
+  </div>
+
+  <div class="services-intro">
+    <p>
+      I help organizations build digital experiences that feel like a place,
+      not a product. The work below is three lenses on the same practice —
+      a senior designer's eye, applied at three different scales of organization.
+    </p>
+  </div>
+
+  <section class="service">
+    <h2 class="service__title">Senior UX &amp; Design Systems</h2>
+    <p>
+      Twenty-five years across enterprise products, healthcare platforms, and
+      data tools — in-house or as a contract design lead. The work shows up as
+      research, information architecture, interaction design, and the design
+      systems that hold a product together as it grows. The shape stays the
+      same regardless of domain: understand the people who use the thing, find
+      the structure the work actually wants, and build the components that let
+      a team ship coherently against it.
+    </p>
+    <p class="service__outcome">
+      <span class="service__outcome-label">A recent shape.</span>
+      Contract design lead on NielsenIQ's Discover platform — built the design
+      system from a 4px grid up, mapped the product information architecture,
+      and shaped the guided flows analysts now use to navigate retail data.
+      Related work for Optum's care-management tools and Patterson Dental's
+      customer-facing site.
+    </p>
+  </section>
+
+  <section class="service">
+    <h2 class="service__title">Nonprofit Tech Strategy</h2>
+    <p>
+      Small organizations rarely need more software — they need the software
+      they already have to behave like a system. I work with mission-driven
+      teams on Salesforce, websites, photo and data archives, and the
+      operational scaffolding that connects them. The work usually starts at
+      the strategy layer — what are we actually trying to know about our work
+      and our people? — and ends in the tooling, not the other way around.
+      Built for budgets and staffing that have to outlast any one consultant.
+    </p>
+    <p class="service__outcome">
+      <span class="service__outcome-label">A recent shape.</span>
+      Designed and built an integrated strategic operating system for a small
+      mission-driven nonprofit — Salesforce as the system of record, a
+      public-facing website aligned to the program calendar, and an
+      AI-assisted photo indexer that turned a decade of unsearchable event
+      photography into institutional memory.
+    </p>
+  </section>
+
+  <section class="service">
+    <h2 class="service__title">Small Site Builds</h2>
+    <p>
+      Modern, owner-operated websites for artists, small organizations, and
+      people who need a single clean signal on the open web. Built in Astro —
+      fast, accessible, dependency-light, easy to maintain. The goal is a site
+      you can keep without me: a calm structure, content you can edit in plain
+      Markdown, and no surprise renewal fees from a platform you don't control.
+    </p>
+    <p class="service__outcome">
+      <span class="service__outcome-label">A recent shape.</span>
+      A freelance murals portfolio, a personal site at krumpos.org, and a
+      regional arts site — each handed off to its owner running on
+      infrastructure they understand.
+    </p>
+  </section>
+
+  <div class="services-cta">
+    <p>
+      If any of this looks like a shape your work is asking for, the best next
+      step is a short email. Tell me what you're working on, and I'll tell you
+      whether I'm the right fit.
+    </p>
+    <p>
+      <a href="mailto:don@yourdomain.com">don@yourdomain.com</a>
+    </p>
+  </div>
+</Base>
+
+<style>
+  .services-intro {
+    max-width: var(--max-width-prose);
+    margin-top: var(--space-xl);
+  }
+
+  .services-intro p {
+    font-size: 1.05rem;
+    color: var(--color-text-muted);
+  }
+
+  .service {
+    max-width: var(--max-width-prose);
+    margin-top: var(--space-2xl);
+    padding-top: var(--space-xl);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .service__title {
+    font-size: 1.25rem;
+    margin-bottom: var(--space-md);
+  }
+
+  .service p {
+    margin-bottom: var(--space-md);
+  }
+
+  .service__outcome {
+    font-size: 0.95rem;
+    color: var(--color-text-muted);
+    padding-left: var(--space-md);
+    border-left: 2px solid var(--color-border);
+    margin-top: var(--space-lg);
+  }
+
+  .service__outcome-label {
+    font-weight: 500;
+    color: var(--color-text);
+  }
+
+  .services-cta {
+    max-width: var(--max-width-prose);
+    margin-top: var(--space-2xl);
+    padding-top: var(--space-xl);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .services-cta p {
+    margin-bottom: var(--space-md);
+  }
+
+  .services-cta a {
+    font-size: 1.05rem;
+  }
+</style>
