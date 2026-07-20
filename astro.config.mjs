@@ -4,7 +4,7 @@ import sitemap from '@astrojs/sitemap';
 import cloudflare from '@astrojs/cloudflare';
 
 export default defineConfig({
-  site: 'https://yourdomain.com', // TODO: replace with your actual domain
+  site: 'https://donkrumpos.com',
   integrations: [mdx(), sitemap()],
   output: 'static',
   // Cloudflare Pages works great with static output

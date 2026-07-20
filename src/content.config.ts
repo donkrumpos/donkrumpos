@@ -10,7 +10,7 @@ const projects = defineCollection({
     // Case study fields
     client: z.string().optional(),
     role: z.string().optional(),
-    category: z.enum(['UI/UX', 'Branding', 'Design Systems', 'Print']),
+    category: z.enum(['Web & Systems', 'UI/UX', 'Branding', 'Design Systems', 'Print']),
     tools: z.array(z.string()).optional(),
     // Images
     thumbnail: z.string(),
@@ -33,4 +33,15 @@ const blog = defineCollection({
   }),
 });
 
-export const collections = { projects, blog };
+const recommendations = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/recommendations' }),
+  schema: z.object({
+    name: z.string(),
+    title: z.string(),
+    relationship: z.string(),
+    date: z.coerce.date(),
+    featured: z.boolean().default(false),
+  }),
+});
+
+export const collections = { projects, blog, recommendations };

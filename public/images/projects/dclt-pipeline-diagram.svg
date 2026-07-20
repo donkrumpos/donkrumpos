@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" font-family="Georgia, 'Times New Roman', serif">
+  <rect width="1600" height="900" fill="#f6f1e9"/>
+
+  <!-- title -->
+  <text x="80" y="110" font-size="46" fill="#26302a" font-weight="bold">Owned donor &amp; registration pipeline</text>
+  <text x="80" y="158" font-size="26" fill="#5c6b60" font-family="Helvetica, Arial, sans-serif">Door County Land Trust — payments, data, and CRM in accounts the nonprofit controls</text>
+
+  <!-- flow row -->
+  <g font-family="Helvetica, Arial, sans-serif">
+    <!-- Astro form -->
+    <rect x="80" y="360" width="280" height="150" rx="14" fill="#ffffff" stroke="#c9bfa9" stroke-width="2"/>
+    <text x="220" y="430" font-size="30" fill="#26302a" text-anchor="middle" font-weight="bold">Astro form</text>
+    <text x="220" y="466" font-size="21" fill="#5c6b60" text-anchor="middle">donation + registration</text>
+
+    <!-- Stripe -->
+    <rect x="470" y="360" width="260" height="150" rx="14" fill="#ffffff" stroke="#c9bfa9" stroke-width="2"/>
+    <text x="600" y="430" font-size="30" fill="#26302a" text-anchor="middle" font-weight="bold">Stripe</text>
+    <text x="600" y="466" font-size="21" fill="#5c6b60" text-anchor="middle">payments + ACH</text>
+
+    <!-- Supabase edge function (emphasized) -->
+    <rect x="840" y="345" width="340" height="180" rx="16" fill="#26302a" stroke="#26302a" stroke-width="2"/>
+    <text x="1010" y="415" font-size="31" fill="#f6f1e9" text-anchor="middle" font-weight="bold">Supabase</text>
+    <text x="1010" y="452" font-size="24" fill="#cdd8ce" text-anchor="middle">edge function</text>
+    <text x="1010" y="490" font-size="19" fill="#9db0a1" text-anchor="middle">the logic layer</text>
+
+    <!-- Salesforce -->
+    <rect x="1290" y="360" width="240" height="150" rx="14" fill="#ffffff" stroke="#c9bfa9" stroke-width="2"/>
+    <text x="1410" y="424" font-size="28" fill="#26302a" text-anchor="middle" font-weight="bold">Salesforce</text>
+    <text x="1410" y="458" font-size="21" fill="#5c6b60" text-anchor="middle">NPSP — record</text>
+
+    <!-- arrows -->
+    <g stroke="#8a7d63" stroke-width="3" fill="none" marker-end="url(#arrow)">
+      <line x1="360" y1="435" x2="466" y2="435"/>
+      <line x1="730" y1="435" x2="836" y2="435"/>
+      <line x1="1180" y1="435" x2="1286" y2="435"/>
+    </g>
+
+    <!-- Resend branch -->
+    <rect x="840" y="640" width="340" height="130" rx="14" fill="#ffffff" stroke="#c9bfa9" stroke-width="2"/>
+    <text x="1010" y="700" font-size="27" fill="#26302a" text-anchor="middle" font-weight="bold">Resend</text>
+    <text x="1010" y="734" font-size="20" fill="#5c6b60" text-anchor="middle">receipts + confirmations</text>
+    <line x1="1010" y1="525" x2="1010" y2="636" stroke="#8a7d63" stroke-width="3" marker-end="url(#arrow)"/>
+  </g>
+
+  <!-- caption -->
+  <text x="80" y="840" font-size="23" fill="#5c6b60" font-family="Helvetica, Arial, sans-serif">One payment becomes a complete CRM record — donor, gift, recurring plan, fund allocation, receipt — with no manual step.</text>
+
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#8a7d63"/>
+    </marker>
+  </defs>
+</svg>
