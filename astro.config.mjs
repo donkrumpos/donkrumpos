@@ -7,6 +7,7 @@ export default defineConfig({
   site: 'https://donkrumpos.com',
   integrations: [mdx(), sitemap()],
   output: 'static',
-  // Cloudflare Pages works great with static output
-  // Switch to 'server' + adapter if you need SSR later
+  // Static by default; individual routes opt into on-demand rendering with
+  // `export const prerender = false` (the contact form endpoint uses this).
+  adapter: cloudflare(),
 });

@@ -1,47 +1,55 @@
 ---
 import Base from '../layouts/Base.astro';
+
+const success = Astro.url.searchParams.get('success') === 'true';
 ---
 
-<Base title="Contact — Don Krumpos">
+<Base title="Contact — Don Krumpos" description="Get in touch about design, web, and systems work.">
   <div class="page-header">
     <h1 class="page-header__title">Contact</h1>
   </div>
 
   <div class="contact-content">
     <p>
-      I'm currently exploring Art Director and Creative Director opportunities. 
-      If you're looking for someone who bridges design thinking and hands-on 
-      craft, I'd love to talk.
+      Tell me what you're working on, and I'll tell you honestly whether I'm the
+      right fit. I build websites and the systems behind them for small
+      organizations and mission-driven teams, and I keep it all yours to own and run.
     </p>
 
-    <form action="https://api.web3forms.com/submit" method="POST" class="contact-form">
-  <input type="hidden" name="access_key" value="aebe774d-6bb8-4490-85c1-0eb737e535d1" />
-  <input type="hidden" name="subject" value="Portfolio Contact Form" />
-  <input type="hidden" name="redirect" value="https://www.donkrumpos.com/contact/?success=true" />
-  <input type="checkbox" name="botcheck" style="display:none" />
+    <form
+      id="contact-form"
+      class="contact-form"
+      action="/api/contact"
+      method="POST"
+      style={success ? 'display:none;' : ''}
+    >
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" required />
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required />
+      </div>
+      <div class="form-group">
+        <label for="message">Message</label>
+        <textarea id="message" name="message" rows="6" required></textarea>
+      </div>
+      <!-- honeypot: real people leave this empty; bots fill it -->
+      <div class="hp" aria-hidden="true">
+        <label>Company<input type="text" name="company" tabindex="-1" autocomplete="off" /></label>
+      </div>
+      <button type="submit" class="form-submit">Send message</button>
+    </form>
 
-  <div class="form-group">
-    <label for="name">Name</label>
-    <input type="text" id="name" name="name" required />
-  </div>
-  <div class="form-group">
-    <label for="email">Email</label>
-    <input type="email" id="email" name="email" required />
-  </div>
-  <div class="form-group">
-    <label for="message">Message</label>
-    <textarea id="message" name="message" rows="6" required></textarea>
-  </div>
-  <button type="submit" class="form-submit">Send Message</button>
-</form>
-
-    <div id="form-success" class="form-message" style="display:none;">
-      <p>Thanks for reaching out — I'll get back to you soon.</p>
+    <div id="form-success" class="form-message" style={success ? '' : 'display:none;'}>
+      <p>Thanks for reaching out. I'll get back to you soon.</p>
     </div>
 
     <div id="form-error" class="form-message form-message--error" style="display:none;">
-      <p>Something went wrong. You can reach me directly at 
-        <a href="mailto:don@krumpos.org">don@krumpos.org</a>.
+      <p>
+        Something went wrong sending that. Please try again in a moment, or reach me via
+        <a href="https://www.linkedin.com/in/donkrumpos/" target="_blank" rel="noopener">LinkedIn</a>.
       </p>
     </div>
 
@@ -96,6 +104,15 @@ import Base from '../layouts/Base.astro';
     resize: vertical;
   }
 
+  /* honeypot — visually and semantically hidden, still submitted by bots */
+  .hp {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
   .form-submit {
     display: inline-block;
     padding: 0.6rem 1.5rem;
@@ -132,13 +149,14 @@ import Base from '../layouts/Base.astro';
 </style>
 
 <script>
-  const form = document.getElementById('contact-form');
+  const form = document.getElementById('contact-form') as HTMLFormElement | null;
   const successEl = document.getElementById('form-success');
   const errorEl = document.getElementById('form-error');
 
   form?.addEventListener('submit', async (e) => {
     e.preventDefault();
-    const btn = form.querySelector('button[type="submit"]');
+    if (errorEl) errorEl.style.display = 'none';
+    const btn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
     btn.disabled = true;
     btn.textContent = 'Sending...';
 
@@ -151,19 +169,20 @@ import Base from '../layouts/Base.astro';
           name: data.get('name'),
           email: data.get('email'),
           message: data.get('message'),
+          company: data.get('company'),
         }),
       });
 
       if (res.ok) {
         form.style.display = 'none';
-        successEl.style.display = 'block';
+        if (successEl) successEl.style.display = 'block';
       } else {
         throw new Error('Failed');
       }
     } catch (err) {
-      errorEl.style.display = 'block';
+      if (errorEl) errorEl.style.display = 'block';
       btn.disabled = false;
-      btn.textContent = 'Send Message';
+      btn.textContent = 'Send message';
     }
   });
 </script>
