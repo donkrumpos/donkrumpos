@@ -6,7 +6,7 @@ client: "Door County Land Trust"
 role: "Design, engineering & systems integration (sole developer)"
 category: "Web & Systems"
 tools: ["Astro", "Supabase Edge Functions", "Stripe", "Salesforce / NPSP", "Resend", "TypeScript"]
-thumbnail: "/images/projects/dclt-pipeline-diagram.svg"
+thumbnail: "/images/projects/dclt-pipeline-thumb.svg"
 images: []
 featured: true
 draft: false   # LOCAL PREVIEW ONLY — flip back to true (or don't commit) until the naming/publish call is made
@@ -28,6 +28,10 @@ The first decision was to migrate in parallel rather than rip the old platform o
 The second decision was ownership. Every piece runs in accounts the Land Trust controls: its own Stripe, its own Supabase database, its own Salesforce, its own website repository. No platform sits between the organization and its donors, renting it access to its own list.
 
 The architecture is a clean separation of concerns. An Astro donation form takes the gift. Stripe handles the money. A Supabase edge function receives the payment event and does the real work. Salesforce with the Nonprofit Success Pack (NPSP) stays the system of record. Resend sends the transactional email. Each system does one job, and the data flows one direction through them.
+
+![Architecture diagram: an Astro donation form flows to Stripe for payments and ACH, into a Supabase edge function that acts as the logic layer, which writes a complete record to Salesforce NPSP and triggers Resend for receipts and confirmations.](/images/projects/dclt-pipeline-diagram.svg)
+
+*The pipeline end to end: the form takes the gift, Stripe takes the money, the Supabase edge function does the work, Salesforce stays the system of record, and Resend sends the email.*
 
 ## Solution
 

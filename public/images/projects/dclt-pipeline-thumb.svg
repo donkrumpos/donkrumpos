@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" font-family="Georgia, 'Times New Roman', serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#8a7f6a"/>
+    </marker>
+  </defs>
+
+  <rect width="1200" height="900" fill="#f6f1e9"/>
+
+  <!-- title -->
+  <text x="80" y="98" font-size="52" fill="#26302a" font-weight="bold">Owned donor &amp; registration pipeline</text>
+  <text x="80" y="146" font-size="28" fill="#5c6b60" font-family="Helvetica, Arial, sans-serif">Door County Land Trust</text>
+
+  <g font-family="Helvetica, Arial, sans-serif">
+    <!-- ROW 1: Astro form -> Stripe -> Supabase -->
+    <!-- Astro form -->
+    <rect x="105" y="250" width="270" height="130" rx="12" fill="#ffffff" stroke="#d8cdb9" stroke-width="2"/>
+    <text x="240" y="308" font-size="34" font-weight="bold" fill="#26302a" text-anchor="middle">Astro form</text>
+    <text x="240" y="345" font-size="22" fill="#5c6b60" text-anchor="middle">gift + registration</text>
+
+    <!-- Stripe -->
+    <rect x="465" y="250" width="270" height="130" rx="12" fill="#ffffff" stroke="#d8cdb9" stroke-width="2"/>
+    <text x="600" y="308" font-size="34" font-weight="bold" fill="#26302a" text-anchor="middle">Stripe</text>
+    <text x="600" y="345" font-size="22" fill="#5c6b60" text-anchor="middle">payments + ACH</text>
+
+    <!-- Supabase (dark, the logic layer) -->
+    <rect x="825" y="250" width="270" height="130" rx="12" fill="#26302a"/>
+    <text x="960" y="300" font-size="34" font-weight="bold" fill="#ffffff" text-anchor="middle">Supabase</text>
+    <text x="960" y="332" font-size="21" fill="#c7d2c5" text-anchor="middle">edge function</text>
+    <text x="960" y="360" font-size="19" fill="#9fb09c" text-anchor="middle">the logic layer</text>
+
+    <!-- row 1 arrows -->
+    <line x1="378" y1="315" x2="462" y2="315" stroke="#8a7f6a" stroke-width="3" marker-end="url(#arrow)"/>
+    <line x1="738" y1="315" x2="822" y2="315" stroke="#8a7f6a" stroke-width="3" marker-end="url(#arrow)"/>
+
+    <!-- connector: down from Supabase, elbow left into Salesforce (S-flow) -->
+    <path d="M960,380 L960,555 L738,555" fill="none" stroke="#8a7f6a" stroke-width="3" marker-end="url(#arrow)"/>
+
+    <!-- ROW 2: Salesforce <- (from Supabase), then -> Resend -->
+    <!-- Salesforce -->
+    <rect x="465" y="490" width="270" height="130" rx="12" fill="#ffffff" stroke="#d8cdb9" stroke-width="2"/>
+    <text x="600" y="548" font-size="34" font-weight="bold" fill="#26302a" text-anchor="middle">Salesforce</text>
+    <text x="600" y="585" font-size="22" fill="#5c6b60" text-anchor="middle">NPSP record</text>
+
+    <!-- Resend -->
+    <rect x="105" y="490" width="270" height="130" rx="12" fill="#ffffff" stroke="#d8cdb9" stroke-width="2"/>
+    <text x="240" y="548" font-size="34" font-weight="bold" fill="#26302a" text-anchor="middle">Resend</text>
+    <text x="240" y="585" font-size="22" fill="#5c6b60" text-anchor="middle">receipts + email</text>
+
+    <!-- Salesforce -> Resend arrow -->
+    <line x1="462" y1="555" x2="378" y2="555" stroke="#8a7f6a" stroke-width="3" marker-end="url(#arrow)"/>
+  </g>
+
+  <!-- caption -->
+  <text x="80" y="770" font-size="27" fill="#5c6b60" font-family="Helvetica, Arial, sans-serif">Each gift becomes a complete CRM record, with no manual step.</text>
+</svg>
