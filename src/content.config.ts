@@ -10,7 +10,7 @@ const projects = defineCollection({
     // Case study fields
     client: z.string().optional(),
     role: z.string().optional(),
-    category: z.enum(['Web & Systems', 'UI/UX', 'Branding', 'Design Systems', 'Print']),
+    category: z.enum(['Web & Systems', 'Public Art', 'UI/UX', 'Branding', 'Design Systems', 'Print']),
     tools: z.array(z.string()).optional(),
     // Images
     thumbnail: z.string(),

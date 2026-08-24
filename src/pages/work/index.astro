@@ -14,7 +14,7 @@ const projects = (await getCollection('projects', ({ data }) => !data.draft))
   });
 
 // Group by category
-const categories = ['Web & Systems', 'UI/UX', 'Branding', 'Design Systems', 'Print'] as const;
+const categories = ['Web & Systems', 'Public Art', 'Design Systems', 'UI/UX', 'Branding', 'Print'] as const;
 const grouped = categories
   .map(cat => ({
     name: cat,
@@ -26,7 +26,7 @@ const grouped = categories
 <Base title="Work — Don Krumpos">
   <div class="page-header">
     <h1 class="page-header__title">Work</h1>
-    <p class="page-header__subtitle">Selected projects across web &amp; systems, UI/UX, branding, design systems, and print.</p>
+    <p class="page-header__subtitle">Systems, public art, and design for mission-driven organizations.</p>
   </div>
 
   {grouped.map(group => (
