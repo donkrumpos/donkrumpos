@@ -1,0 +1,45 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  // Build all articles (including drafts) so works-in-progress are previewable.
+  const articles = await getCollection('articles');
+  return articles.map(article => ({
+    params: { slug: article.id },
+    props: { article },
+  }));
+}
+
+const { article } = Astro.props;
+const { Content } = await render(article);
+
+const dateFormatted = article.data.date.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+
+<Base title={`${article.data.title} — Don Krumpos`} description={article.data.description} noindex={true}>
+  <article>
+    <a href="/articles/" class="back-link">&larr; Back to articles</a>
+
+    <div class="page-header">
+      <h1 class="page-header__title">{article.data.title}</h1>
+      <time class="page-header__subtitle" datetime={article.data.date.toISOString()}>
+        {dateFormatted}{article.data.draft && ' · draft'}
+      </time>
+    </div>
+
+    <div class="post-body">
+      <Content />
+    </div>
+
+    {article.data.tags && article.data.tags.length > 0 && (
+      <div style="margin-top: var(--space-xl); font-size: 0.85rem; color: var(--color-text-muted);">
+        {article.data.tags.join(' · ')}
+      </div>
+    )}
+  </article>
+</Base>

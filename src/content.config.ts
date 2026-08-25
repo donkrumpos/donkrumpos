@@ -44,4 +44,18 @@ const recommendations = defineCollection({
   }),
 });
 
-export const collections = { projects, blog, recommendations };
+// Career-journey articles — the "enterprise-grade web for small orgs" series.
+// Private by default (draft: true) and noindexed/unlisted until launch.
+const articles = defineCollection({
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/articles' }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    date: z.coerce.date(),
+    order: z.number().optional(), // sequence within the career-journey arc
+    tags: z.array(z.string()).optional(),
+    draft: z.boolean().default(true), // NOTE: defaults to private, unlike blog
+  }),
+});
+
+export const collections = { projects, blog, recommendations, articles };

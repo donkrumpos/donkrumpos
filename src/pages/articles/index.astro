@@ -1,0 +1,52 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+// Private/tinker section: show ALL articles including drafts, sorted by the
+// career-journey `order` (falling back to date). Unlisted + noindexed until launch.
+const articles = (await getCollection('articles')).sort((a, b) => {
+  const ao = a.data.order ?? 999;
+  const bo = b.data.order ?? 999;
+  if (ao !== bo) return ao - bo;
+  return a.data.date.getTime() - b.data.date.getTime();
+});
+---
+
+<Base
+  title="Articles — Don Krumpos"
+  description="A designer-developer's path from big-company work to building for small organizations."
+  noindex={true}
+>
+  <div class="page-header">
+    <h1 class="page-header__title">Articles</h1>
+    <p class="page-header__subtitle">Notes from the workbench — the path from big-company work to building for the people the industry overcharges and overlooks.</p>
+  </div>
+
+  <div class="blog-list">
+    {articles.length === 0 && (
+      <p style="color: var(--color-text-muted); margin-top: var(--space-lg);">
+        Nothing here yet.
+      </p>
+    )}
+
+    {articles.map(article => {
+      const dateFormatted = article.data.date.toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+      });
+
+      return (
+        <article class="blog-item">
+          <time class="blog-item__date" datetime={article.data.date.toISOString()}>
+            {dateFormatted}{article.data.draft && ' · draft'}
+          </time>
+          <h2 class="blog-item__title">
+            <a href={`/articles/${article.id}/`}>{article.data.title}</a>
+          </h2>
+          <p class="blog-item__excerpt">{article.data.description}</p>
+        </article>
+      );
+    })}
+  </div>
+</Base>
