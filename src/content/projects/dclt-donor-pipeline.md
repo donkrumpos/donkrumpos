@@ -9,7 +9,7 @@ tools: ["Astro", "Supabase Edge Functions", "Stripe", "Salesforce / NPSP", "Rese
 thumbnail: "/images/projects/dclt-pipeline-thumb.svg"
 images: []
 featured: true
-draft: false   # LOCAL PREVIEW ONLY — flip back to true (or don't commit) until the naming/publish call is made
+draft: false
 order: 1
 ---
 
