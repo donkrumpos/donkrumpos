@@ -9,7 +9,7 @@ tools: ["Acrylic on cinderblock", "~597 sq ft (14'8\" × 40'8\")", "Research-bas
 thumbnail: "/images/projects/oshkosh-mill-madonnas-thumb.jpg"
 images: []
 featured: true
-draft: true
+draft: false
 order: 2
 ---
 
