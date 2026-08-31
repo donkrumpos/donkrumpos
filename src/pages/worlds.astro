@@ -1,0 +1,238 @@
+---
+import Base from '../layouts/Base.astro';
+
+// Illustrated Worlds — a gallery of Don's personal, invented, illustrated
+// narrative projects. Distinct from client /work.
+// Images live in public/worlds/ (copied + downscaled from the widdershins and
+// yonder-site repos, 2026-08). Copy is in Don's own maker voice — facts checked
+// against widdershins source content, not the in-world archive framing.
+
+const plates = [
+  {
+    id: 'terra-incognita',
+    num: 'I',
+    title: 'Terra Incognita',
+    meta: 'Watercolor & drawing · 2023–24 · shown in Other Worlds, NEWArtSpace, De Pere WI',
+    body: 'A cartography of the boyhood lands of Northeast Wisconsin, drawn in the voice of a natural historian who never existed. Ley lines, land wights, genius loci, and micro-seasons, all rendered as if surveyed from life. Shown by invitation alongside Jason DeMarte and Kristine Granger.',
+    note: 'The whole series is an argument that an invented world holds together only when you draw it like a real one.',
+    images: [
+      { src: '/worlds/terra-1.jpg', alt: 'Terra Incognita, watercolor and ink — an invented map plate of Northeast Wisconsin.' },
+      { src: '/worlds/terra-2.jpg', alt: 'Terra Incognita, watercolor and ink — a second cartographic study with annotations.' },
+      { src: '/worlds/terra-3.jpg', alt: 'Terra Incognita, watercolor and ink — a further plate in the invented survey.' },
+    ],
+  },
+  {
+    id: 'cabinet',
+    num: 'II',
+    title: 'Cabinet of the Wilding Hours',
+    meta: 'Installation & watercolor · 2025 · duo exhibition with Erin LaBonte',
+    body: 'A life-sized field-naturalist’s wagon, twelve watercolor studies, and a full apparatus of field notes, built as one immersive cabinet. The wagon and a watercolor were acquired by the gallery.',
+    note: 'Concept to object: the cart, the specimens, the labels, and the hand-lettered tags are all mine.',
+    images: [
+      { src: '/worlds/cabinet-1.jpg', alt: 'The Cabinet of the Wilding Hours: a life-sized field-naturalist’s wagon, front view.' },
+      { src: '/worlds/cabinet-2.jpg', alt: 'The Cabinet of the Wilding Hours: interior of the wagon, hung with roots and specimens.' },
+    ],
+  },
+  {
+    id: 'ruins',
+    num: 'III',
+    title: 'The Ruins of the Midwest',
+    meta: 'Salvage sculpture · 2006 · built at UW–Green Bay',
+    body: 'In the year my family’s farm was breaking up, I built machines out of what it threw away. A trebuchet rebuilt from a burned harvest thresher that flung clay-and-seed balls out over a former field. A sensory-deprivation float tank welded from the horse trough my sister and I swam in as kids. Each one takes the farm apart and sends it somewhere it might come up again.',
+    note: 'Made from what was already there, without asking permission. Half of what I built that year was made by not asking.',
+    images: [
+      { src: '/worlds/ruins-1.jpg', alt: 'The trebuchet: a throwing machine rebuilt from a burned farm thresher, standing in gravel before a weathered gray barn.' },
+      { src: '/worlds/ruins-2.jpg', alt: 'The tank: a sensory-deprivation float chamber welded from an old farm horse trough, set on skids.' },
+    ],
+  },
+  {
+    id: 'painted-walls',
+    num: 'IV',
+    title: 'The Painted Walls',
+    meta: 'Murals & hand lettering · 40+ works across eight Wisconsin cities',
+    body: 'Forty-plus public murals carried from concept to finished wall, most with Erin LaBonte under Yonder. Featured statewide in Our Wisconsin, 2026. This is where the type leaves the screen: every wall is hand-lettered.',
+    note: 'I research the collaborators, set the concept, and carry it to a finished piece on a wall. It is art direction at the scale of a building.',
+    images: [
+      { src: '/worlds/mural-1.jpg', alt: 'Public mural of fish, Two Rivers, Wisconsin.' },
+      { src: '/worlds/mural-2.jpg', alt: 'Sister-city public mural.' },
+      { src: '/worlds/mural-3.jpg', alt: 'Public alley mural.' },
+    ],
+  },
+  {
+    id: 'portage-year',
+    num: 'V',
+    title: 'Portage Year: An Almanach',
+    meta: 'Assemblage · collagraph, etching & found objects · 2013',
+    body: 'A cosmological almanac built into a found doll’s case: a gilt dome and an orrery of clock gears and marbles over two lit chambers, skinned in my own older prints and pressure-fit together without a drop of glue. Part clock, part reliquary, part map of a single year of returning home.',
+    note: 'Every part is the material of the ground the year was kept on. The dome of heaven is a dog’s ball, found in the street, halved and painted gold.',
+    images: [
+      { src: '/worlds/portage-1.jpg', alt: 'Portage Year: An Almanach — the closed assemblage in a found doll’s case, with gilt dome, orrery, and two chambers.' },
+      { src: '/worlds/portage-2.jpg', alt: 'Portage Year: An Almanach — detail of the two chambers beneath the orrery dial.' },
+    ],
+  },
+];
+---
+
+<Base
+  title="Illustrated Worlds — Don Krumpos"
+  description="Personal, invented, illustrated narrative worlds by Don Krumpos: cartography, a naturalist's cabinet, salvage sculpture, murals, and an assemblage almanac."
+>
+  <div class="page-header">
+    <h1 class="page-header__title">Illustrated Worlds</h1>
+    <p class="page-header__subtitle">
+      The personal work behind the practice — invented territory, made by hand.
+    </p>
+  </div>
+
+  <p class="worlds-intro prose">
+    Alongside the client work, I build illustrated narrative worlds of my own:
+    cartographies of places that were never surveyed, a naturalist’s cabinet,
+    machines salvaged from a vanishing farm, forty painted walls, and an almanac
+    of a single year. I set the direction and I make the marks.
+  </p>
+
+  <div class="plates">
+    {plates.map((p) => (
+      <article class="plate" id={p.id}>
+        <div class="plate__body prose">
+          <span class="plate__num">Plate {p.num}</span>
+          <h2 class="plate__title">{p.title}</h2>
+          <p class="plate__meta">{p.meta}</p>
+          <p class="plate__desc">{p.body}</p>
+          <p class="plate__note">{p.note}</p>
+        </div>
+        <div class={`gallery gallery--${p.images.length}`}>
+          {p.images.map((img) => (
+            <figure class="gallery__item">
+              <img src={img.src} alt={img.alt} loading="lazy" decoding="async" />
+            </figure>
+          ))}
+        </div>
+      </article>
+    ))}
+  </div>
+
+  <aside class="worlds-cta prose">
+    <p>
+      More at <a href="https://widdershins.ink">widdershins.ink</a> and
+      <a href="https://yonderartland.com">yonderartland.com</a>. For commissions
+      or collaboration, <a href="/contact/">get in touch</a>.
+    </p>
+  </aside>
+</Base>
+
+<style>
+  .worlds-intro {
+    margin-top: var(--space-lg);
+    font-size: 1.1rem;
+    color: var(--color-text);
+  }
+
+  .plates {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2xl);
+    margin-top: var(--space-2xl);
+  }
+
+  .plate {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+
+  .plate__body {
+    min-width: 0;
+  }
+
+  .plate__num {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-text-light);
+    margin-bottom: var(--space-sm);
+  }
+
+  .plate__title {
+    font-size: 1.9rem;
+    margin-bottom: var(--space-sm);
+  }
+
+  .plate__meta {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.03em;
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-md);
+  }
+
+  .plate__desc {
+    color: var(--color-text);
+  }
+
+  .plate__note {
+    margin-top: var(--space-md);
+    padding-left: var(--space-md);
+    border-left: 2px solid var(--color-accent);
+    font-style: italic;
+    color: var(--color-text-muted);
+  }
+
+  /* Image galleries */
+  .gallery {
+    display: grid;
+    gap: var(--grid-gap);
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .gallery--3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .gallery__item {
+    margin: 0;
+    overflow: hidden;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+  }
+
+  .gallery__item img {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    display: block;
+    transition: transform var(--transition);
+  }
+
+  .gallery__item:hover img {
+    transform: scale(1.02);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .gallery__item img { transition: none; }
+    .gallery__item:hover img { transform: none; }
+  }
+
+  .worlds-cta {
+    margin-top: var(--space-2xl);
+    padding-top: var(--space-xl);
+    border-top: 1px solid var(--color-border);
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
+  }
+
+  .worlds-cta a {
+    color: var(--color-text);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  @media (max-width: 640px) {
+    .gallery,
+    .gallery--3 {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+</style>
