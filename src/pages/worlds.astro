@@ -38,8 +38,21 @@ const plates = [
     ],
   },
   {
-    id: 'terra-incognita',
+    id: 'the-posters',
     num: 'III',
+    title: 'The Posters',
+    meta: 'Illustrated posters & hand lettering · 2016–17 · Door County & De Pere, Wisconsin',
+    body: 'Event posters where a title and an illustrated world share one frame. For Ephraim’s Fyr Bal Festival — the village’s Scandinavian welcome-to-summer, bonfires lit along Eagle Harbor — flaming bål torches, a hare, and a crow in engraving-weight line, with one hit of fire-orange in the lettering. For No Moon Theatre’s Box Store Bird, a moonlit pen-and-ink frame of owls, fireflies, and a salamander, the show’s name in a loose hand script at the center. Published under the Yonder studio flag; the illustration and lettering on these are mine alone.',
+    note: 'This is the cover job at street scale: a single image that has to set a tone, carry the details, and make a stranger want to come.',
+    aspect: 'posters',
+    images: [
+      { src: '/worlds/poster-1.jpg', alt: 'Ephraim Fyr Bal Festival poster: hand-lettered title in red and black framed by two flaming bål torches, a hare and a crow in dense engraving-style pen-and-ink, with the Ephraim church and harbor below.' },
+      { src: '/worlds/poster-2.jpg', alt: 'Box Store Bird theater poster: a moonlit pen-and-ink botanical frame with a great owl, salamander, mouse, and yellow fireflies around the show title in loose teal hand-lettered script.' },
+    ],
+  },
+  {
+    id: 'terra-incognita',
+    num: 'IV',
     title: 'Terra Incognita',
     meta: 'Watercolor & drawing · 2023–24 · shown in Other Worlds, NEWArtSpace, De Pere WI',
     body: 'A cartography of the boyhood lands of Northeast Wisconsin, drawn in the voice of a natural historian who never existed. Ley lines, land wights, genius loci, and micro-seasons, all rendered as if surveyed from life. Shown by invitation alongside Jason DeMarte and Kristine Granger.',
@@ -52,7 +65,7 @@ const plates = [
   },
   {
     id: 'cabinet',
-    num: 'IV',
+    num: 'V',
     title: 'Cabinet of the Wilding Hours',
     meta: 'Installation & watercolor · 2025 · duo exhibition with Erin LaBonte',
     body: 'A life-sized field-naturalist’s wagon, twelve watercolor studies, and a full apparatus of field notes, built as one immersive cabinet. The wagon and a watercolor were acquired by the gallery.',
@@ -64,7 +77,7 @@ const plates = [
   },
   {
     id: 'ruins',
-    num: 'V',
+    num: 'VI',
     title: 'The Ruins of the Midwest',
     meta: 'Salvage sculpture · 2006 · built at UW–Green Bay',
     body: 'In the year my family’s farm was breaking up, I built machines out of what it threw away. A trebuchet rebuilt from a burned harvest thresher that flung clay-and-seed balls out over a former field. A sensory-deprivation float tank welded from the horse trough my sister and I swam in as kids. Each one takes the farm apart and sends it somewhere it might come up again.',
@@ -76,7 +89,7 @@ const plates = [
   },
   {
     id: 'painted-walls',
-    num: 'VI',
+    num: 'VII',
     title: 'The Painted Walls',
     meta: 'Murals & hand lettering · 40+ works across eight Wisconsin cities',
     body: 'Forty-plus public murals carried from concept to finished wall, most with Erin LaBonte under Yonder. Featured statewide in Our Wisconsin, 2026. This is where the type leaves the screen: every wall is hand-lettered.',
@@ -89,7 +102,7 @@ const plates = [
   },
   {
     id: 'portage-year',
-    num: 'VII',
+    num: 'VIII',
     title: 'Portage Year: An Almanach',
     meta: 'Assemblage · collagraph, etching & found objects · 2013',
     body: 'A cosmological almanac built into a found doll’s case: a gilt dome and an orrery of clock gears and marbles over two lit chambers, skinned in my own older prints and pressure-fit together without a drop of glue. Part clock, part reliquary, part map of a single year of returning home.',
@@ -104,7 +117,7 @@ const plates = [
 
 <Base
   title="Illustrated Worlds — Don Krumpos"
-  description="Personal, invented, illustrated narrative worlds by Don Krumpos: a hand-made tarot, copper-etched circuses, cartography, a naturalist's cabinet, murals, and an assemblage almanac."
+  description="Personal, invented, illustrated narrative worlds by Don Krumpos: a hand-made tarot, copper-etched circuses, hand-lettered posters, cartography, a naturalist's cabinet, murals, and an assemblage almanac."
 >
   <div class="page-header">
     <h1 class="page-header__title">Illustrated Worlds</h1>
@@ -116,6 +129,7 @@ const plates = [
   <p class="worlds-intro prose">
     Alongside the client work, I build illustrated narrative worlds of my own:
     a tarot deck for an invented territory, an etched circus of the in-between,
+    hand-lettered festival posters,
     cartographies of places that were never surveyed, a naturalist’s cabinet,
     machines salvaged from a vanishing farm, forty painted walls, and an almanac
     of a single year. I set the direction and I make the marks.
@@ -246,6 +260,9 @@ const plates = [
   }
   .gallery--square img {
     aspect-ratio: 1 / 1;
+  }
+  .gallery--posters img {
+    aspect-ratio: 3 / 4;
   }
 
   @media (prefers-reduced-motion: reduce) {
