@@ -2,6 +2,11 @@
 import Base from '../layouts/Base.astro';
 
 const success = Astro.url.searchParams.get('success') === 'true';
+
+// Set PUBLIC_TURNSTILE_SITE_KEY in the Cloudflare Pages BUILD environment (this
+// page is static, so the key bakes in at build time). Widget renders only when
+// the key exists; the API enforces only when TURNSTILE_SECRET_KEY is set.
+const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
 ---
 
 <Base title="Contact — Don Krumpos" description="Get in touch about design, web, and systems work.">
@@ -39,8 +44,18 @@ const success = Astro.url.searchParams.get('success') === 'true';
       <div class="hp" aria-hidden="true">
         <label>Company<input type="text" name="company" tabindex="-1" autocomplete="off" /></label>
       </div>
+      {turnstileSiteKey && (
+        <div
+          class="cf-turnstile form-turnstile"
+          data-sitekey={turnstileSiteKey}
+          data-theme="auto"
+        ></div>
+      )}
       <button type="submit" class="form-submit">Send message</button>
     </form>
+    {turnstileSiteKey && (
+      <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+    )}
 
     <div id="form-success" class="form-message" style={success ? '' : 'display:none;'}>
       <p>Thanks for reaching out. I'll get back to you soon.</p>
@@ -113,6 +128,10 @@ const success = Astro.url.searchParams.get('success') === 'true';
     overflow: hidden;
   }
 
+  .form-turnstile {
+    margin-bottom: var(--space-md);
+  }
+
   .form-submit {
     display: inline-block;
     padding: 0.6rem 1.5rem;
@@ -170,6 +189,7 @@ const success = Astro.url.searchParams.get('success') === 'true';
           email: data.get('email'),
           message: data.get('message'),
           company: data.get('company'),
+          'cf-turnstile-response': data.get('cf-turnstile-response'),
         }),
       });
 
@@ -183,6 +203,8 @@ const success = Astro.url.searchParams.get('success') === 'true';
       if (errorEl) errorEl.style.display = 'block';
       btn.disabled = false;
       btn.textContent = 'Send message';
+      // Turnstile tokens are single-use; reset so a retry gets a fresh one.
+      (window as any).turnstile?.reset();
     }
   });
 </script>

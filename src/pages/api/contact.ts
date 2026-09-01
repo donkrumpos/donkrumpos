@@ -34,10 +34,13 @@ export const POST: APIRoute = async ({ request, locals }) => {
   const contentType = request.headers.get('content-type') ?? '';
   const isFormPost = !contentType.includes('application/json');
 
+  const TURNSTILE_SECRET_KEY = runtimeEnv.TURNSTILE_SECRET_KEY ?? import.meta.env.TURNSTILE_SECRET_KEY;
+
   let name = '';
   let email = '';
   let message = '';
   let honeypot = '';
+  let turnstileToken = '';
 
   try {
     if (isFormPost) {
@@ -46,12 +49,14 @@ export const POST: APIRoute = async ({ request, locals }) => {
       email = String(form.get('email') ?? '');
       message = String(form.get('message') ?? '');
       honeypot = String(form.get('company') ?? '');
+      turnstileToken = String(form.get('cf-turnstile-response') ?? '');
     } else {
       const body = await request.json();
       name = String(body.name ?? '');
       email = String(body.email ?? '');
       message = String(body.message ?? '');
       honeypot = String(body.company ?? '');
+      turnstileToken = String(body['cf-turnstile-response'] ?? '');
     }
   } catch {
     return json({ ok: false, error: 'Could not read the submission.' }, 400);
@@ -60,6 +65,27 @@ export const POST: APIRoute = async ({ request, locals }) => {
   // Honeypot: real people leave it blank; bots fill it. Silently accept and drop.
   if (honeypot.trim() !== '') {
     return isFormPost ? seeOther('/contact/?success=true') : json({ ok: true }, 200);
+  }
+
+  // Turnstile: enforced whenever the secret is configured; no-op until then so
+  // the form keeps working before the widget/keys exist.
+  if (TURNSTILE_SECRET_KEY) {
+    if (!turnstileToken) {
+      return json({ ok: false, error: 'Please complete the verification and try again.' }, 403);
+    }
+    const verify = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        secret: TURNSTILE_SECRET_KEY,
+        response: turnstileToken,
+        remoteip: request.headers.get('CF-Connecting-IP') ?? undefined,
+      }),
+    });
+    const verdict = (await verify.json().catch(() => ({}))) as { success?: boolean };
+    if (!verify.ok || !verdict.success) {
+      return json({ ok: false, error: 'Verification failed. Please try again.' }, 403);
+    }
   }
 
   name = name.trim();
