@@ -7,9 +7,12 @@ interface Props {
   title: string;
   description?: string;
   noindex?: boolean;
+  ogImage?: string;
 }
 
-const { title, description = 'Portfolio of Don Krumpos — designer and builder. UX, design systems, and hand-built web.', noindex = false } = Astro.props;
+const { title, description = 'Portfolio of Don Krumpos — designer and builder. UX, design systems, and hand-built web.', noindex = false, ogImage } = Astro.props;
+const ogImageUrl = ogImage ? new URL(ogImage, Astro.site) : undefined;
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <!DOCTYPE html>
@@ -21,6 +24,18 @@ const { title, description = 'Portfolio of Don Krumpos — designer and builder.
   {noindex && <meta name="robots" content="noindex, nofollow" />}
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <title>{title}</title>
+
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={canonicalUrl} />
+  {ogImageUrl && (
+    <>
+      <meta property="og:image" content={ogImageUrl} />
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:image" content={ogImageUrl} />
+    </>
+  )}
 
   <!-- Inter font — swap for your preferred typeface -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
