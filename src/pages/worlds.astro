@@ -3,14 +3,43 @@ import Base from '../layouts/Base.astro';
 
 // Illustrated Worlds — a gallery of Don's personal, invented, illustrated
 // narrative projects. Distinct from client /work.
-// Images live in public/worlds/ (copied + downscaled from the widdershins and
-// yonder-site repos, 2026-08). Copy is in Don's own maker voice — facts checked
-// against widdershins source content, not the in-world archive framing.
+// Images live in public/worlds/ (copied + downscaled from the widdershins,
+// yonder-site, and reliquary art-archive repos, 2026-08). Copy is in Don's own
+// maker voice — facts checked against widdershins/reliquary source content, not
+// the in-world archive framing. Only verified hand-made work appears here (the
+// AI comp studies in reliquary's green-man folder are deliberately excluded).
 
 const plates = [
   {
-    id: 'terra-incognita',
+    id: 'widdershins-tarot',
     num: 'I',
+    title: 'The Widdershins Tarot',
+    meta: 'Illustrated cards & hand lettering · ongoing · carved, printed & mailed',
+    body: 'A Major Arcana for the Widdershins world — twenty-two cards on the standard tarot spine, with my own invented inhabitants in the old roles. The cards arrive in whatever order they show up, and the seasonal ones are working objects: printed as actual cards and mailed out, around a hundred hand-addressed envelopes at the turning of the year. The Green Man holds XIX, The Sun, at midsummer; Krampus keeps the dark half of the year.',
+    note: 'A tarot card is the strictest cover brief I know: one figure, one title, one world, read at hand size. Figure, lettering, and border are a single drawing.',
+    aspect: 'cards',
+    images: [
+      { src: '/worlds/tarot-1.jpg', alt: 'The Green Man: a face of layered leaves and flowers in bold black carved line, printed on green paper.' },
+      { src: '/worlds/tarot-2.jpg', alt: 'The Krampus card: a horned, hoofed figure with a switch and lantern in white carved line on black, under hand-cut KRAMPUS lettering.' },
+    ],
+  },
+  {
+    id: 'the-sideshow',
+    num: 'II',
+    title: 'The Sideshow',
+    meta: 'Copper etchings · 2013 · Highpoint Center for Printmaking, Minneapolis',
+    body: 'Six seventeen-inch copper etchings of a circus that never quite makes the main tent: a crowned crocodile serving as a dirigible, an antlered giant carrying a fanged cat-imp, a carousel horse led through on small wheels. I etched the plates at Highpoint Center for Printmaking in my last Minneapolis year; the set first showed at Highpoint’s Threshold Gallery in 2013 and traveled on to print conferences and national exhibitions.',
+    note: 'The earliest full company of my abiding subject — the performers at the margins of things, half graceful and half grotesque.',
+    aspect: 'square',
+    images: [
+      { src: '/worlds/sideshow-1.jpg', alt: 'Copper etching: a crocodile wearing a crown serves as a dirigible, a bathtub gondola of long-necked birds slung beneath it; a round figure tows a chained diving-bell machine across a scrubby field.' },
+      { src: '/worlds/sideshow-2.jpg', alt: 'Copper etching: a melancholy antlered giant holds a fishbowl with a shrimp inside while a fanged cat-imp rides its back; a mouse beats a bass drum beside a riveted beehive machine.' },
+      { src: '/worlds/sideshow-3.jpg', alt: 'Copper etching: a great carousel horse with armored wooden legs on small wheels, led by a bear in top hat and tails while a pig walks a tightrope above.' },
+    ],
+  },
+  {
+    id: 'terra-incognita',
+    num: 'III',
     title: 'Terra Incognita',
     meta: 'Watercolor & drawing · 2023–24 · shown in Other Worlds, NEWArtSpace, De Pere WI',
     body: 'A cartography of the boyhood lands of Northeast Wisconsin, drawn in the voice of a natural historian who never existed. Ley lines, land wights, genius loci, and micro-seasons, all rendered as if surveyed from life. Shown by invitation alongside Jason DeMarte and Kristine Granger.',
@@ -23,7 +52,7 @@ const plates = [
   },
   {
     id: 'cabinet',
-    num: 'II',
+    num: 'IV',
     title: 'Cabinet of the Wilding Hours',
     meta: 'Installation & watercolor · 2025 · duo exhibition with Erin LaBonte',
     body: 'A life-sized field-naturalist’s wagon, twelve watercolor studies, and a full apparatus of field notes, built as one immersive cabinet. The wagon and a watercolor were acquired by the gallery.',
@@ -35,7 +64,7 @@ const plates = [
   },
   {
     id: 'ruins',
-    num: 'III',
+    num: 'V',
     title: 'The Ruins of the Midwest',
     meta: 'Salvage sculpture · 2006 · built at UW–Green Bay',
     body: 'In the year my family’s farm was breaking up, I built machines out of what it threw away. A trebuchet rebuilt from a burned harvest thresher that flung clay-and-seed balls out over a former field. A sensory-deprivation float tank welded from the horse trough my sister and I swam in as kids. Each one takes the farm apart and sends it somewhere it might come up again.',
@@ -47,7 +76,7 @@ const plates = [
   },
   {
     id: 'painted-walls',
-    num: 'IV',
+    num: 'VI',
     title: 'The Painted Walls',
     meta: 'Murals & hand lettering · 40+ works across eight Wisconsin cities',
     body: 'Forty-plus public murals carried from concept to finished wall, most with Erin LaBonte under Yonder. Featured statewide in Our Wisconsin, 2026. This is where the type leaves the screen: every wall is hand-lettered.',
@@ -60,7 +89,7 @@ const plates = [
   },
   {
     id: 'portage-year',
-    num: 'V',
+    num: 'VII',
     title: 'Portage Year: An Almanach',
     meta: 'Assemblage · collagraph, etching & found objects · 2013',
     body: 'A cosmological almanac built into a found doll’s case: a gilt dome and an orrery of clock gears and marbles over two lit chambers, skinned in my own older prints and pressure-fit together without a drop of glue. Part clock, part reliquary, part map of a single year of returning home.',
@@ -75,7 +104,7 @@ const plates = [
 
 <Base
   title="Illustrated Worlds — Don Krumpos"
-  description="Personal, invented, illustrated narrative worlds by Don Krumpos: cartography, a naturalist's cabinet, salvage sculpture, murals, and an assemblage almanac."
+  description="Personal, invented, illustrated narrative worlds by Don Krumpos: a hand-made tarot, copper-etched circuses, cartography, a naturalist's cabinet, murals, and an assemblage almanac."
 >
   <div class="page-header">
     <h1 class="page-header__title">Illustrated Worlds</h1>
@@ -86,6 +115,7 @@ const plates = [
 
   <p class="worlds-intro prose">
     Alongside the client work, I build illustrated narrative worlds of my own:
+    a tarot deck for an invented territory, an etched circus of the in-between,
     cartographies of places that were never surveyed, a naturalist’s cabinet,
     machines salvaged from a vanishing farm, forty painted walls, and an almanac
     of a single year. I set the direction and I make the marks.
@@ -101,7 +131,7 @@ const plates = [
           <p class="plate__desc">{p.body}</p>
           <p class="plate__note">{p.note}</p>
         </div>
-        <div class={`gallery gallery--${p.images.length}`}>
+        <div class={`gallery gallery--${p.images.length}${p.aspect ? ` gallery--${p.aspect}` : ''}`}>
           {p.images.map((img) => (
             <figure class="gallery__item">
               <img src={img.src} alt={img.alt} loading="lazy" decoding="async" />
@@ -208,6 +238,14 @@ const plates = [
 
   .gallery__item:hover img {
     transform: scale(1.02);
+  }
+
+  /* Aspect variants: tall for the tarot cards, square for the etchings */
+  .gallery--cards img {
+    aspect-ratio: 7 / 10;
+  }
+  .gallery--square img {
+    aspect-ratio: 1 / 1;
   }
 
   @media (prefers-reduced-motion: reduce) {
