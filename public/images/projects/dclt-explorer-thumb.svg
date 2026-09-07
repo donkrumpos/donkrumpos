@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" font-family="Georgia, 'Times New Roman', serif">
+  <!-- PLACEHOLDER thumbnail — schematic map motif in the site palette. Swap for a real Explorer screenshot when available. -->
+  <defs>
+    <clipPath id="frame"><rect x="0" y="0" width="1200" height="900"/></clipPath>
+  </defs>
+
+  <g clip-path="url(#frame)">
+    <!-- parchment land -->
+    <rect width="1200" height="900" fill="#f6f1e9"/>
+
+    <!-- water (dusk-teal), right side with an irregular coastline -->
+    <path d="M700,0 C722,120 660,240 702,360 C742,480 682,600 722,720 C746,802 730,860 742,900 L1200,900 L1200,0 Z" fill="#3e6360"/>
+
+    <!-- bathymetric contours in the water -->
+    <path d="M760,0 C782,120 720,240 762,360 C802,480 742,600 782,720 C806,802 790,860 802,900" fill="none" stroke="#5c8480" stroke-width="3" opacity="0.7"/>
+    <path d="M840,0 C862,120 800,240 842,360 C882,480 822,600 862,720 C886,802 870,860 882,900" fill="none" stroke="#5c8480" stroke-width="3" opacity="0.5"/>
+    <path d="M930,0 C952,120 890,240 932,360 C972,480 912,600 952,720 C976,802 960,860 972,900" fill="none" stroke="#5c8480" stroke-width="3" opacity="0.35"/>
+
+    <!-- topographic contours on land (concentric, tan) -->
+    <path d="M250,470 C250,400 340,380 400,410 C470,445 460,540 390,560 C320,580 250,540 250,470 Z" fill="none" stroke="#d8cdb9" stroke-width="3"/>
+    <path d="M285,475 C288,425 350,415 392,438 C444,466 436,528 388,542 C336,557 283,527 285,475 Z" fill="none" stroke="#d8cdb9" stroke-width="3"/>
+    <path d="M318,480 C322,447 360,440 388,456 C424,476 418,516 386,526 C350,538 316,516 318,480 Z" fill="none" stroke="#cbbfa6" stroke-width="3"/>
+
+    <!-- preserve boundary (dashed forest outline, faint fill) -->
+    <path d="M430,300 L610,330 L640,520 L470,600 L360,470 Z" fill="#26302a" fill-opacity="0.06" stroke="#26302a" stroke-width="4" stroke-dasharray="14 10" stroke-linejoin="round"/>
+
+    <!-- trail (dashed sage line) -->
+    <path d="M400,440 C470,400 520,470 540,410 C560,360 600,380 600,350" fill="none" stroke="#5c6b60" stroke-width="3" stroke-dasharray="4 12" stroke-linecap="round"/>
+
+    <!-- location pin on the preserve -->
+    <g transform="translate(520,430)">
+      <path d="M0,0 C-26,-34 -22,-70 0,-70 C22,-70 26,-34 0,0 Z" fill="#26302a"/>
+      <circle cx="0" cy="-46" r="10" fill="#f6f1e9"/>
+    </g>
+
+    <!-- title block -->
+    <text x="80" y="120" font-size="66" font-weight="bold" fill="#26302a">Preserve Explorer</text>
+    <text x="82" y="168" font-size="30" fill="#5c6b60" font-family="Helvetica, Arial, sans-serif">Door County Land Trust</text>
+
+    <!-- caption -->
+    <text x="82" y="828" font-size="27" fill="#5c6b60" font-family="Helvetica, Arial, sans-serif">Hand-authored cartography · self-hosted terrain · no map vendor</text>
+  </g>
+</svg>
