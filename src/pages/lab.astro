@@ -1,0 +1,528 @@
+---
+// Lab 001 — The Lens. Prototype of the porthole-map homepage hero.
+// The 2015 porthole ("Don's corner of the universe") rebuilt as a living
+// deep map: MapLibre over a sepia-toned OpenFreeMap basemap, drifting
+// between real mural pins (gold) and case-study clients (silver).
+// Not linked from anywhere; do not index.
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>The Lens — DK Lab 001</title>
+  </head>
+  <body>
+    <div id="lens">
+      <div id="map"></div>
+      <div id="maptexture"></div>
+      <img id="photo" src="/lab/today.jpg" alt="" />
+      <div id="vignette"></div>
+    </div>
+
+    <div id="ring"></div>
+
+    <!-- the monogram. (An animated tape-application intro and a moon-on-water
+         reflection were prototyped and pulled 2026-09-07 — the build-in will be
+         hand-animated in AE, and the reflection needs real water under it;
+         both may return as an opening sequence before the lens.) -->
+    <div id="monogram-wrap">
+      <img id="monogram" src="/lab/dk-logo.png" alt="DK" />
+    </div>
+
+    <div id="compass-wrap">
+      <img id="compass" src="/lab/compass.png" alt="" />
+    </div>
+
+    <div id="denim"></div>
+
+    <header id="bar">
+      <div id="plate">DK &nbsp;·&nbsp; LAB 001 — THE LENS</div>
+      <nav id="navlinks">
+        <a href="/work">Work</a>
+        <a href="/worlds">Worlds</a>
+        <a href="/about">About</a>
+      </nav>
+    </header>
+
+    <!-- dwell payoff: the specimen plate -->
+    <aside id="card">
+      <img id="card-img" src="" alt="" />
+      <div id="card-body">
+        <div id="card-plate"></div>
+        <div id="card-line"></div>
+      </div>
+    </aside>
+
+    <div id="caption">
+      <div id="caption-name"></div>
+      <div id="caption-coords"></div>
+    </div>
+
+    <div id="hint">scroll — or click — to open the lens</div>
+  </body>
+</html>
+
+<style is:global>
+  :root {
+    --parchment: #d8c9a3;
+    --brass: #c9a45f;
+    --silver: #aeb9bd;
+    --ink: #0a0907;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body {
+    height: 100%;
+    overflow: hidden;
+    background: var(--ink);
+    font-family: system-ui, sans-serif;
+    cursor: crosshair;
+  }
+
+  /* ————— the lens ————— */
+  #lens {
+    position: fixed;
+    inset: 0;
+    transition: clip-path 1.35s cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+  #map {
+    position: absolute;
+    inset: 0;
+    filter: sepia(0.22) saturate(0.82) brightness(0.96) contrast(1.03);
+  }
+  #maptexture {
+    position: absolute;
+    inset: 0;
+    background: url('/lab/map-tile.png') repeat;
+    background-size: 420px;
+    opacity: 0.12;
+    mix-blend-mode: overlay;
+    pointer-events: none;
+    z-index: 2;
+  }
+  #photo {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 3;
+    pointer-events: none;
+    transition: opacity 1.8s ease 0.3s;
+  }
+  #photo.gone { opacity: 0; }
+  #vignette {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      circle at center,
+      transparent 50%,
+      rgba(0, 0, 0, 0.5) 80%,
+      rgba(0, 0, 0, 0.92) 100%
+    );
+    pointer-events: none;
+    z-index: 4;
+    transition: opacity 1.35s ease;
+  }
+  body.lens-open #vignette { opacity: 0.4; }
+
+  #ring {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    width: calc(min(100vw, 100vh) - 2px);
+    height: calc(min(100vw, 100vh) - 2px);
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    border: 1px solid rgba(201, 164, 95, 0.28);
+    box-shadow: 0 0 60px rgba(0, 0, 0, 0.9);
+    pointer-events: none;
+    z-index: 44;
+    transition: opacity 1s ease;
+  }
+  body.lens-open #ring { opacity: 0; }
+
+  /* ————— monogram ————— */
+  #monogram-wrap {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 45;
+    pointer-events: none;
+    transition: opacity 0.9s ease, scale 0.9s ease;
+  }
+  body.lens-open #monogram-wrap { opacity: 0; scale: 0.92; }
+  #monogram {
+    display: block;
+    width: calc(min(100vw, 100vh) * 0.3);
+    filter: drop-shadow(0 6px 24px rgba(0, 0, 0, 0.55));
+    transition: transform 666ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  /* ————— compass ————— */
+  #compass-wrap {
+    position: fixed;
+    right: 4%;
+    bottom: 6%;
+    width: clamp(70px, 9vw, 130px);
+    opacity: 0.3;
+    z-index: 46;
+    pointer-events: none;
+    transition: transform 1.2s cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+  #compass { display: block; width: 100%; animation: spin 240s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  #denim {
+    position: fixed;
+    inset: 0;
+    background: url('/lab/dark-denim-3.png') repeat;
+    opacity: 0.3;
+    pointer-events: none;
+    z-index: 40;
+  }
+
+  /* ————— chrome ————— */
+  #bar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.1rem 1.4rem;
+    z-index: 60;
+  }
+  #plate { color: var(--parchment); opacity: 0.5; font-size: 0.66rem; letter-spacing: 0.22em; }
+  #navlinks { opacity: 0; pointer-events: none; transition: opacity 1.2s ease 0.6s; }
+  body.lens-open #navlinks { opacity: 1; pointer-events: auto; }
+  #navlinks a {
+    color: var(--parchment);
+    text-decoration: none;
+    font-size: 0.78rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-left: 1.6rem;
+    opacity: 0.75;
+  }
+  #navlinks a:hover { opacity: 1; }
+
+  /* ————— the specimen plate (dwell payoff) ————— */
+  #card {
+    position: fixed;
+    left: 3.5%;
+    bottom: 8%;
+    width: clamp(230px, 21vw, 300px);
+    background: rgba(12, 10, 8, 0.78);
+    border: 1px solid rgba(201, 164, 95, 0.3);
+    backdrop-filter: blur(6px);
+    z-index: 62;
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+    pointer-events: none;
+  }
+  #card.show { opacity: 1; transform: translateY(0); }
+  #card.case { border-color: rgba(174, 185, 189, 0.35); }
+  #card-img { display: block; width: 100%; height: 150px; object-fit: cover; }
+  #card.case #card-img { object-fit: contain; background: rgba(216, 201, 163, 0.05); padding: 8px; }
+  #card.noimg #card-img { display: none; }
+  #card-body { padding: 0.75rem 0.85rem 0.85rem; }
+  #card-plate {
+    font-size: 0.56rem;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: var(--brass);
+    margin-bottom: 0.4rem;
+  }
+  #card.case #card-plate { color: var(--silver); }
+  #card-line {
+    font-family: 'Iowan Old Style', Palatino, Georgia, serif;
+    font-style: italic;
+    font-size: 0.92rem;
+    line-height: 1.45;
+    color: var(--parchment);
+  }
+
+  #caption {
+    position: fixed;
+    left: 50%;
+    bottom: 7%;
+    transform: translateX(-50%);
+    text-align: center;
+    z-index: 60;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.6s ease;
+  }
+  #caption.show { opacity: 1; }
+  #caption-name {
+    font-family: 'Iowan Old Style', Palatino, Georgia, serif;
+    font-style: italic;
+    font-size: 1.02rem;
+    color: var(--parchment);
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.8);
+  }
+  #caption-coords {
+    margin-top: 0.4rem;
+    font-size: 0.62rem;
+    letter-spacing: 0.28em;
+    color: var(--brass);
+    opacity: 0.8;
+  }
+
+  #hint {
+    position: fixed;
+    left: 50%;
+    bottom: 2.4%;
+    transform: translateX(-50%);
+    font-size: 0.62rem;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--parchment);
+    opacity: 0;
+    transition: opacity 1.4s ease;
+    z-index: 60;
+    pointer-events: none;
+  }
+  #hint.show { opacity: 0.45; }
+
+  .maplibregl-ctrl-attrib { background: rgba(10, 9, 7, 0.4) !important; font-size: 10px; }
+  .maplibregl-ctrl-attrib a { color: rgba(216, 201, 163, 0.6) !important; }
+  .maplibregl-ctrl-bottom-right { z-index: 61; }
+
+  @media (prefers-reduced-motion: reduce) {
+    #compass { animation: none; }
+  }
+</style>
+
+<script>
+  import * as maplibregl from 'maplibre-gl';
+  // MapLibre v6 loads its worker as a separate module Vite doesn't emit;
+  // ?worker&url bundles it as a real asset (same fix as yonder-site).
+  import workerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url';
+  import 'maplibre-gl/dist/maplibre-gl.css';
+
+  maplibregl.setWorkerUrl(workerUrl);
+
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const photo = document.getElementById('photo')!;
+  const caption = document.getElementById('caption')!;
+  const capName = document.getElementById('caption-name')!;
+  const capCoords = document.getElementById('caption-coords')!;
+  const hint = document.getElementById('hint')!;
+  const compassWrap = document.getElementById('compass-wrap')!;
+  const monogram = document.getElementById('monogram')!;
+  const lens = document.getElementById('lens')!;
+  const card = document.getElementById('card')!;
+  const cardImg = document.getElementById('card-img') as HTMLImageElement;
+  const cardPlate = document.getElementById('card-plate')!;
+  const cardLine = document.getElementById('card-line')!;
+
+  // ————— lens geometry —————
+  let open = false;
+  const radii = () => ({
+    closed: Math.min(innerWidth, innerHeight) / 2,
+    open: Math.hypot(innerWidth, innerHeight) / 2 + 12,
+  });
+  const applyClip = () => {
+    const r = radii();
+    lens.style.clipPath = `circle(${open ? r.open : r.closed}px at 50% 50%)`;
+  };
+  applyClip();
+  addEventListener('resize', applyClip);
+
+  // ————— waypoints: gold = walls, silver = winter work —————
+  interface Waypoint {
+    name: string; lat: number; lng: number; zoom: number;
+    bearing?: number; dur?: number;
+    img?: string; plate?: string; line?: string; kind?: 'wall' | 'case';
+  }
+  const WAYPOINTS: Waypoint[] = [
+    { name: 'Yonder Art Land — the studio', lat: 44.60892, lng: -87.43818, zoom: 16.1, bearing: 0 },
+    { name: 'The Loodoo — an alley cryptid', lat: 44.608392, lng: -87.438046, zoom: 17.0, bearing: -14,
+      kind: 'wall', img: '/lab/walls/loodoo.jpg', plate: 'Wall · Algoma alley', line: 'The Loodoo — the harbor’s resident cryptid, painted where it was first seen.' },
+    { name: 'A Magical Little Freshwater Estuary', lat: 44.608324, lng: -87.438459, zoom: 16.3, bearing: 10,
+      kind: 'wall', img: '/lab/walls/estuary.jpg', plate: 'Wall · Algoma', line: 'Where the Ahnapee meets the lake — an estuary portrait for the town that lives on it.' },
+    { name: 'The territory — sixty-six pins and counting', lat: 44.36, lng: -87.62, zoom: 8.6, bearing: 0, dur: 14000 },
+    { name: 'We All Belong — Kewaunee', lat: 44.4592, lng: -87.5052, zoom: 15.6, bearing: 8,
+      kind: 'wall', img: '/lab/walls/we-all-belong.jpg', plate: 'Wall · Kewaunee', line: 'A community mural painted with the town, not just for it.' },
+    { name: 'Door County Land Trust — Sturgeon Bay', lat: 44.8342, lng: -87.377, zoom: 14.2, bearing: -6,
+      kind: 'case', img: '/images/projects/dclt-pipeline-diagram.svg', plate: 'Case study · Web & systems',
+      line: 'Donor pipeline for a land trust — 93% of hand-offs automated, 566 attendees tracked.' },
+    { name: 'The winter territory — systems work travels', lat: 43.9, lng: -89.3, zoom: 5.9, bearing: 0, dur: 15000 },
+    { name: 'NielsenIQ — Chicago', lat: 41.8781, lng: -87.6337, zoom: 14.0, bearing: 5,
+      kind: 'case', plate: 'Case study · Platform UX', line: 'Optimizing how analysts move through consumer data at NielsenIQ.' },
+    { name: 'Optum — Minneapolis', lat: 44.8547, lng: -93.4708, zoom: 13.5, bearing: -5,
+      kind: 'case', plate: 'Case study · Health UX', line: 'Building user trust in health-insurance tools at Optum.' },
+    { name: 'Spirit of the Fox — Green Bay', lat: 44.51417, lng: -88.01558, zoom: 15.8, bearing: -10,
+      kind: 'wall', img: '/lab/walls/spirit-of-the-fox.jpg', plate: 'Wall · Green Bay', line: 'The river’s spirit, forty feet long, on the Fox.' },
+    { name: 'Guth Music — a ghost sign restored', lat: 44.609392, lng: -87.437365, zoom: 16.8, bearing: -6,
+      kind: 'wall', img: '/lab/walls/guth.jpg', plate: 'Restoration · Algoma', line: 'A hundred-year-old ghost sign brought back, brushstroke by brushstroke.' },
+  ];
+
+  const CASE_PINS = {
+    type: 'FeatureCollection',
+    features: [
+      { type: 'Feature', properties: {}, geometry: { type: 'Point', coordinates: [-87.377, 44.8342] } },
+      { type: 'Feature', properties: {}, geometry: { type: 'Point', coordinates: [-87.6337, 41.8781] } },
+      { type: 'Feature', properties: {}, geometry: { type: 'Point', coordinates: [-93.4708, 44.8547] } },
+    ],
+  };
+
+  const fmtCoords = (lat: number, lng: number) =>
+    `${Math.abs(lat).toFixed(4)}° N · ${Math.abs(lng).toFixed(4)}° W`;
+
+  const map = new maplibregl.Map({
+    container: 'map',
+    style: '/map/dk-sepia.json',
+    center: [WAYPOINTS[0].lng, WAYPOINTS[0].lat],
+    zoom: WAYPOINTS[0].zoom,
+    attributionControl: { compact: true },
+  });
+  (['scrollZoom', 'dragPan', 'dragRotate', 'keyboard', 'doubleClickZoom', 'touchZoomRotate', 'boxZoom'] as const)
+    .forEach((h) => map[h].disable());
+
+  map.on('rotate', () => {
+    compassWrap.style.transform = `rotate(${-map.getBearing()}deg)`;
+  });
+
+  // ————— drift engine + dwell payoff —————
+  let i = 0;
+  let dwell: ReturnType<typeof setTimeout> | undefined;
+
+  const setCaption = (w: Waypoint) => {
+    caption.classList.remove('show');
+    setTimeout(() => {
+      capName.textContent = w.name;
+      capCoords.textContent = fmtCoords(w.lat, w.lng);
+      caption.classList.add('show');
+    }, 650);
+  };
+
+  const showCard = (w: Waypoint) => {
+    if (!w.plate) return;
+    card.classList.toggle('case', w.kind === 'case');
+    card.classList.toggle('noimg', !w.img);
+    if (w.img) cardImg.src = w.img;
+    cardPlate.textContent = w.plate;
+    cardLine.textContent = w.line ?? '';
+    card.classList.add('show');
+  };
+  const hideCard = () => card.classList.remove('show');
+
+  const leg = () => {
+    if (open) return;
+    hideCard();
+    const w = WAYPOINTS[i % WAYPOINTS.length];
+    setCaption(w);
+    if (reduced) {
+      map.jumpTo({ center: [w.lng, w.lat], zoom: w.zoom });
+    } else {
+      map.easeTo({
+        center: [w.lng, w.lat],
+        zoom: w.zoom,
+        bearing: w.bearing ?? 0,
+        duration: w.dur ?? 11000,
+        easing: (t: number) => (t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t),
+      });
+    }
+  };
+  map.on('moveend', () => {
+    if (open) return;
+    const w = WAYPOINTS[i % WAYPOINTS.length];
+    showCard(w);
+    // longer dwell when there's something to look at
+    const wait = w.plate ? 6000 : 2800;
+    dwell = setTimeout(() => { i++; leg(); }, reduced ? 7000 : wait);
+  });
+
+  map.on('load', () => {
+    photo.classList.add('gone');
+
+    map.addSource('pins', { type: 'geojson', data: '/lab/pins.json' });
+    map.addSource('case-pins', { type: 'geojson', data: CASE_PINS as any });
+    map.addLayer({
+      id: 'pin-glow', type: 'circle', source: 'pins',
+      paint: {
+        'circle-radius': ['interpolate', ['linear'], ['zoom'], 5, 4, 12, 9, 16, 17],
+        'circle-color': '#c9a45f', 'circle-blur': 1.2, 'circle-opacity': 0.18,
+      },
+    });
+    map.addLayer({
+      id: 'pin-core', type: 'circle', source: 'pins',
+      paint: {
+        'circle-radius': ['interpolate', ['linear'], ['zoom'], 5, 1.4, 12, 2.8, 16, 4.2],
+        'circle-color': '#e6cb92', 'circle-opacity': 0.85,
+        'circle-stroke-color': 'rgba(10,9,7,0.6)', 'circle-stroke-width': 1,
+      },
+    });
+    map.addLayer({
+      id: 'case-glow', type: 'circle', source: 'case-pins',
+      paint: {
+        'circle-radius': ['interpolate', ['linear'], ['zoom'], 5, 6, 12, 11, 16, 18],
+        'circle-color': '#aeb9bd', 'circle-blur': 1.1, 'circle-opacity': 0.2,
+      },
+    });
+    map.addLayer({
+      id: 'case-core', type: 'circle', source: 'case-pins',
+      paint: {
+        'circle-radius': ['interpolate', ['linear'], ['zoom'], 5, 2, 12, 3.4, 16, 4.8],
+        'circle-color': '#ccd6d9', 'circle-opacity': 0.9,
+        'circle-stroke-color': 'rgba(10,9,7,0.6)', 'circle-stroke-width': 1,
+      },
+    });
+
+    setTimeout(() => { i = 1; leg(); }, 3200);
+    setTimeout(() => { if (!open) hint.classList.add('show'); }, 6000);
+    setCaption(WAYPOINTS[0]);
+  });
+
+  // ————— monogram parallax (the original's 666ms easing) —————
+  if (!reduced) {
+    addEventListener('mousemove', (e) => {
+      const x = e.clientX / innerWidth - 0.5;
+      const y = e.clientY / innerHeight - 0.5;
+      monogram.style.transform = `translate(${x * -26}px, ${y * -18}px)`;
+    });
+  }
+
+  // ————— open / close —————
+  const openLens = () => {
+    if (open) return;
+    open = true;
+    clearTimeout(dwell);
+    map.stop();
+    hideCard();
+    document.body.classList.add('lens-open');
+    applyClip();
+    hint.classList.remove('show');
+    (['scrollZoom', 'dragPan', 'dragRotate', 'keyboard', 'doubleClickZoom', 'touchZoomRotate'] as const)
+      .forEach((h) => map[h].enable());
+    setTimeout(() => {
+      hint.textContent = 'esc — close the lens';
+      hint.classList.add('show');
+      setTimeout(() => hint.classList.remove('show'), 5000);
+    }, 1600);
+  };
+  const closeLens = () => {
+    if (!open) return;
+    open = false;
+    document.body.classList.remove('lens-open');
+    applyClip();
+    (['scrollZoom', 'dragPan', 'dragRotate', 'keyboard', 'doubleClickZoom', 'touchZoomRotate'] as const)
+      .forEach((h) => map[h].disable());
+    hint.textContent = 'scroll — or click — to open the lens';
+    setTimeout(() => { i++; leg(); }, 1500);
+  };
+
+  // window-level: clicks on the map canvas don't reliably bubble to #lens
+  addEventListener('click', (e) => {
+    if (open) return;
+    if ((e.target as HTMLElement).closest('#bar')) return;
+    openLens();
+  });
+  addEventListener('wheel', (e) => { if (!open && e.deltaY > 0) openLens(); }, { passive: true });
+  addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLens(); });
+</script>
