@@ -30,11 +30,22 @@ Pending positioning rework (phased — see `reliquary/career/freelance-entrepren
 
 - **Category schema** → reshape to surgical-fix categories (Websites / Custom CRMs / Apps & Integrations / Brand systems — final names TBD)
 - **`services.astro`** → surgical-fix positioning copy + published price floors ($10K static / $15K site+app / $40K custom CRM)
-- **`index.astro` hero** → variant (c) copy from reliquary's Q3 answer
 - **Footer** → yonderartland.com cross-link
 - **`src/content/projects/`** → DCLT case studies (donor pipeline, website rebuild, etc.) land here once captured in freelance
 
 This is a positioning rework on existing bones, not a rebuild.
+
+## The homepage is the Lens (as of 2026-09-07)
+
+`/` renders `src/components/TheLens.astro` — the fullscreen porthole deep map
+(MapLibre over `public/map/dk-sepia.json`, gold mural pins from
+`public/lab/pins.json`, silver case-study pins, daily "overlooked place"
+opening). `/lab` is the same component mounted as the archived Lab 001
+prototype (noindex, unlinked). The old homepage featured-work grid was a
+subset of `/work`, which is where all of it still lives. Regenerate pins with
+`node scripts/build-pins.mjs`; regenerate the first-paint poster by visiting
+`/lab?poster` in dev. The earlier "index.astro hero → variant (c) copy" item
+is superseded by this.
 
 ## Positioning frame (for build choices)
 

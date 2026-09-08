@@ -1,0 +1,947 @@
+---
+// The Lens — the porthole-map hero. The 2015 porthole ("Don's corner of the
+// universe") rebuilt as a living deep map: MapLibre over a sepia-toned
+// OpenFreeMap basemap, drifting between real mural pins (gold) and
+// case-study clients (silver). One instrument, two mounts: the homepage (/)
+// and its archived Lab 001 prototype (/lab, noindex).
+// Gold register: scripts/build-pins.mjs. Poster: visit /lab?poster in dev.
+interface Props {
+  title: string;
+  plate: string;
+  description?: string;
+  noindex?: boolean;
+}
+const { title, plate, description, noindex = false } = Astro.props;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    {noindex && <meta name="robots" content="noindex" />}
+    {description && <meta name="description" content={description} />}
+    <meta name="theme-color" content="#0a0907" />
+    <link rel="preconnect" href="https://tiles.openfreemap.org" crossorigin />
+    <link rel="preload" as="image" href="/lab/poster.jpg" fetchpriority="high" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <div id="lens">
+      <div id="map"></div>
+      <div id="maptexture"></div>
+      <!-- first paint: a pre-rendered territory view (see /api/poster) so the
+           hero looks composed before the live map hydrates under it -->
+      <img id="photo" src="/lab/poster.jpg" alt="" loading="eager" fetchpriority="high" />
+      <div id="vignette"></div>
+    </div>
+
+    <div id="ring"></div>
+
+    <!-- the monogram. (An animated tape-application intro and a moon-on-water
+         reflection were prototyped and pulled 2026-09-07 — the build-in will be
+         hand-animated in AE, and the reflection needs real water under it;
+         both may return as an opening sequence before the lens.) -->
+    <div id="monogram-wrap">
+      <img id="monogram" src="/lab/dk-logo.png" alt="DK" />
+    </div>
+
+    <div id="compass-wrap">
+      <img id="compass" src="/lab/compass.png" alt="" />
+    </div>
+
+    <div id="denim"></div>
+
+    <header id="bar">
+      <div id="bar-left">
+        <div id="plate">{plate}</div>
+        <button id="lens-close" aria-label="close the lens">✕ close</button>
+      </div>
+      <nav id="navlinks">
+        <a href="/work">Work</a>
+        <a href="/services">Services</a>
+        <a href="/worlds">Worlds</a>
+        <a href="/about">About</a>
+        <a href="/contact">Contact</a>
+      </nav>
+    </header>
+
+    <!-- dwell payoff + pin click: the specimen plate -->
+    <aside id="card">
+      <button id="card-close" aria-label="close">×</button>
+      <img id="card-img" src="" alt="" />
+      <div id="card-body">
+        <div id="card-plate"></div>
+        <div id="card-title"></div>
+        <div id="card-line"></div>
+        <a id="card-visit" href="" target="_blank" rel="noopener"></a>
+      </div>
+    </aside>
+
+    <!-- register chips: the two layers the lens can read -->
+    <div id="chips">
+      <button class="chip gold on" data-register="walls">Walls</button>
+      <button class="chip silver on" data-register="systems">Systems</button>
+    </div>
+
+    <!-- the third register: gold is painted, silver is built — this door is
+         imagined. A marginal note off the map edge, pointing at /worlds. -->
+    <a id="dragons" href="/worlds" title="the imagined territory">
+      <svg viewBox="0 0 36 24" fill="none" stroke-width="1.4" stroke-linecap="round" aria-hidden="true">
+        <path d="M2 16 C 6 8, 10 8, 13 14 S 19 20, 23 14 S 28 7, 31 10" />
+        <path d="M31 10 c 2.2 -1.4, 3.4 -0.6, 3 1.8 c -1.6 0.4, -2.8 -0.2, -3 -1.8 z" fill="currentColor" stroke="none" />
+      </svg>
+      <span>here be dragons</span>
+    </a>
+
+    <div id="caption">
+      <div id="caption-over"></div>
+      <div id="caption-name"></div>
+      <div id="caption-coords"></div>
+    </div>
+
+    <div id="hint">scroll — or click — to open the lens</div>
+  </body>
+</html>
+
+<style is:global>
+  :root {
+    --parchment: #d8c9a3;
+    --brass: #c9a45f;
+    --silver: #aeb9bd;
+    --ink: #0a0907;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body {
+    height: 100%;
+    overflow: hidden;
+    overscroll-behavior: none;
+    background: var(--ink);
+    font-family: system-ui, sans-serif;
+    cursor: crosshair;
+  }
+
+  /* ————— the lens ————— */
+  #lens {
+    position: fixed;
+    inset: 0;
+    transition: clip-path 1.35s cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+  #map {
+    position: absolute;
+    inset: 0;
+    filter: sepia(0.22) saturate(0.82) brightness(0.96) contrast(1.03);
+  }
+  #maptexture {
+    position: absolute;
+    inset: 0;
+    background: url('/lab/map-tile.png') repeat;
+    background-size: 420px;
+    opacity: 0.12;
+    mix-blend-mode: overlay;
+    pointer-events: none;
+    z-index: 2;
+  }
+  #photo {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 3;
+    pointer-events: none;
+    transition: opacity 1.8s ease 0.3s;
+    /* the poster is a raw canvas capture — match the live map's grade so the
+       crossfade is invisible */
+    filter: sepia(0.22) saturate(0.82) brightness(0.96) contrast(1.03);
+  }
+  #photo.gone { opacity: 0; }
+  #vignette {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      circle at center,
+      transparent 50%,
+      rgba(0, 0, 0, 0.5) 80%,
+      rgba(0, 0, 0, 0.92) 100%
+    );
+    pointer-events: none;
+    z-index: 4;
+    transition: opacity 1.35s ease;
+  }
+  body.lens-open #vignette { opacity: 0.4; }
+
+  #ring {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    width: calc(min(100vw, 100vh) - 2px);
+    height: calc(min(100vw, 100vh) - 2px);
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    border: 1px solid rgba(201, 164, 95, 0.28);
+    box-shadow: 0 0 60px rgba(0, 0, 0, 0.9);
+    pointer-events: none;
+    z-index: 44;
+    transition: opacity 1s ease;
+  }
+  body.lens-open #ring { opacity: 0; }
+
+  /* ————— monogram ————— */
+  #monogram-wrap {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 45;
+    pointer-events: none;
+    transition: opacity 0.9s ease, scale 0.9s ease;
+  }
+  body.lens-open #monogram-wrap { opacity: 0; scale: 0.92; }
+  #monogram {
+    display: block;
+    width: calc(min(100vw, 100vh) * 0.3);
+    filter: drop-shadow(0 6px 24px rgba(0, 0, 0, 0.55));
+    transition: transform 666ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  /* ————— compass ————— */
+  #compass-wrap {
+    position: fixed;
+    right: 4%;
+    bottom: 6%;
+    width: clamp(70px, 9vw, 130px);
+    opacity: 0.3;
+    z-index: 46;
+    pointer-events: none;
+    transition: transform 1.2s cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+  #compass { display: block; width: 100%; animation: spin 240s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  #denim {
+    position: fixed;
+    inset: 0;
+    background: url('/lab/dark-denim-3.png') repeat;
+    opacity: 0.3;
+    pointer-events: none;
+    z-index: 40;
+  }
+
+  /* ————— chrome ————— */
+  #bar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.1rem 1.4rem;
+    z-index: 60;
+  }
+  #bar-left { display: flex; align-items: center; gap: 1.1rem; }
+  #plate { color: var(--parchment); opacity: 0.5; font-size: 0.66rem; letter-spacing: 0.22em; }
+  #lens-close {
+    background: none;
+    border: 1px solid rgba(216, 201, 163, 0.25);
+    color: var(--parchment);
+    font-family: system-ui, sans-serif;
+    font-size: 0.58rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    padding: 0.38rem 0.7rem;
+    cursor: pointer;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 1s ease 0.6s;
+  }
+  body.lens-open #lens-close { opacity: 0.65; pointer-events: auto; }
+  #lens-close:hover { opacity: 1; }
+  #navlinks { opacity: 0; pointer-events: none; transition: opacity 1.2s ease 0.6s; }
+  body.lens-open #navlinks { opacity: 1; pointer-events: auto; }
+  #navlinks a {
+    color: var(--parchment);
+    text-decoration: none;
+    font-size: 0.78rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-left: 1.6rem;
+    opacity: 0.75;
+  }
+  #navlinks a:hover { opacity: 1; }
+
+  /* ————— the specimen plate (dwell payoff) ————— */
+  #card {
+    position: fixed;
+    left: 3.5%;
+    bottom: 8%;
+    width: clamp(230px, 21vw, 300px);
+    background: rgba(12, 10, 8, 0.78);
+    border: 1px solid rgba(201, 164, 95, 0.3);
+    backdrop-filter: blur(6px);
+    z-index: 62;
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+    pointer-events: none;
+  }
+  #card.show { opacity: 1; transform: translateY(0); pointer-events: auto; }
+  #card.case { border-color: rgba(174, 185, 189, 0.35); }
+  #card-close {
+    position: absolute;
+    top: 0.3rem;
+    right: 0.45rem;
+    z-index: 2;
+    background: none;
+    border: none;
+    color: var(--parchment);
+    opacity: 0.5;
+    font-size: 1.05rem;
+    line-height: 1;
+    cursor: pointer;
+    padding: 0.2rem;
+    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.9);
+  }
+  #card-close:hover { opacity: 1; }
+  #card-visit {
+    display: inline-block;
+    margin-top: 0.6rem;
+    font-family: system-ui, sans-serif;
+    font-style: normal;
+    font-size: 0.56rem;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--brass);
+    border-bottom: 1px solid rgba(201, 164, 95, 0.35);
+    padding-bottom: 0.15rem;
+  }
+  #card-visit:empty { display: none; }
+  #card-visit:hover { border-bottom-color: var(--brass); }
+  #card.case #card-visit { color: var(--silver); border-bottom-color: rgba(174, 185, 189, 0.4); }
+  #card.case #card-visit:hover { border-bottom-color: var(--silver); }
+  #card-img { display: block; width: 100%; height: 150px; object-fit: cover; }
+  #card.case #card-img { object-fit: contain; background: rgba(216, 201, 163, 0.05); padding: 8px; }
+  #card.noimg #card-img { display: none; }
+  #card-body { padding: 0.75rem 0.85rem 0.85rem; }
+  #card-plate {
+    font-size: 0.56rem;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: var(--brass);
+    margin-bottom: 0.4rem;
+  }
+  #card.case #card-plate { color: var(--silver); }
+  #card-title {
+    font-family: 'Iowan Old Style', Palatino, Georgia, serif;
+    font-size: 1.02rem;
+    line-height: 1.3;
+    color: var(--parchment);
+    margin-bottom: 0.35rem;
+  }
+  #card-title:empty { display: none; }
+  #card-line {
+    font-family: 'Iowan Old Style', Palatino, Georgia, serif;
+    font-style: italic;
+    font-size: 0.92rem;
+    line-height: 1.45;
+    color: var(--parchment);
+  }
+
+  /* ————— register chips (lens-open only) ————— */
+  #chips {
+    position: fixed;
+    left: 50%;
+    bottom: 6.5%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 0.55rem;
+    z-index: 61;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 1.2s ease 0.8s;
+  }
+  body.lens-open #chips { opacity: 1; pointer-events: auto; }
+  .chip {
+    background: rgba(12, 10, 8, 0.62);
+    border: 1px solid rgba(216, 201, 163, 0.22);
+    color: var(--parchment);
+    font-family: system-ui, sans-serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    padding: 0.5rem 0.95rem 0.48rem;
+    cursor: pointer;
+    backdrop-filter: blur(6px);
+    transition: opacity 0.35s ease, border-color 0.35s ease;
+  }
+  .chip::before {
+    content: '';
+    display: inline-block;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    margin-right: 0.55em;
+    vertical-align: 8%;
+    transition: box-shadow 0.35s ease, background 0.35s ease;
+  }
+  .chip.gold::before { background: #e6cb92; box-shadow: 0 0 7px rgba(201, 164, 95, 0.9); }
+  .chip.silver::before { background: #ccd6d9; box-shadow: 0 0 7px rgba(174, 185, 189, 0.9); }
+  .chip:hover { border-color: rgba(216, 201, 163, 0.45); }
+  .chip:not(.on) { opacity: 0.38; }
+  .chip:not(.on)::before { background: transparent; box-shadow: inset 0 0 0 1px rgba(216, 201, 163, 0.6); }
+
+  /* ————— the third door: a marginal note off the map's west edge ————— */
+  #dragons {
+    position: fixed;
+    left: 1.3rem;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+    z-index: 60;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 1.2s ease 1.1s;
+  }
+  body.lens-open #dragons { opacity: 0.5; pointer-events: auto; }
+  body.lens-open #dragons:hover { opacity: 0.95; transition-delay: 0s; }
+  #dragons svg { width: 27px; stroke: var(--brass); color: var(--brass); }
+  #dragons span {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    font-family: 'Iowan Old Style', Palatino, Georgia, serif;
+    font-style: italic;
+    font-size: 0.78rem;
+    letter-spacing: 0.26em;
+    color: var(--parchment);
+  }
+
+  #caption {
+    position: fixed;
+    left: 50%;
+    bottom: 7%;
+    transform: translateX(-50%);
+    text-align: center;
+    z-index: 60;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.6s ease;
+  }
+  #caption.show { opacity: 1; }
+  #caption-over {
+    font-size: 0.56rem;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--brass);
+    opacity: 0.9;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.8);
+  }
+  #caption-over:empty { display: none; }
+  #caption-name {
+    font-family: 'Iowan Old Style', Palatino, Georgia, serif;
+    font-style: italic;
+    font-size: 1.02rem;
+    color: var(--parchment);
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.8);
+  }
+  #caption-coords {
+    margin-top: 0.4rem;
+    font-size: 0.62rem;
+    letter-spacing: 0.28em;
+    color: var(--brass);
+    opacity: 0.8;
+  }
+
+  #hint {
+    position: fixed;
+    left: 50%;
+    bottom: 2.4%;
+    transform: translateX(-50%);
+    font-size: 0.62rem;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--parchment);
+    opacity: 0;
+    transition: opacity 1.4s ease;
+    z-index: 60;
+    pointer-events: none;
+  }
+  #hint.show { opacity: 0.45; }
+
+  /* ————— chart names: shoreline towns in the caption serif, low zoom only ————— */
+  .town-label {
+    font-family: 'Iowan Old Style', Palatino, Georgia, serif;
+    font-variant: small-caps;
+    letter-spacing: 0.24em;
+    font-size: 0.74rem;
+    color: var(--parchment);
+    opacity: 0;
+    transition: opacity 0.9s ease;
+    pointer-events: none;
+    white-space: nowrap;
+    text-shadow: 0 1px 10px rgba(0, 0, 0, 0.95), 0 0 3px rgba(0, 0, 0, 0.9);
+  }
+  body.towns-on .town-label { opacity: 0.8; }
+
+  .maplibregl-ctrl-attrib { background: rgba(10, 9, 7, 0.4) !important; font-size: 10px; }
+  .maplibregl-ctrl-attrib a { color: rgba(216, 201, 163, 0.6) !important; }
+  .maplibregl-ctrl-bottom-right { z-index: 61; }
+
+  @media (prefers-reduced-motion: reduce) {
+    #compass { animation: none; }
+  }
+
+  /* ————— small screens ————— */
+  @media (max-width: 640px) {
+    #bar { padding: 0.9rem 1rem; }
+    #plate { font-size: 0.54rem; }
+    /* the bar can't seat plate + close + nav at phone width — identity
+       yields to controls while the lens is open */
+    body.lens-open #plate { display: none; }
+    #navlinks a { font-size: 0.64rem; letter-spacing: 0.14em; margin-left: 0.9rem; }
+    #card {
+      left: 12px;
+      right: 12px;
+      bottom: 11%;
+      width: auto;
+    }
+    #card-img { height: 126px; }
+    #card-close { top: 0; right: 0; padding: 0.55rem 0.65rem; }
+    /* at dwell the plate takes the stage; the caption yields the floor */
+    #card.show ~ #caption { opacity: 0; }
+    #caption { bottom: 14.5%; width: 88vw; }
+    #caption-name { font-size: 0.95rem; }
+    #chips { bottom: 4.6%; }
+    #compass-wrap { width: 54px; right: 4%; bottom: 3.4%; }
+    #dragons { left: 0.5rem; }
+    #dragons span { font-size: 0.7rem; }
+    #hint { bottom: 3.2%; width: 92vw; font-size: 0.56rem; }
+  }
+</style>
+
+<script>
+  import * as maplibregl from 'maplibre-gl';
+  // MapLibre v6 loads its worker as a separate module Vite doesn't emit;
+  // ?worker&url bundles it as a real asset (same fix as yonder-site).
+  import workerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url';
+  import 'maplibre-gl/dist/maplibre-gl.css';
+
+  maplibregl.setWorkerUrl(workerUrl);
+
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const photo = document.getElementById('photo')!;
+  const caption = document.getElementById('caption')!;
+  const capOver = document.getElementById('caption-over')!;
+  const capName = document.getElementById('caption-name')!;
+  const capCoords = document.getElementById('caption-coords')!;
+  const hint = document.getElementById('hint')!;
+  const compassWrap = document.getElementById('compass-wrap')!;
+  const monogram = document.getElementById('monogram')!;
+  const lens = document.getElementById('lens')!;
+  const card = document.getElementById('card')!;
+  const cardImg = document.getElementById('card-img') as HTMLImageElement;
+  const cardPlate = document.getElementById('card-plate')!;
+  const cardTitle = document.getElementById('card-title')!;
+  const cardLine = document.getElementById('card-line')!;
+  const cardVisit = document.getElementById('card-visit') as HTMLAnchorElement;
+  const cardClose = document.getElementById('card-close')!;
+
+  // ————— lens geometry —————
+  let open = false;
+  const radii = () => ({
+    closed: Math.min(innerWidth, innerHeight) / 2,
+    open: Math.hypot(innerWidth, innerHeight) / 2 + 12,
+  });
+  const applyClip = () => {
+    const r = radii();
+    lens.style.clipPath = `circle(${open ? r.open : r.closed}px at 50% 50%)`;
+  };
+  applyClip();
+  addEventListener('resize', applyClip);
+
+  // ————— the gold register (built by scripts/build-pins.mjs) —————
+  const pins = await fetch('/lab/pins.json').then((r) => r.json());
+  const pinCount = pins.features.length;
+
+  // Today's overlooked place: a date-hashed pin, somewhere new each day —
+  // the 2015 site's today.jpg, reborn. Drift is deterministic after this seed.
+  const now = new Date();
+  const dayKey = now.getFullYear() * 10000 + (now.getMonth() + 1) * 100 + now.getDate();
+  const daily = pins.features[Math.abs(Math.imul(dayKey ^ (dayKey >>> 7), 2654435761)) % pinCount];
+
+  const TYPE_LABEL: Record<string, string> = {
+    mural: 'Wall', 'public art': 'Wall', restoration: 'Restoration',
+    design: 'Design', event: 'Event', workshop: 'Workshop', performance: 'Performance',
+  };
+  const platify = (p: any) =>
+    [TYPE_LABEL[p.type] ?? 'Wall', p.town, p.year && String(p.year)].filter(Boolean).join(' · ');
+  const goldVisit = (p: any) =>
+    ['Wall', 'Restoration'].includes(TYPE_LABEL[p.type] ?? 'Wall') ? 'See this wall' : 'See this work';
+
+  // ————— waypoints: gold = walls, silver = winter work —————
+  interface Waypoint {
+    name: string; lat: number; lng: number; zoom: number;
+    bearing?: number; dur?: number; over?: string; url?: string;
+    img?: string; plate?: string; line?: string; kind?: 'wall' | 'case';
+  }
+  const YONDER = 'https://www.yonderartland.com';
+  const WAYPOINTS: Waypoint[] = [
+    { name: `The territory — ${pinCount} pins and counting`, lat: 44.36, lng: -87.62, zoom: 8.6, bearing: 0, dur: 9000 },
+    { name: daily.properties.title, over: 'today’s overlooked place',
+      lat: daily.geometry.coordinates[1], lng: daily.geometry.coordinates[0], zoom: 15.9, bearing: 4,
+      kind: 'wall', img: daily.properties.img, plate: platify(daily.properties),
+      line: daily.properties.desc ?? '', url: daily.properties.url },
+    { name: 'Yonder Art Land — the studio', lat: 44.60892, lng: -87.43818, zoom: 16.1, bearing: 0 },
+    { name: 'The Loodoo — an alley cryptid', lat: 44.608392, lng: -87.438046, zoom: 17.0, bearing: -14,
+      kind: 'wall', img: '/lab/walls/loodoo.jpg', plate: 'Wall · Algoma alley', line: 'The Loodoo — the harbor’s resident cryptid, painted where it was first seen.',
+      url: `${YONDER}/projects/algoma-alley-loodoo/` },
+    { name: 'A Magical Little Freshwater Estuary', lat: 44.608324, lng: -87.438459, zoom: 16.3, bearing: 10,
+      kind: 'wall', img: '/lab/walls/estuary.jpg', plate: 'Wall · Algoma', line: 'Where the Ahnapee meets the lake — an estuary portrait for the town that lives on it.',
+      url: `${YONDER}/projects/freshwater-estuary-mural/` },
+    { name: 'We All Belong — Kewaunee', lat: 44.4592, lng: -87.5052, zoom: 15.6, bearing: 8,
+      kind: 'wall', img: '/lab/walls/we-all-belong.jpg', plate: 'Wall · Kewaunee', line: 'A community mural painted with the town, not just for it.',
+      url: `${YONDER}/projects/we-all-belong/` },
+    { name: 'Door County Land Trust — Sturgeon Bay', lat: 44.8342, lng: -87.377, zoom: 14.2, bearing: -6,
+      kind: 'case', img: '/images/projects/dclt-pipeline-diagram.svg', plate: 'Case study · Web & systems',
+      line: 'Donor pipeline for a land trust — 93% of hand-offs automated, 566 attendees tracked.',
+      url: '/work/dclt-donor-pipeline' },
+    { name: 'The winter territory — systems work travels', lat: 43.9, lng: -89.3, zoom: 5.9, bearing: 0, dur: 15000 },
+    { name: 'NielsenIQ — Chicago', lat: 41.8781, lng: -87.6337, zoom: 14.0, bearing: 5,
+      kind: 'case', plate: 'Case study · Platform UX', line: 'Optimizing how analysts move through consumer data at NielsenIQ.',
+      url: '/work/nielseniq' },
+    { name: 'Optum — Minneapolis', lat: 44.8547, lng: -93.4708, zoom: 13.5, bearing: -5,
+      kind: 'case', plate: 'Case study · Health UX', line: 'Building user trust in health-insurance tools at Optum.',
+      url: '/work/optum' },
+    { name: 'Spirit of the Fox — Green Bay', lat: 44.51417, lng: -88.01558, zoom: 15.8, bearing: -10,
+      kind: 'wall', img: '/lab/walls/spirit-of-the-fox.jpg', plate: 'Wall · Green Bay', line: 'The river’s spirit, forty feet long, on the Fox.',
+      url: `${YONDER}/projects/spirit-of-the-fox/` },
+    { name: 'Guth Music — a ghost sign restored', lat: 44.609392, lng: -87.437365, zoom: 16.8, bearing: -6,
+      kind: 'wall', img: '/lab/walls/guth.jpg', plate: 'Restoration · Algoma', line: 'A hundred-year-old ghost sign brought back, brushstroke by brushstroke.',
+      url: `${YONDER}/projects/katt-building-sign-restoration/` },
+  ];
+
+  // silver pins carry the same copy as their waypoints, so a clicked pin and
+  // a drift dwell read identically
+  const CASE_PINS = {
+    type: 'FeatureCollection',
+    features: WAYPOINTS.filter((w) => w.kind === 'case').map((w) => ({
+      type: 'Feature',
+      properties: { kind: 'case', title: w.name, plate: w.plate, line: w.line, img: w.img, url: w.url },
+      geometry: { type: 'Point', coordinates: [w.lng, w.lat] },
+    })),
+  };
+
+  const fmtCoords = (lat: number, lng: number) =>
+    `${Math.abs(lat).toFixed(4)}° N · ${Math.abs(lng).toFixed(4)}° W`;
+
+  // ?poster — regenerate the first-paint poster: renders the territory view
+  // with a readable GL buffer and POSTs it to the dev-only /api/poster sink,
+  // which writes public/lab/poster.jpg. Drift stays parked while capturing.
+  const posterMode = new URLSearchParams(location.search).has('poster');
+
+  const map = new maplibregl.Map({
+    container: 'map',
+    style: '/map/dk-sepia.json',
+    center: [WAYPOINTS[0].lng, WAYPOINTS[0].lat],
+    zoom: WAYPOINTS[0].zoom,
+    attributionControl: { compact: true },
+    preserveDrawingBuffer: posterMode,
+  });
+  (['scrollZoom', 'dragPan', 'dragRotate', 'keyboard', 'doubleClickZoom', 'touchZoomRotate', 'boxZoom'] as const)
+    .forEach((h) => map[h].disable());
+
+  // quiet console surface for tile/style failures (and a handle for debugging)
+  (window as any).__lensMap = map;
+  map.on('error', (e: any) => console.warn('[lens] map error:', e?.error?.message ?? e));
+
+  map.on('rotate', () => {
+    compassWrap.style.transform = `rotate(${-map.getBearing()}deg)`;
+  });
+
+  // ————— drift engine + dwell payoff —————
+  let i = 0;
+  let dwell: ReturnType<typeof setTimeout> | undefined;
+
+  const setCaption = (w: Waypoint) => {
+    caption.classList.remove('show');
+    setTimeout(() => {
+      if (open) return;
+      capOver.textContent = w.over ?? '';
+      capName.textContent = w.name;
+      capCoords.textContent = fmtCoords(w.lat, w.lng);
+      caption.classList.add('show');
+    }, 650);
+  };
+
+  interface CardSpec {
+    isCase?: boolean; img?: string; plate?: string;
+    title?: string; line?: string; url?: string; visit?: string;
+  }
+  const renderCard = (c: CardSpec) => {
+    card.classList.toggle('case', !!c.isCase);
+    card.classList.toggle('noimg', !c.img);
+    if (c.img) cardImg.src = c.img;
+    cardPlate.textContent = c.plate ?? '';
+    cardTitle.textContent = c.title ?? '';
+    cardLine.textContent = c.line ?? '';
+    if (c.url) {
+      const external = c.url.startsWith('http');
+      cardVisit.textContent = `${c.visit ?? 'See this wall'} ${external ? '↗' : '→'}`;
+      cardVisit.href = c.url;
+      cardVisit.target = external ? '_blank' : '_self';
+    } else {
+      cardVisit.textContent = '';
+      cardVisit.removeAttribute('href');
+    }
+    card.classList.add('show');
+  };
+
+  // drift dwell: caption already names the place, so no card title
+  const showCard = (w: Waypoint) => {
+    if (!w.plate) return;
+    renderCard({
+      isCase: w.kind === 'case', img: w.img, plate: w.plate, line: w.line, url: w.url,
+      visit: w.kind === 'case' ? 'Read the case study' : 'See this wall',
+    });
+  };
+
+  // clicked pin: the card is the whole story, so it carries the title
+  const showPinCard = (f: any) => {
+    const p = f.properties;
+    if (p.kind === 'case') {
+      renderCard({ isCase: true, img: p.img, plate: p.plate, title: p.title, line: p.line, url: p.url, visit: 'Read the case study' });
+    } else {
+      renderCard({ img: p.img, plate: platify(p), title: p.title, line: p.desc ?? '', url: p.url, visit: goldVisit(p) });
+    }
+  };
+
+  const hideCard = () => card.classList.remove('show');
+
+  const leg = () => {
+    if (open) return;
+    hideCard();
+    const w = WAYPOINTS[i % WAYPOINTS.length];
+    setCaption(w);
+    if (reduced) {
+      map.jumpTo({ center: [w.lng, w.lat], zoom: w.zoom });
+    } else {
+      map.easeTo({
+        center: [w.lng, w.lat],
+        zoom: w.zoom,
+        bearing: w.bearing ?? 0,
+        duration: w.dur ?? 11000,
+        easing: (t: number) => (t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t),
+      });
+    }
+  };
+  map.on('moveend', () => {
+    if (open || posterMode) return;
+    const w = WAYPOINTS[i % WAYPOINTS.length];
+    showCard(w);
+    // longer dwell when there's something to look at
+    const wait = w.plate ? 6000 : 2800;
+    dwell = setTimeout(() => { i++; leg(); }, reduced ? 7000 : wait);
+  });
+
+  // hovered pin brightens (feature-state drives the paint expressions below)
+  const hoverable = (base: number, lit: number) =>
+    ['case', ['boolean', ['feature-state', 'hover'], false], lit, base] as any;
+
+  map.on('load', () => {
+    photo.classList.add('gone');
+
+    map.addSource('pins', { type: 'geojson', data: pins, generateId: true });
+    map.addSource('case-pins', { type: 'geojson', data: CASE_PINS as any, generateId: true });
+    map.addLayer({
+      id: 'pin-glow', type: 'circle', source: 'pins',
+      paint: {
+        'circle-radius': ['interpolate', ['linear'], ['zoom'],
+          5, hoverable(4, 7), 12, hoverable(9, 16), 16, hoverable(17, 30)],
+        'circle-color': '#c9a45f', 'circle-blur': 1.2, 'circle-opacity': hoverable(0.18, 0.7),
+      },
+    });
+    map.addLayer({
+      id: 'pin-core', type: 'circle', source: 'pins',
+      paint: {
+        'circle-radius': ['interpolate', ['linear'], ['zoom'], 5, 1.4, 12, 2.8, 16, 4.2],
+        'circle-color': '#e6cb92', 'circle-opacity': hoverable(0.85, 1),
+        'circle-stroke-color': 'rgba(10,9,7,0.6)', 'circle-stroke-width': 1,
+      },
+    });
+    map.addLayer({
+      id: 'case-glow', type: 'circle', source: 'case-pins',
+      paint: {
+        'circle-radius': ['interpolate', ['linear'], ['zoom'],
+          5, hoverable(6, 11), 12, hoverable(11, 20), 16, hoverable(18, 32)],
+        'circle-color': '#aeb9bd', 'circle-blur': 1.1, 'circle-opacity': hoverable(0.2, 0.7),
+      },
+    });
+    map.addLayer({
+      id: 'case-core', type: 'circle', source: 'case-pins',
+      paint: {
+        'circle-radius': ['interpolate', ['linear'], ['zoom'], 5, 2, 12, 3.4, 16, 4.8],
+        'circle-color': '#ccd6d9', 'circle-opacity': hoverable(0.9, 1),
+        'circle-stroke-color': 'rgba(10,9,7,0.6)', 'circle-stroke-width': 1,
+      },
+    });
+
+    // chart names: five shoreline towns, set in the caption serif — the glyph
+    // CDN hosts no serif stacks, so these ride as map-locked marks and hand
+    // off to the style's parchment labels past z11
+    const TOWNS: Array<[string, number, number]> = [
+      ['Green Bay', 44.5133, -88.0133],
+      ['Sturgeon Bay', 44.8342, -87.377],
+      ['Algoma', 44.6089, -87.4382],
+      ['Kewaunee', 44.4592, -87.5052],
+      ['Manitowoc', 44.0886, -87.6576],
+    ];
+    for (const [name, tlat, tlng] of TOWNS) {
+      const el = document.createElement('div');
+      el.className = 'town-label';
+      el.textContent = name;
+      new maplibregl.Marker({ element: el, anchor: 'left', offset: [8, 0] })
+        .setLngLat([tlng, tlat]).addTo(map);
+    }
+    const syncTowns = () =>
+      document.body.classList.toggle('towns-on', map.getZoom() < 11);
+    map.on('zoom', syncTowns);
+    syncTowns();
+
+    if (posterMode) {
+      map.once('idle', async () => {
+        const canvas = map.getCanvas();
+        const blob: Blob = await new Promise((res) => canvas.toBlob((b) => res(b!), 'image/jpeg', 0.85));
+        const r = await fetch('/api/poster', { method: 'POST', body: blob });
+        console.log('[lens] poster capture:', await r.text());
+      });
+      return; // no drift, no caption — just the territory, held still
+    }
+
+    setTimeout(() => { i = 1; leg(); }, 3600);
+    setTimeout(() => { if (!open) hint.classList.add('show'); }, 6000);
+    setCaption(WAYPOINTS[0]);
+  });
+
+  // ————— pins are clickable, in drift and in the open lens —————
+  const PIN_LAYERS = ['case-core', 'case-glow', 'pin-core', 'pin-glow'];
+  const pinAt = (pt: { x: number; y: number }) => {
+    const layers = PIN_LAYERS.filter((l) => map.getLayer(l));
+    if (!layers.length) return undefined;
+    const pad = 8; // a real tap target — the cores are only a few px
+    return map.queryRenderedFeatures(
+      [[pt.x - pad, pt.y - pad], [pt.x + pad, pt.y + pad]],
+      { layers },
+    )[0];
+  };
+
+  let hovered: { source: string; id: number } | undefined;
+  map.on('mousemove', (e) => {
+    const f = pinAt(e.point);
+    if (hovered && (!f || f.id !== hovered.id || f.source !== hovered.source)) {
+      map.setFeatureState(hovered, { hover: false });
+      hovered = undefined;
+    }
+    if (f && !hovered) {
+      hovered = { source: f.source, id: f.id as number };
+      map.setFeatureState(hovered, { hover: true });
+    }
+    map.getCanvas().style.cursor = f ? 'pointer' : '';
+  });
+
+  map.on('click', (e) => {
+    const f = pinAt(e.point);
+    if (!f) {
+      if (open) hideCard(); // tapping empty water puts the plate away
+      return;
+    }
+    if (!open) openLens(); // runs before the window listener sees this click
+    showPinCard(f);
+  });
+
+  cardClose.addEventListener('click', hideCard);
+  // plate clicks are for the plate (close, visit) — never the lens
+  card.addEventListener('click', (e) => e.stopPropagation());
+
+  // ————— register chips: walls / systems —————
+  const REGISTERS: Record<string, string[]> = {
+    walls: ['pin-glow', 'pin-core'],
+    systems: ['case-glow', 'case-core'],
+  };
+  document.querySelectorAll<HTMLButtonElement>('.chip').forEach((chip) => {
+    chip.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (!map.getLayer('pin-core')) return;
+      const on = chip.classList.toggle('on');
+      for (const layer of REGISTERS[chip.dataset.register!] ?? []) {
+        map.setLayoutProperty(layer, 'visibility', on ? 'visible' : 'none');
+      }
+    });
+  });
+
+  // ————— monogram parallax (the original's 666ms easing) —————
+  if (!reduced) {
+    addEventListener('mousemove', (e) => {
+      const x = e.clientX / innerWidth - 0.5;
+      const y = e.clientY / innerHeight - 0.5;
+      monogram.style.transform = `translate(${x * -26}px, ${y * -18}px)`;
+    });
+  }
+
+  // ————— open / close —————
+  const coarse = matchMedia('(pointer: coarse)').matches;
+  const OPEN_HINT = coarse ? 'tap — to open the lens' : 'scroll — or click — to open the lens';
+  hint.textContent = OPEN_HINT;
+
+  const openLens = () => {
+    if (open) return;
+    open = true;
+    clearTimeout(dwell);
+    map.stop();
+    hideCard();
+    caption.classList.remove('show');
+    document.body.classList.add('lens-open');
+    applyClip();
+    hint.classList.remove('show');
+    (['scrollZoom', 'dragPan', 'dragRotate', 'keyboard', 'doubleClickZoom', 'touchZoomRotate'] as const)
+      .forEach((h) => map[h].enable());
+    if (!coarse) {
+      setTimeout(() => {
+        hint.textContent = 'esc — close the lens';
+        hint.classList.add('show');
+        setTimeout(() => hint.classList.remove('show'), 5000);
+      }, 1600);
+    }
+  };
+  const closeLens = () => {
+    if (!open) return;
+    open = false;
+    document.body.classList.remove('lens-open');
+    applyClip();
+    (['scrollZoom', 'dragPan', 'dragRotate', 'keyboard', 'doubleClickZoom', 'touchZoomRotate'] as const)
+      .forEach((h) => map[h].disable());
+    hint.textContent = OPEN_HINT;
+    setTimeout(() => { i++; leg(); }, 1500);
+  };
+  document.getElementById('lens-close')!.addEventListener('click', (e) => {
+    e.stopPropagation();
+    closeLens();
+  });
+
+  // window-level: clicks on the map canvas don't reliably bubble to #lens.
+  // Pin clicks never reach here in drift — the map handler above opens the
+  // lens first, and `open` guards the rest.
+  addEventListener('click', (e) => {
+    if (open) return;
+    if ((e.target as HTMLElement).closest('#bar, #card, #chips, #dragons')) return;
+    openLens();
+  });
+  addEventListener('wheel', (e) => { if (!open && e.deltaY > 0) openLens(); }, { passive: true });
+  addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape') return;
+    if (open && card.classList.contains('show')) { hideCard(); return; } // card first, lens second
+    closeLens();
+  });
+</script>

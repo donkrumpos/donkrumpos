@@ -1,44 +1,12 @@
 ---
-import Base from '../layouts/Base.astro';
-import ProjectCard from '../components/ProjectCard.astro';
-import { getCollection } from 'astro:content';
-
-const projects = (await getCollection('projects', ({ data }) => !data.draft))
-  .sort((a, b) => {
-    if (a.data.order !== undefined && b.data.order !== undefined) {
-      return a.data.order - b.data.order;
-    }
-    if (a.data.order !== undefined) return -1;
-    if (b.data.order !== undefined) return 1;
-    return b.data.date.getTime() - a.data.date.getTime();
-  });
-
-const featured = projects.filter(p => p.data.featured);
-const displayProjects = featured.length > 0 ? featured : projects.slice(0, 8);
+// The homepage IS the Lens (decided 2026-09-07): the porthole deep map,
+// opening each day on a different overlooked place. The old featured-work
+// grid this replaced was a subset of /work, where everything still lives.
+import TheLens from '../components/TheLens.astro';
 ---
 
-<Base title="Don Krumpos — Designer & Builder">
-  <div class="page-header">
-    <h1 class="page-header__title">Don Krumpos</h1>
-    <p class="page-header__subtitle">Designer and builder. 25 years of UX, design systems, and hand-built web — digital experiences that feel like a place, not a product.</p>
-  </div>
-
-  <div class="project-grid">
-    {displayProjects.map(project => (
-      <ProjectCard
-        title={project.data.title}
-        description={project.data.description}
-        thumbnail={project.data.thumbnail}
-        slug={project.id}
-        category={project.data.category}
-        client={project.data.client}
-      />
-    ))}
-  </div>
-
-  {projects.length > displayProjects.length && (
-    <p style="margin-top: var(--space-xl);">
-      <a href="/work/">View all work &rarr;</a>
-    </p>
-  )}
-</Base>
+<TheLens
+  title="Don Krumpos — Designer & Builder"
+  plate="DON KRUMPOS · DESIGNER & BUILDER"
+  description="Designer and builder. 25 years of UX, design systems, and hand-built web — digital experiences that feel like a place, not a product."
+/>
