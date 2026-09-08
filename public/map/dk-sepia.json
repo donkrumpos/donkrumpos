@@ -58,6 +58,145 @@
    }
   },
   {
+   "id": "shoreline-glow",
+   "type": "line",
+   "source": "openmaptiles",
+   "source-layer": "water",
+   "maxzoom": 13,
+   "filter": [
+    "all",
+    [
+     "match",
+     [
+      "geometry-type"
+     ],
+     [
+      "MultiPolygon",
+      "Polygon"
+     ],
+     true,
+     false
+    ],
+    [
+     "!=",
+     [
+      "get",
+      "brunnel"
+     ],
+     "tunnel"
+    ]
+   ],
+   "paint": {
+    "line-color": "rgba(201,164,95,0.55)",
+    "line-width": [
+     "interpolate",
+     [
+      "linear"
+     ],
+     [
+      "zoom"
+     ],
+     4,
+     1.6,
+     8,
+     3.4,
+     12,
+     4.5
+    ],
+    "line-blur": [
+     "interpolate",
+     [
+      "linear"
+     ],
+     [
+      "zoom"
+     ],
+     4,
+     2,
+     12,
+     5
+    ],
+    "line-opacity": [
+     "interpolate",
+     [
+      "linear"
+     ],
+     [
+      "zoom"
+     ],
+     4,
+     0.6,
+     9,
+     0.45,
+     12.5,
+     0
+    ]
+   }
+  },
+  {
+   "id": "shoreline-ink",
+   "type": "line",
+   "source": "openmaptiles",
+   "source-layer": "water",
+   "maxzoom": 14,
+   "filter": [
+    "all",
+    [
+     "match",
+     [
+      "geometry-type"
+     ],
+     [
+      "MultiPolygon",
+      "Polygon"
+     ],
+     true,
+     false
+    ],
+    [
+     "!=",
+     [
+      "get",
+      "brunnel"
+     ],
+     "tunnel"
+    ]
+   ],
+   "paint": {
+    "line-color": "rgba(216,201,163,0.4)",
+    "line-width": [
+     "interpolate",
+     [
+      "linear"
+     ],
+     [
+      "zoom"
+     ],
+     4,
+     0.4,
+     10,
+     0.8,
+     13,
+     1
+    ],
+    "line-opacity": [
+     "interpolate",
+     [
+      "linear"
+     ],
+     [
+      "zoom"
+     ],
+     4,
+     0.8,
+     12,
+     0.5,
+     13.5,
+     0
+    ]
+   }
+  },
+  {
    "id": "landcover_ice_shelf",
    "type": "fill",
    "source": "openmaptiles",
@@ -332,11 +471,13 @@
      "Noto Sans Regular"
     ],
     "text-rotation-alignment": "map",
-    "text-size": 12
+    "text-size": 12,
+    "text-letter-spacing": 0.28
    },
    "paint": {
-    "text-color": "#8a7a5f",
-    "text-halo-color": "#0a0907"
+    "text-color": "#93876b",
+    "text-halo-color": "rgba(10,9,7,0.7)",
+    "text-halo-width": 1
    }
   },
   {
@@ -1849,7 +1990,8 @@
      0
     ],
     "text-size": 10,
-    "text-transform": "uppercase"
+    "text-transform": "uppercase",
+    "text-letter-spacing": 0.2
    },
    "paint": {
     "text-color": "#726b5e",
@@ -1928,7 +2070,8 @@
      0
     ],
     "text-size": 10,
-    "text-transform": "uppercase"
+    "text-transform": "uppercase",
+    "text-letter-spacing": 0.2
    },
    "paint": {
     "text-color": "#726b5e",
@@ -2008,15 +2151,17 @@
      0.2
     ],
     "text-size": 10,
-    "text-transform": "uppercase"
+    "text-transform": "uppercase",
+    "text-letter-spacing": 0.15
    },
    "paint": {
     "icon-opacity": 0.7,
-    "text-color": "#726b5e",
+    "text-color": "#bfae87",
     "text-halo-blur": 1,
-    "text-halo-color": "rgba(10,9,7,0.75)",
+    "text-halo-color": "rgba(10,9,7,0.85)",
     "text-halo-width": 1
-   }
+   },
+   "minzoom": 11
   },
   {
    "id": "place_town",
@@ -2106,15 +2251,17 @@
      0.2
     ],
     "text-size": 10,
-    "text-transform": "uppercase"
+    "text-transform": "uppercase",
+    "text-letter-spacing": 0.15
    },
    "paint": {
     "icon-opacity": 0.7,
-    "text-color": "#726b5e",
+    "text-color": "#bfae87",
     "text-halo-blur": 1,
-    "text-halo-color": "rgba(10,9,7,0.75)",
+    "text-halo-color": "rgba(10,9,7,0.85)",
     "text-halo-width": 1
-   }
+   },
+   "minzoom": 11
   },
   {
    "id": "place_city",
@@ -2212,15 +2359,17 @@
      0.2
     ],
     "text-size": 10,
-    "text-transform": "uppercase"
+    "text-transform": "uppercase",
+    "text-letter-spacing": 0.15
    },
    "paint": {
     "icon-opacity": 0.7,
-    "text-color": "#726b5e",
+    "text-color": "#bfae87",
     "text-halo-blur": 1,
-    "text-halo-color": "rgba(10,9,7,0.75)",
+    "text-halo-color": "rgba(10,9,7,0.85)",
     "text-halo-width": 1
-   }
+   },
+   "minzoom": 11
   },
   {
    "id": "place_city_large",
@@ -2318,15 +2467,17 @@
      0.2
     ],
     "text-size": 14,
-    "text-transform": "uppercase"
+    "text-transform": "uppercase",
+    "text-letter-spacing": 0.15
    },
    "paint": {
     "icon-opacity": 0.7,
-    "text-color": "#726b5e",
+    "text-color": "#bfae87",
     "text-halo-blur": 1,
-    "text-halo-color": "rgba(10,9,7,0.75)",
+    "text-halo-color": "rgba(10,9,7,0.85)",
     "text-halo-width": 1
-   }
+   },
+   "minzoom": 11
   },
   {
    "id": "place_state",
@@ -2392,10 +2543,11 @@
      "Noto Sans Regular"
     ],
     "text-size": 10,
-    "text-transform": "uppercase"
+    "text-transform": "uppercase",
+    "text-letter-spacing": 0.3
    },
    "paint": {
-    "text-color": "#726b5e",
+    "text-color": "#857a61",
     "text-halo-blur": 1,
     "text-halo-color": "rgba(10,9,7,0.75)",
     "text-halo-width": 1
