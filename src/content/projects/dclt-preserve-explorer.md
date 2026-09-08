@@ -6,7 +6,7 @@ client: "Door County Land Trust"
 role: "Design, engineering & cartography (sole developer)"
 category: "Web & Systems"
 tools: ["Astro", "React", "MapLibre GL", "TypeScript", "GDAL", "GeoPandas", "Cloudflare Pages"]
-thumbnail: "/images/projects/dclt-explorer-thumb.svg"
+thumbnail: "/images/projects/dclt-explorer-thumb.jpg"
 images: []
 featured: false
 draft: false
@@ -15,7 +15,7 @@ order: 2
 
 ## The Challenge
 
-The Land Trust protects nature preserves across the Door Peninsula, and most people meet those places on a screen before they ever set foot on a trail. The old website answered "where can I go" with a list and a static locator borrowed from a mapping service. It told a visitor a preserve existed. It did not help them choose one.
+The Land Trust protects fifteen nature preserves, more than 2,600 acres, across the Door Peninsula, and most people meet those places on a screen before they ever set foot on a trail. The old website answered "where can I go" with a list and a static locator borrowed from a mapping service. It told a visitor a preserve existed. It did not help them choose one.
 
 The questions a visitor actually asks went unanswered. Which preserve is close to me. Which has an easy trail for a family. Which allows dogs, which has a boardwalk over the wetland, which is worth the drive in October. To piece that together, a person had to open a separate page for every preserve and hold it all in their head. The map itself was a rented tile layer, styled by the vendor, billed by the vendor, and indistinguishable from a thousand other maps. It carried none of the Land Trust's sense of place.
 
@@ -41,7 +41,7 @@ The discovery layer sits on top. Faceted filters stay in sync with the URL, so a
 
 The details are where the care shows:
 
-- **An opening "inking" animation** that draws each preserve boundary onto the map with a rolling count of the acres protected, so the first thing a visitor feels is the scale of the land.
+- **An opening "inking" animation** that draws each preserve boundary onto the map with a rolling count toward the 2,656 acres protected, so the first thing a visitor feels is the scale of the land.
 - **A seasonal "now" layer** that surfaces what is worth seeing this month rather than a flat year-round list.
 - **Keyless, self-hosted tiles and terrain**, so the map cannot break because a billing card expired or a vendor changed a plan.
 - **Reduced-motion support**, so the animation respects a visitor who has asked their device to hold still.
