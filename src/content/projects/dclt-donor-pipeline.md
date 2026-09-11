@@ -13,6 +13,8 @@ draft: false
 order: 1
 ---
 
+Door County Land Trust was renting its donation platform. Every online gift and event registration had to be re-entered into their donor database by hand. That cost staff hours they did not have, and it introduced errors into the exact records their fundraising depends on. We replaced the rented platform with a giving pipeline the Land Trust owns outright. Now a gift made on their own website flows straight into their Salesforce donor record and sends its own receipt, with no staff member touching a spreadsheet in between. In its first season it processed 340 online registrations for 566 attendees, and landed 93 percent of them in the donor database automatically. There is no rented platform skimming each gift, and no outside vendor holding the keys to their donor data.
+
 ## The Challenge
 
 Door County Land Trust took donations and event registrations through a hosted platform that sat outside the website and only partly connected to the organization's Salesforce database. The gap between the two systems was filled by hand.
