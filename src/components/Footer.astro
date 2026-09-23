@@ -4,19 +4,58 @@ const year = new Date().getFullYear();
 
 <footer class="site-footer">
   <div class="container">
-    <p class="site-footer__yonder">
-      I also run <a href="https://yonderartland.com">Yonder Art Land</a> — a
-      studio + gallery in Algoma. Murals, prints, and creative work with Erin
-      LaBonte.
-    </p>
-    <span>&copy; {year} Don Krumpos</span>
+    <div class="site-footer__main">
+      <p class="site-footer__line">
+        Finding the story of a place, and giving it form.
+      </p>
+      <p class="site-footer__yonder">
+        I also run <a href="https://yonderartland.com">Yonder</a>, a studio and
+        gallery in Algoma, with Erin LaBonte. Murals, prints, and creative work.
+      </p>
+    </div>
+    <div class="site-footer__meta">
+      <span class="site-footer__coords">44.61° N · 87.43° W</span>
+      <span>&copy; {year} Don Krumpos</span>
+    </div>
   </div>
 </footer>
 
 <style>
+  .site-footer__main {
+    max-width: 34rem;
+  }
+
+  .site-footer__line {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    line-height: 1.2;
+    color: var(--umber-text);
+    margin-bottom: var(--space-md);
+  }
+
   .site-footer__yonder {
-    margin-bottom: var(--space-sm);
-    font-size: 0.9rem;
-    color: var(--color-text-muted);
+    font-size: 0.95rem;
+    color: var(--umber-muted);
+  }
+
+  .site-footer__meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.3rem;
+    font-family: var(--font-label);
+    font-size: 0.64rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .site-footer__coords {
+    color: var(--gold);
+  }
+
+  @media (max-width: 768px) {
+    .site-footer__meta {
+      align-items: flex-start;
+    }
   }
 </style>

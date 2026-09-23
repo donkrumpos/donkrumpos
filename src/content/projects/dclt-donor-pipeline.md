@@ -66,4 +66,4 @@ The old platform could not do most of this: ACH payments, automatic confirmation
 
 Most important, the Land Trust owns all of it. The code, the donor data, the contact list, and the accounts are theirs. They can run it without me, and if they ever want to leave, they take everything with them.
 
-*Honest scope note: this was a phased migration. The old platform is not fully retired; existing recurring donors remain on it until they lapse, and a final two-way cancellation sync is still on the roadmap.*
+*Honest scope note: this was a phased migration. Every new gift and registration now runs on the owned system. The old platform stays live only to finish out recurring donors who signed up there, and it retires as they lapse.*

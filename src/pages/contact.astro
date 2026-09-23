@@ -53,6 +53,13 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
       )}
       <button type="submit" class="form-submit">Send message</button>
     </form>
+    <script is:inline>
+      // Arriving from /field-study: prompt for the place, not the project.
+      if (new URLSearchParams(location.search).get('about') === 'field-study') {
+        var m = document.getElementById('message');
+        if (m) m.placeholder = 'Tell me about your place: what it is, what you hold, and what you wish more people noticed.';
+      }
+    </script>
     {turnstileSiteKey && (
       <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
     )}

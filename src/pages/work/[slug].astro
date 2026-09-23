@@ -16,6 +16,9 @@ const { Content } = await render(project);
 const dateFormatted = project.data.date.toLocaleDateString('en-US', {
   year: 'numeric',
 });
+
+const heroSrc = project.data.images?.[0] || project.data.thumbnail;
+const { liveUrl } = project.data;
 ---
 
 <Base title={`${project.data.title} — Don Krumpos`} description={project.data.description}>
@@ -56,10 +59,19 @@ const dateFormatted = project.data.date.toLocaleDateString('en-US', {
 
     {/* Hero image */}
     <div class="project-detail__hero">
-      <img
-        src={project.data.images?.[0] || project.data.thumbnail}
-        alt={project.data.title}
-      />
+      {liveUrl ? (
+        <>
+          {/* Image link duplicates the CTA, so keep it out of the tab order */}
+          <a href={liveUrl} target="_blank" rel="noopener" class="project-detail__hero-link" tabindex="-1" aria-hidden="true">
+            <img src={heroSrc} alt="" />
+          </a>
+          <a href={liveUrl} target="_blank" rel="noopener" class="project-detail__live-cta">
+            See it live right now &rarr;<span class="sr-only"> (opens in a new tab)</span>
+          </a>
+        </>
+      ) : (
+        <img src={heroSrc} alt={project.data.title} />
+      )}
     </div>
 
     {/* Case study body — markdown */}

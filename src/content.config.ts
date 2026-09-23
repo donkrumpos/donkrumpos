@@ -15,6 +15,8 @@ const projects = defineCollection({
     // Images
     thumbnail: z.string(),
     images: z.array(z.string()).optional(),
+    // Live product — when set, the hero image links out to it
+    liveUrl: z.string().url().optional(),
     // Display control
     featured: z.boolean().default(false),
     draft: z.boolean().default(false),

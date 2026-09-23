@@ -8,6 +8,7 @@ category: "Web & Systems"
 tools: ["Astro", "React", "MapLibre GL", "TypeScript", "GDAL", "GeoPandas", "Cloudflare Pages"]
 thumbnail: "/images/projects/dclt-explorer-thumb.jpg"
 images: []
+liveUrl: "https://doorcountylandtrust.org/properties/"
 featured: false
 draft: false
 order: 2

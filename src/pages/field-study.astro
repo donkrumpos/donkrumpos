@@ -1,0 +1,812 @@
+---
+// Place & Story Field Study: the entry offer (paid discovery).
+// UNLISTED until 2027-01-01 (decided 2026-09-23): noindex, out of the sitemap,
+// not in the nav. Shared by direct link with specific prospects while the
+// DCLT contract runs. To launch: drop `noindex`, remove the sitemap filter
+// entry in astro.config.mjs, add it to Header.astro.
+// Strategy source: reliquary/career/place-and-story-practice.md
+import Base from '../layouts/Base.astro';
+
+const route = [
+  { n: '01', title: 'Visit', body: 'I come to your site and walk it the way a visitor does. Then I walk it again the way a naturalist would.' },
+  { n: '02', title: 'Listen', body: 'Conversations with leadership and staff: what you’re proud of, what nobody asks about, what keeps getting lost.' },
+  { n: '03', title: 'Explore', body: 'The collection, the archive, the building, the ground outside, the website. Wherever the story is kept.' },
+  { n: '04', title: 'Find the threads', body: 'Out of everything I gather, I choose three story threads strong enough to build on.' },
+  { n: '05', title: 'Imagine the forms', body: 'For each thread, I sketch how it could live: on a wall, in a room, on a map, on a screen, in a performance.' },
+  { n: '06', title: 'Return', body: 'I bring back a designed field guide and walk your leadership through it.' },
+];
+
+const contents = [
+  'Observations, photographs and sketches',
+  'The overlooked: stories, objects, people and places',
+  'Three story threads',
+  'What visitors do, and what they never find',
+  'Where collection, place and history meet',
+  'Three concepts at three scales',
+  'Next experiments',
+  'A phased roadmap',
+];
+
+const scales = [
+  { tag: 'Modest', title: 'An interactive story map', body: 'The hidden layers of your place on a map people can wander, on their phone or on a wall.' },
+  { tag: 'Medium', title: 'A collection tied to the ground', body: 'Objects from the archive, placed back where they came from and reachable from the site itself.' },
+  { tag: 'Bold', title: 'A guide who steps out of the past', body: 'A historical figure becomes a puppet or illustrated guide who travels between your galleries, the web, school visits and live events.' },
+];
+
+const audiences = [
+  'Museums & historical societies',
+  'Arts organizations',
+  'Libraries & archives',
+  'Downtowns & business districts',
+  'Heritage sites & trails',
+];
+---
+
+<Base
+  title="Place & Story Field Study | Don Krumpos"
+  description="A short, paid visit from an artist, designer and builder who finds the stories hiding in your place and comes back with a field guide of what they could become."
+  noindex
+>
+  <script is:inline>document.documentElement.classList.add('js');</script>
+
+  <!-- HERO -->
+  <section class="fs-hero">
+    <div class="fs-hero__text">
+      <span class="label">Field Study · Place &amp; Story</span>
+      <h1>Every place is carrying a story it <em>hasn’t told yet.</em></h1>
+      <p class="fs-lede">
+        A Field Study is a short, paid visit from an artist, designer and builder.
+        I spend time with your place, your collection and your people, then come
+        back with a field guide: the stories hiding in plain sight, and three ways
+        to bring them to life.
+      </p>
+      <div class="fs-actions">
+        <a class="button" href="/contact/?about=field-study">Start a conversation <span aria-hidden="true">→</span></a>
+        <a class="button button--ghost" href="#route">How it works</a>
+      </div>
+    </div>
+    <figure class="plate fs-hero__plate reveal">
+      <img
+        src="/images/field-study/pencil-sketch.jpg"
+        alt="Pencil sketch of a Madonna holding a sleeping child beneath a pine bough, flanked by a mill town, log trains and wildflowers."
+        width="1600" height="837"
+        fetchpriority="high"
+      />
+      <figcaption>
+        <span class="label">Plate I</span>
+        <span>The first sketch for <em>Mill Madonnas</em>, Oshkosh. The bones never changed.</span>
+      </figcaption>
+    </figure>
+  </section>
+
+  <!-- THE PROBLEM -->
+  <section class="fs-section fs-premise reveal">
+    <p class="fs-premise__text">
+      Most organizations know their story is richer than what visitors see.
+      The trouble is that the people closest to it <em>can’t see it anymore.</em>
+      Staff walk past it every day. A brochure flattens it. A website buries it
+      under “About Us.”
+    </p>
+    <p class="fs-premise__answer">
+      An outside pair of eyes, trained on noticing, can find it again.
+    </p>
+  </section>
+
+  <!-- THE ROUTE -->
+  <section class="fs-section" id="route">
+    <div class="pin-rule" aria-hidden="true"></div>
+    <span class="label">The route</span>
+    <h2>How a Field Study works</h2>
+    <ol class="route">
+      {route.map((stop) => (
+        <li class="route__stop reveal">
+          <span class="route__pin" aria-hidden="true">{stop.n}</span>
+          <h3>{stop.title}</h3>
+          <p>{stop.body}</p>
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <!-- PROOF -->
+  <section class="fs-section fs-proof">
+    <div class="fs-proof__intro">
+      <div class="pin-rule" aria-hidden="true"></div>
+      <span class="label">A worked example</span>
+      <h2>The same method, <em>on a wall</em></h2>
+      <p>
+        The Sawdust District in Oshkosh is named for a history it didn’t tell.
+        The official story kept the mill owners’ names and lost almost everyone
+        else. Research turned up the women who led the 1898 woodworkers’ strike
+        and the immigrant families who held the neighborhood together.
+      </p>
+      <p>
+        That research became the wall: a 600-square-foot memorial on the
+        Riverwalk, with the full sourced history published alongside it so the
+        district’s story finally has somewhere to be read.
+      </p>
+      <a class="fs-textlink" href="/work/oshkosh-mill-madonnas/">Read the case study →</a>
+    </div>
+    <div class="triptych">
+      <figure class="plate reveal">
+        <img src="/images/field-study/oshkosh-1850s-lithograph.jpg" alt="An 1850s lithograph of Oshkosh on the Fox River." width="1600" height="1123" loading="lazy" />
+        <figcaption><span class="label">I · Place</span> Oshkosh, 1850s</figcaption>
+      </figure>
+      <figure class="plate reveal">
+        <img src="/images/field-study/pencil-sketch.jpg" alt="The pencil sketch for Mill Madonnas." width="1600" height="837" loading="lazy" />
+        <figcaption><span class="label">II · Imagine</span> The sketch</figcaption>
+      </figure>
+      <figure class="plate reveal">
+        <img src="/images/field-study/mill-madonnas.jpg" alt="The finished Mill Madonnas mural: a Madonna in a blue robe holding a sleeping child, a raven at her shoulder, the mill town on either side." width="1600" height="979" loading="lazy" />
+        <figcaption><span class="label">III · Make</span> The wall, 2026</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- THE FIELD GUIDE -->
+  <section class="fs-section fs-guide">
+    <div class="fs-guide__text">
+      <div class="pin-rule" aria-hidden="true"></div>
+      <span class="label">What you get</span>
+      <h2>A field guide to <em>your</em> place</h2>
+      <p>
+        Fifteen to twenty pages, designed to feel like an explorer’s notebook
+        and to hold up in front of a board. It gives your staff and trustees a
+        shared picture of what your place could become, and a sensible order
+        for getting there.
+      </p>
+    </div>
+    <div class="notebook reveal" role="img" aria-label="Contents page of a Field Study field guide">
+      <div class="notebook__head">
+        <span class="label">Field Guide</span>
+        <span class="label">No. 01</span>
+      </div>
+      <p class="notebook__title">Contents</p>
+      <ol class="notebook__toc">
+        {contents.map((item, i) => (
+          <li>
+            <span class="notebook__item">{item}</span>
+            <span class="notebook__dots" aria-hidden="true"></span>
+            <span class="notebook__page">{String(i * 2 + 2).padStart(2, '0')}</span>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- THREE SCALES -->
+  <section class="fs-section">
+    <div class="pin-rule" aria-hidden="true"></div>
+    <span class="label">Three concepts, three scales</span>
+    <h2>Modest, medium, <em>bold</em></h2>
+    <div class="scales">
+      {scales.map((s, i) => (
+        <article class="scale reveal">
+          <span class="scale__tag">{s.tag}</span>
+          <div class="scale__rings" aria-hidden="true" data-size={i + 1}></div>
+          <h3>{s.title}</h3>
+          <p>{s.body}</p>
+        </article>
+      ))}
+    </div>
+    <p class="fs-note">
+      These are examples. The real concepts come out of your place, not a template.
+    </p>
+  </section>
+
+  <!-- WHO IT'S FOR -->
+  <section class="fs-section fs-for reveal">
+    <div>
+      <div class="pin-rule" aria-hidden="true"></div>
+      <span class="label">Who it’s for</span>
+      <h2>Places with more story <em>than signage</em></h2>
+    </div>
+    <ul class="fs-for__list">
+      {audiences.map((a) => <li>{a}</li>)}
+    </ul>
+  </section>
+
+  <!-- TERMS -->
+  <section class="fs-terms">
+    <div class="fs-terms__inner">
+      <span class="label label--gold">The terms</span>
+      <h2>Paid for the thinking, <em>whatever gets built</em></h2>
+      <dl class="terms">
+        <div>
+          <dt class="label">Fixed fee</dt>
+          <dd>From $3,500</dd>
+        </div>
+        <div>
+          <dt class="label">Timeline</dt>
+          <dd>Two to four weeks, including the site visit</dd>
+        </div>
+        <div>
+          <dt class="label">You keep</dt>
+          <dd>The field guide, to use however you like</dd>
+        </div>
+        <div>
+          <dt class="label">Afterward</dt>
+          <dd>No obligation. If a concept lands, we scope the next phase on its own.</dd>
+        </div>
+      </dl>
+      <p class="fs-terms__note">
+        If you never build a thing from it, the field guide still does its work.
+        Most of what an organization needs to move is a clear picture everyone
+        can agree on.
+      </p>
+    </div>
+  </section>
+
+  <!-- WHO'S LOOKING -->
+  <section class="fs-section fs-who reveal">
+    <div class="pin-rule" aria-hidden="true"></div>
+    <span class="label">Who’s looking</span>
+    <p class="fs-who__text">
+      I’m Don Krumpos, an artist, designer and developer in Algoma, Wisconsin.
+      I’ve painted more than forty murals and spent twenty-five years designing
+      and building digital products, from enterprise design systems to
+      interactive maps. A Field Study puts both on the same question:
+      <em>what is the story of this place, and what form should it take?</em>
+    </p>
+  </section>
+
+  <!-- CTA -->
+  <section class="fs-cta reveal">
+    <h2>Tell me about <em>your place.</em></h2>
+    <p>If a Field Study isn’t the right fit, I’ll say so.</p>
+    <a class="button" href="/contact/?about=field-study">Start a conversation <span aria-hidden="true">→</span></a>
+  </section>
+</Base>
+
+<style>
+  /* ---------- shared ---------- */
+  .fs-section {
+    margin-top: var(--space-3xl);
+  }
+
+  .fs-section h2 {
+    margin: 0.4rem 0 var(--space-lg);
+    max-width: 20ch;
+  }
+
+  .label--gold {
+    color: var(--gold);
+  }
+
+  .plate {
+    margin: 0;
+  }
+
+  .plate img {
+    width: 100%;
+    background: var(--paper-deep);
+    border: 1px solid var(--rule);
+    padding: 6px;
+    box-shadow: 0 18px 40px -28px rgba(40, 28, 12, 0.6);
+  }
+
+  .plate figcaption {
+    display: flex;
+    gap: 0.75rem;
+    align-items: baseline;
+    margin-top: 0.7rem;
+    font-size: 0.92rem;
+    color: var(--ink-muted);
+    line-height: 1.4;
+  }
+
+  .plate figcaption .label {
+    flex: none;
+    color: var(--ochre);
+  }
+
+  .fs-textlink {
+    display: inline-block;
+    margin-top: var(--space-md);
+    font-family: var(--font-label);
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  /* ---------- hero ---------- */
+  .fs-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+    gap: var(--space-2xl);
+    align-items: center;
+    padding-top: var(--space-2xl);
+  }
+
+  .fs-hero h1 {
+    margin: 0.9rem 0 var(--space-lg);
+    font-weight: 350;
+  }
+
+  .fs-hero h1 em {
+    color: var(--ochre-deep);
+  }
+
+  .fs-lede {
+    font-size: 1.22rem;
+    line-height: 1.55;
+    color: var(--ink-muted);
+    max-width: 34rem;
+  }
+
+  .fs-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    margin-top: var(--space-lg);
+  }
+
+  .fs-hero__plate {
+    transform: rotate(0.6deg);
+  }
+
+  /* ---------- premise ---------- */
+  .fs-premise {
+    max-width: 50rem;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    padding: var(--space-xl) 0;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .fs-premise__text {
+    font-family: var(--font-display);
+    font-size: clamp(1.35rem, 2.6vw, 1.8rem);
+    line-height: 1.4;
+    font-weight: 300;
+  }
+
+  .fs-premise__answer {
+    margin-top: var(--space-lg) !important;
+    font-family: var(--font-label);
+    font-size: 0.74rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ochre);
+  }
+
+  /* ---------- route ---------- */
+  .route {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-xl) var(--space-lg);
+    position: relative;
+  }
+
+  .route__stop {
+    position: relative;
+    padding-top: 3.2rem;
+  }
+
+  /* dashed trail running between the pins */
+  .route__stop::before {
+    content: '';
+    position: absolute;
+    top: 1.05rem;
+    left: 2.6rem;
+    right: calc(-1 * var(--space-lg));
+    border-top: 1px dashed var(--rule-strong);
+  }
+
+  .route__stop:nth-child(3n)::before,
+  .route__stop:last-child::before {
+    display: none;
+  }
+
+  .route__pin {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 2.15rem;
+    height: 2.15rem;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--paper-bright);
+    border: 1px solid var(--gold);
+    box-shadow: 0 0 0 4px var(--paper);
+    font-family: var(--font-label);
+    font-size: 0.66rem;
+    color: var(--ochre-deep);
+  }
+
+  .route__stop h3 {
+    margin-bottom: 0.4rem;
+  }
+
+  .route__stop p {
+    color: var(--ink-muted);
+    font-size: 1rem;
+  }
+
+  /* ---------- proof ---------- */
+  .fs-proof {
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    gap: var(--space-2xl);
+    align-items: start;
+  }
+
+  .fs-proof__intro p {
+    color: var(--ink-muted);
+    font-size: 1.05rem;
+  }
+
+  .triptych {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-lg);
+  }
+
+  .triptych .plate:last-child {
+    grid-column: 1 / -1;
+  }
+
+  /* ---------- field guide ---------- */
+  .fs-guide {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: var(--space-2xl);
+    align-items: center;
+  }
+
+  .fs-guide__text p {
+    color: var(--ink-muted);
+    font-size: 1.1rem;
+  }
+
+  .notebook {
+    background:
+      linear-gradient(90deg, transparent 2.4rem, color-mix(in srgb, #b4583c 45%, transparent) 2.4rem, color-mix(in srgb, #b4583c 45%, transparent) calc(2.4rem + 1px), transparent calc(2.4rem + 1px)),
+      repeating-linear-gradient(180deg, transparent 0, transparent calc(2rem - 1px), color-mix(in srgb, #7c93a6 28%, transparent) calc(2rem - 1px), color-mix(in srgb, #7c93a6 28%, transparent) 2rem),
+      var(--paper-bright);
+    border: 1px solid var(--rule);
+    padding: 1.5rem 1.75rem 2rem 3.4rem;
+    box-shadow:
+      6px 6px 0 -1px var(--paper-deep),
+      6px 6px 0 0 var(--rule),
+      0 26px 50px -30px rgba(40, 28, 12, 0.55);
+    transform: rotate(-0.8deg);
+  }
+
+  .notebook__head {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.9rem;
+  }
+
+  .notebook__title {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 1.7rem;
+    line-height: 2rem;
+    margin-bottom: 0.2rem;
+  }
+
+  .notebook__toc {
+    list-style: none;
+  }
+
+  .notebook__toc li {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    line-height: 2rem;
+    font-size: 1rem;
+  }
+
+  .notebook__dots {
+    flex: 1;
+    border-bottom: 1px dotted var(--rule-strong);
+    transform: translateY(-0.3rem);
+    min-width: 1rem;
+  }
+
+  .notebook__page {
+    font-family: var(--font-label);
+    font-size: 0.7rem;
+    color: var(--ochre);
+  }
+
+  /* ---------- scales ---------- */
+  .scales {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--grid-gap);
+  }
+
+  .scale {
+    background: var(--paper-bright);
+    border: 1px solid var(--rule);
+    padding: 1.5rem 1.4rem 1.7rem;
+    position: relative;
+  }
+
+  .scale__tag {
+    font-family: var(--font-label);
+    font-size: 0.64rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ochre);
+  }
+
+  /* concentric rings that grow with the scale */
+  .scale__rings {
+    height: 4.5rem;
+    margin: 1rem 0 1.1rem;
+    position: relative;
+  }
+
+  .scale__rings::before,
+  .scale__rings::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    border-radius: 50%;
+    transform: translateY(-50%);
+  }
+
+  .scale__rings::before {
+    width: 10px;
+    height: 10px;
+    left: calc(var(--r) / 2 - 5px);
+    background: var(--gold);
+  }
+
+  .scale__rings::after {
+    width: var(--r);
+    height: var(--r);
+    border: 1px dashed var(--rule-strong);
+  }
+
+  .scale__rings[data-size='1'] { --r: 1.8rem; }
+  .scale__rings[data-size='2'] { --r: 3rem; }
+  .scale__rings[data-size='3'] { --r: 4.5rem; }
+
+  .scale h3 {
+    margin-bottom: 0.5rem;
+  }
+
+  .scale p {
+    color: var(--ink-muted);
+    font-size: 1rem;
+  }
+
+  .fs-note {
+    margin-top: var(--space-lg);
+    font-style: italic;
+    color: var(--ink-muted);
+  }
+
+  /* ---------- who it's for ---------- */
+  .fs-for {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: var(--space-2xl);
+    align-items: start;
+  }
+
+  .fs-for h2 {
+    margin-bottom: 0;
+  }
+
+  .fs-for__list {
+    list-style: none;
+    border-top: 1px solid var(--rule);
+  }
+
+  .fs-for__list li {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    padding: 0.8rem 0;
+    border-bottom: 1px solid var(--rule);
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+  }
+
+  .fs-for__list li::before {
+    content: '';
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--gold);
+    flex: none;
+  }
+
+  /* ---------- terms (full-bleed umber band) ---------- */
+  .fs-terms {
+    margin-top: var(--space-3xl);
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    background: var(--umber);
+    color: var(--umber-text);
+    padding: var(--space-3xl) var(--space-lg);
+  }
+
+  .fs-terms__inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 var(--space-lg);
+  }
+
+  .fs-terms h2 {
+    color: var(--umber-text);
+    margin: 0.5rem 0 var(--space-xl);
+    max-width: 22ch;
+  }
+
+  .fs-terms h2 em {
+    color: var(--gold-pale);
+  }
+
+  .terms {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--space-lg);
+    border-top: 1px solid rgba(233, 223, 203, 0.2);
+    padding-top: var(--space-lg);
+  }
+
+  .terms dt {
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+  }
+
+  .terms dd {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    line-height: 1.3;
+    color: var(--umber-text);
+  }
+
+  .fs-terms__note {
+    margin-top: var(--space-xl);
+    max-width: 38rem;
+    color: var(--umber-muted);
+    font-size: 1.05rem;
+  }
+
+  .fs-terms + :global(*) {
+    margin-top: var(--space-3xl);
+  }
+
+  /* ---------- who's looking ---------- */
+  .fs-who {
+    max-width: 46rem;
+  }
+
+  .fs-who__text {
+    margin-top: 0.6rem;
+    font-size: 1.25rem;
+    line-height: 1.6;
+  }
+
+  .fs-who__text em {
+    font-family: var(--font-display);
+    color: var(--ochre-deep);
+  }
+
+  /* ---------- final CTA ---------- */
+  .fs-cta {
+    margin-top: var(--space-3xl);
+    text-align: center;
+    padding: var(--space-2xl) var(--space-lg);
+    border: 1px solid var(--rule);
+    background:
+      radial-gradient(circle at 50% 0%, color-mix(in srgb, var(--gold) 16%, transparent), transparent 60%),
+      var(--paper-bright);
+  }
+
+  .fs-cta h2 {
+    margin: 0 auto var(--space-sm);
+  }
+
+  .fs-cta p {
+    color: var(--ink-muted);
+    margin-bottom: var(--space-lg);
+    font-size: 1.1rem;
+  }
+
+  /* ---------- reveal on scroll ---------- */
+  :global(.js) .reveal {
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  :global(.js) .reveal.is-in {
+    opacity: 1;
+    transform: none;
+  }
+
+  :global(.js) .fs-hero__plate.reveal.is-in {
+    transform: rotate(0.6deg);
+  }
+
+  :global(.js) .notebook.reveal.is-in {
+    transform: rotate(-0.8deg);
+  }
+
+  /* ---------- responsive ---------- */
+  @media (max-width: 960px) {
+    .fs-hero,
+    .fs-proof,
+    .fs-guide,
+    .fs-for {
+      grid-template-columns: 1fr;
+      gap: var(--space-xl);
+    }
+
+    .route,
+    .scales {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .route__stop::before {
+      display: none;
+    }
+
+    .terms {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .fs-hero {
+      padding-top: var(--space-lg);
+    }
+
+    .route,
+    .scales,
+    .terms,
+    .triptych {
+      grid-template-columns: 1fr;
+    }
+
+    .fs-terms {
+      padding: var(--space-2xl) 0;
+    }
+
+    .fs-terms__inner {
+      padding: 0 16px;
+    }
+
+    .notebook {
+      padding: 1.25rem 1rem 1.5rem 2.9rem;
+      transform: none;
+    }
+
+    :global(.js) .notebook.reveal.is-in,
+    :global(.js) .fs-hero__plate.reveal.is-in,
+    .fs-hero__plate {
+      transform: none;
+    }
+  }
+</style>
+
+<script>
+  const els = document.querySelectorAll('.reveal');
+  if (!('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    els.forEach((el) => el.classList.add('is-in'));
+  } else {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          e.target.classList.add('is-in');
+          io.unobserve(e.target);
+        }
+      });
+    }, { rootMargin: '0px 0px -8% 0px' });
+    els.forEach((el) => io.observe(el));
+  }
+</script>
