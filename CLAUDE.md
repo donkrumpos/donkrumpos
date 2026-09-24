@@ -22,18 +22,24 @@ Sibling repos:
 
 Stay in build/deploy mode here. Editorial decisions belong in freelance.
 
-## Current state vs. target positioning (as of 2026-06-09)
+## Positioning: Place & Story (as of 2026-09-23)
 
-The engineering foundation is solid (Astro 5 + content collections + Cloudflare Pages auto-deploy). But the site is currently positioned with an OLD polymath frame (categories: UI/UX, Branding, Design Systems, Print) that doesn't match the locked **surgical-fix positioning** decided 2026-06-09.
+The 06-09 "surgical-fix" frame is **superseded**. The site's umbrella is the
+**Place & Story practice**: finding the story of a place and giving it form.
+Murals lead; maps/interpretive work and donor/CRM systems are further forms;
+enterprise design leadership stays as the corporate door. Strategy source:
+`reliquary/career/place-and-story-practice.md`.
 
-Pending positioning rework (phased — see `reliquary/career/freelance-entrepreneur-sketch.md` for the full multi-phase outline):
-
-- **Category schema** → reshape to surgical-fix categories (Websites / Custom CRMs / Apps & Integrations / Brand systems — final names TBD)
-- **`services.astro`** → surgical-fix positioning copy + published price floors ($10K static / $15K site+app / $40K custom CRM)
-- **Footer** → yonderartland.com cross-link
-- **`src/content/projects/`** → DCLT case studies (donor pipeline, website rebuild, etc.) land here once captured in freelance
-
-This is a positioning rework on existing bones, not a rebuild.
+- **Design system:** the field journal (`src/styles/global.css`): Lens palette
+  site-wide, Fraunces / Newsreader / IBM Plex Mono, plates, pin-rules, umber
+  band. Foggy loved it; don't drift back to stock/minimal.
+- **`/field-study`** is the entry offer, **unlisted until 2027-01-01** (noindex,
+  sitemap filter, not in nav; `FIELD_STUDY_PUBLIC` in services.astro). To
+  launch, flip all four.
+- **Field Notes** (`src/content/notes/`): Foggy's voice and hand only. Drafts
+  build in dev only; nav link appears with the first published note.
+- **Never name Door County orgs as prospects or pitch conservation** while the
+  DCLT contract runs; the existing DCLT case studies stay as past work.
 
 ## The homepage is the Lens (as of 2026-09-07)
 
