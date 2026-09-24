@@ -1,0 +1,137 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  // Drafts are built in dev only, for preview; production gets published notes.
+  const notes = await getCollection('notes', ({ data }) => import.meta.env.DEV || !data.draft);
+  return notes.map((note) => ({ params: { slug: note.id }, props: { note } }));
+}
+
+const { note } = Astro.props;
+const { Content } = await render(note);
+const d = note.data;
+const pad = (n: number) => String(n).padStart(2, '0');
+const dateFormatted = d.date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' });
+---
+
+<Base
+  title={`${d.title} | Field Notes | Don Krumpos`}
+  description={d.description}
+  ogImage={d.cover}
+  noindex={d.draft}
+>
+  <article class="note">
+    <a href="/field-notes/" class="back-link">← Field Notes</a>
+
+    <header class="note__head">
+      <span class="label note__no">Field Note No. {pad(d.number)}{d.draft && ' · Draft'}</span>
+      <h1>{d.title}</h1>
+      <p class="note__lede">{d.description}</p>
+      <dl class="note__meta">
+        <div><dt class="label">Place</dt><dd>{d.place}</dd></div>
+        {d.coords && <div><dt class="label">Coordinates</dt><dd class="note__coords">{d.coords}</dd></div>}
+        <div><dt class="label">Noted</dt><dd><time datetime={d.date.toISOString()}>{dateFormatted}</time></dd></div>
+      </dl>
+    </header>
+
+    {d.cover && (
+      <figure class="plate note__cover">
+        <img src={d.cover} alt={d.coverAlt ?? ''} fetchpriority="high" />
+      </figure>
+    )}
+
+    <div class="note__body post-body">
+      <Content />
+    </div>
+
+    <footer class="note__foot">
+      <p>
+        Field Notes are how I practice noticing. If your place is carrying a
+        story like this one, <a href="/contact/">tell me about it</a>.
+      </p>
+    </footer>
+  </article>
+</Base>
+
+<style>
+  .note {
+    margin-top: var(--space-xl);
+  }
+
+  .note__head {
+    max-width: 48rem;
+  }
+
+  .note__no {
+    color: var(--ochre);
+  }
+
+  .note__head h1 {
+    margin: 0.8rem 0 var(--space-md);
+  }
+
+  .note__lede {
+    font-size: 1.3rem;
+    line-height: 1.5;
+    color: var(--ink-muted);
+  }
+
+  .note__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md) var(--space-xl);
+    margin-top: var(--space-lg);
+    padding: var(--space-md) 0;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .note__meta dd {
+    margin-top: 0.2rem;
+  }
+
+  .note__coords {
+    font-family: var(--font-label);
+    font-size: 0.8rem;
+    color: var(--ochre);
+  }
+
+  .note__cover {
+    margin-top: var(--space-xl);
+  }
+
+  /* Place / Notice / Imagine / Make headings read as field labels */
+  .note__body :global(h2) {
+    font-family: var(--font-label);
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ochre);
+    margin-top: var(--space-xl);
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .note__body :global(h2)::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--gold);
+  }
+
+  .note__body {
+    font-size: 1.15rem;
+  }
+
+  .note__foot {
+    max-width: var(--max-width-prose);
+    margin-top: var(--space-2xl);
+    padding-top: var(--space-lg);
+    border-top: 1px dashed var(--rule-strong);
+    font-style: italic;
+    color: var(--ink-muted);
+  }
+</style>

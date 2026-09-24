@@ -1,0 +1,151 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+// Drafts show (marked) in dev only; production lists published notes.
+const notes = (await getCollection('notes', ({ data }) => import.meta.env.DEV || !data.draft))
+  .sort((a, b) => b.data.number - a.data.number);
+
+const pad = (n: number) => String(n).padStart(2, '0');
+---
+
+<Base
+  title="Field Notes | Don Krumpos"
+  description="Short notes that start with something noticed in a real place, and ask what story is hiding in it."
+  noindex={notes.length === 0}
+>
+  <header class="page-header notes-head">
+    <span class="label">Field Notes</span>
+    <h1>Things noticed <em>in real places</em></h1>
+    <p class="page-header__subtitle">
+      Each note starts with something I saw, heard or stumbled on, then asks
+      what story is hiding there and what form could bring it out.
+    </p>
+  </header>
+
+  {notes.length === 0 ? (
+    <p class="notes-empty">The first notes are still in the sketchbook.</p>
+  ) : (
+    <ol class="notes">
+      {notes.map((note) => (
+        <li class="reveal">
+          <a class="note-row" href={`/field-notes/${note.id}/`}>
+            <span class="note-row__no">No. {pad(note.data.number)}</span>
+            <span class="note-row__main">
+              <span class="note-row__title">
+                {note.data.title}
+                {note.data.draft && <span class="note-row__draft">Draft</span>}
+              </span>
+              <span class="note-row__desc">{note.data.description}</span>
+            </span>
+            <span class="note-row__place">
+              <span>{note.data.place}</span>
+              {note.data.coords && <span class="note-row__coords">{note.data.coords}</span>}
+            </span>
+          </a>
+        </li>
+      ))}
+    </ol>
+  )}
+</Base>
+
+<style>
+  .notes-head {
+    max-width: 46rem;
+  }
+
+  .notes-head h1 {
+    margin: 0.8rem 0 var(--space-md);
+  }
+
+  .notes-empty {
+    margin-top: var(--space-xl);
+    font-style: italic;
+    color: var(--ink-muted);
+  }
+
+  .notes {
+    list-style: none;
+    margin-top: var(--space-2xl);
+    border-top: 1px solid var(--rule);
+  }
+
+  .note-row {
+    display: grid;
+    grid-template-columns: 6rem minmax(0, 1fr) 14rem;
+    gap: var(--space-lg);
+    align-items: baseline;
+    padding: 1.6rem 0;
+    border-bottom: 1px solid var(--rule);
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .note-row:hover {
+    color: var(--ink);
+  }
+
+  .note-row:hover .note-row__title {
+    color: var(--ochre-deep);
+  }
+
+  .note-row__no,
+  .note-row__place,
+  .note-row__draft {
+    font-family: var(--font-label);
+    font-size: 0.66rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-light);
+  }
+
+  .note-row__no {
+    color: var(--ochre);
+  }
+
+  .note-row__main {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .note-row__title {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    line-height: 1.2;
+    transition: color var(--transition);
+  }
+
+  .note-row__draft {
+    margin-left: 0.7rem;
+    padding: 0.15rem 0.4rem;
+    border: 1px dashed var(--rule-strong);
+    vertical-align: middle;
+  }
+
+  .note-row__desc {
+    color: var(--ink-muted);
+  }
+
+  .note-row__place {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    text-align: right;
+  }
+
+  .note-row__coords {
+    color: var(--gold);
+  }
+
+  @media (max-width: 760px) {
+    .note-row {
+      grid-template-columns: 1fr;
+      gap: 0.5rem;
+    }
+
+    .note-row__place {
+      text-align: left;
+    }
+  }
+</style>

@@ -1,8 +1,14 @@
 ---
+import { getCollection } from 'astro:content';
+
 const currentPath = Astro.url.pathname;
+
+// Field Notes joins the nav once the first note is published.
+const publishedNotes = await getCollection('notes', ({ data }) => !data.draft);
 
 const navLinks = [
   { href: '/work/', label: 'Work' },
+  ...(publishedNotes.length ? [{ href: '/field-notes/', label: 'Field Notes' }] : []),
   { href: '/worlds/', label: 'Worlds' },
   { href: '/services/', label: 'Services' },
   { href: '/about/', label: 'About' },

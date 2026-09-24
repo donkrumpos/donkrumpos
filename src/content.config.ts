@@ -60,4 +60,23 @@ const articles = defineCollection({
   }),
 });
 
-export const collections = { projects, blog, recommendations, articles };
+// Field Notes: the Place & Story practice shown, not declared. Each note
+// starts with something noticed in a real place (Place → Notice → Imagine →
+// Make). Foggy's voice and hand only. Drafts build in dev for preview and
+// never reach production.
+const notes = defineCollection({
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/notes' }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    date: z.coerce.date(),
+    number: z.number(), // "No. 01"; the order the notes were made
+    place: z.string(), // e.g. "Fox River, Green Bay"
+    coords: z.string().optional(), // e.g. "44.52° N · 88.01° W"
+    cover: z.string().optional(),
+    coverAlt: z.string().optional(),
+    draft: z.boolean().default(true),
+  }),
+});
+
+export const collections = { projects, blog, recommendations, articles, notes };
