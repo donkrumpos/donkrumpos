@@ -1,43 +1,178 @@
 ---
+// About, rewritten 2026-09-23 under the Place & Story umbrella.
+// Algoma, Wisconsin (Kewaunee County), not Door County.
 import Base from '../layouts/Base.astro';
+
+const facts = [
+  { k: 'Based in', v: 'Algoma, Wisconsin' },
+  { k: 'Practice', v: 'Public art, interpretive design, web systems' },
+  { k: 'Murals', v: 'More than forty' },
+  { k: 'Recognition', v: 'Awwwards Site of the Day, twice' },
+  { k: 'Studio', v: 'Yonder, with Erin LaBonte' },
+];
 ---
 
-<Base title="About — Don Krumpos">
-  <div class="page-header">
-    <h1 class="page-header__title">About</h1>
-  </div>
+<Base
+  title="About | Don Krumpos"
+  description="Don Krumpos is an artist, designer and builder in Algoma, Wisconsin, who finds the overlooked stories in places and gives them form."
+>
+  <section class="about">
+    <div class="about__text">
+      <span class="label">About</span>
+      <h1>Artist, designer, <em>builder</em></h1>
 
-  <div class="about-content">
-    <p>
-      I'm an Art Director and designer with 25 years of experience spanning 
-      UI/UX, branding, design systems, and print. I've led user-centered design 
-      for enterprises like Patterson Dental, built design systems for NielsenIQ 
-      and Optum, launched civic brands like Nice Ride Minnesota, and created 
-      award-winning interactive experiences — two of which were recognized as 
-      Awwwards Site of the Day.
-    </p>
+      <p class="about__lede">
+        I’m Don Krumpos. I live and work in Algoma, Wisconsin, a small town on
+        Lake Michigan, where Erin LaBonte and I run Yonder, a studio and gallery.
+      </p>
 
-    <p>
-      I work across the full design process: user research, information 
-      architecture, visual design, and frontend development. I'm trained in 
-      Human Factors International methodology and have led UX research 
-      including stakeholder interviews, focus groups, persona development, 
-      journey mapping, card sorting, and usability testing. I believe the 
-      best interfaces come from understanding the people who use them — 
-      their workflows, their frustrations, their goals.
-    </p>
+      <p>
+        For twenty-five years I’ve worked across graphic design, UX, art
+        direction and front-end development: design systems for NielsenIQ and
+        Optum, a research-led redesign for Patterson Dental, the brand for Nice
+        Ride Minnesota, and two interactive sites named Awwwards Site of the Day.
+        I’ve painted more than forty murals. I build the tools I need instead of
+        renting them.
+      </p>
 
-    <p>
-      I'm most effective when I can see the whole picture — from brand 
-      strategy through component-level design to production code. I've 
-      directed teams of up to ten, coordinated across parallel agile 
-      workstreams, and built the design systems that keep complex products 
-      coherent as they scale.
-    </p>
+      <p>
+        It looks like a lot of different jobs. It’s one practice. On a lift in a
+        parking lot or deep in a database, I’m doing the same thing: finding what
+        has been overlooked in a place, its history or its people, and giving it
+        a form other people can see.
+      </p>
 
-    <p>
-      Tools: Figma, Adobe Creative Suite, Miro, Axure, HTML/CSS/JS. 
-      Currently based in Door County, Wisconsin.
-    </p>
-  </div>
+      <p>
+        The personal work keeps the eyes sharp. Some of it lives on the
+        <a href="/worlds/">Worlds</a> page.
+      </p>
+    </div>
+
+    <aside class="about__side">
+      <figure class="plate about__plate reveal">
+        <img
+          src="/images/about/don-krumpos-yonder.jpg"
+          alt="Don Krumpos in a plaid shirt and printed apron, standing in the Yonder gallery among framed work and shelves."
+          width="1280" height="853"
+          fetchpriority="high"
+        />
+        <figcaption><span class="label">Plate</span> <span>At Yonder, Algoma.</span></figcaption>
+      </figure>
+
+      <dl class="facts reveal">
+        {facts.map((f) => (
+          <div>
+            <dt class="label">{f.k}</dt>
+            <dd>{f.v}</dd>
+          </div>
+        ))}
+      </dl>
+    </aside>
+  </section>
+
+  <section class="about-links reveal">
+    <a class="about-link" href="/work/">
+      <span class="label">The work</span>
+      <span class="about-link__title">Walls, maps and systems →</span>
+    </a>
+    <a class="about-link" href="/recommendations/">
+      <span class="label">In other words</span>
+      <span class="about-link__title">What people I’ve worked with say →</span>
+    </a>
+    <a class="about-link" href="/contact/">
+      <span class="label">Say hello</span>
+      <span class="about-link__title">Start a conversation →</span>
+    </a>
+  </section>
 </Base>
+
+<style>
+  .about {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    gap: var(--space-2xl);
+    margin-top: var(--space-2xl);
+    align-items: start;
+  }
+
+  .about h1 {
+    margin: 0.8rem 0 var(--space-lg);
+  }
+
+  .about__text p {
+    font-size: 1.12rem;
+    max-width: var(--max-width-prose);
+  }
+
+  .about__lede {
+    font-family: var(--font-display);
+    font-size: 1.45rem !important;
+    line-height: 1.4;
+    font-weight: 300;
+  }
+
+  .about__plate img {
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    object-position: 58% center;
+  }
+
+  .facts {
+    margin-top: var(--space-xl);
+    border-top: 1px solid var(--rule);
+  }
+
+  .facts div {
+    display: grid;
+    grid-template-columns: 8.5rem 1fr;
+    gap: var(--space-md);
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--rule);
+    align-items: baseline;
+  }
+
+  .facts dd {
+    font-size: 1.02rem;
+  }
+
+  .about-links {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--grid-gap);
+    margin-top: var(--space-3xl);
+  }
+
+  .about-link {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1.4rem;
+    background: var(--paper-bright);
+    border: 1px solid var(--rule);
+    text-decoration: none;
+    color: var(--ink);
+    transition: border-color var(--transition), transform var(--transition);
+  }
+
+  .about-link:hover {
+    color: var(--ink);
+    border-color: var(--rule-strong);
+    transform: translateY(-2px);
+  }
+
+  .about-link__title {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+  }
+
+  @media (max-width: 860px) {
+    .about,
+    .about-links {
+      grid-template-columns: 1fr;
+    }
+
+    .about__plate img {
+      aspect-ratio: 4 / 3;
+    }
+  }
+</style>

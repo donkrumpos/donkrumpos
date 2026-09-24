@@ -1,5 +1,5 @@
 ---
-title: "Door County Land Trust — Donor & Registration Pipeline"
+title: "Owned Donor & Registration Pipeline"
 description: "Replaced a rented donation platform with an owned Stripe-to-Salesforce pipeline the nonprofit's own staff can run."
 date: 2026-03-23
 client: "Door County Land Trust"

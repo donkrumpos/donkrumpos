@@ -1,5 +1,5 @@
 ---
-title: "Door County Land Trust — Preserve Explorer"
+title: "Preserve Explorer"
 description: "An interactive map of a land trust's preserves, built on hand-authored cartography and public-domain terrain data, with no map vendor renting access to the land."
 date: 2026-09-07
 client: "Door County Land Trust"

@@ -896,3 +896,128 @@ p + p { margin-top: var(--space-md); }
     scroll-behavior: auto !important;
   }
 }
+
+/* ============================================
+   SHARED PAGE PIECES
+   Sections, plates (captioned images), the umber band, scroll reveal.
+   ============================================ */
+
+.section {
+  margin-top: var(--space-3xl);
+}
+
+.section h2 {
+  margin: 0.4rem 0 var(--space-lg);
+  max-width: 20ch;
+}
+
+.label--gold {
+  color: var(--gold);
+}
+
+.plate {
+  margin: 0;
+}
+
+.plate img {
+  width: 100%;
+  background: var(--paper-deep);
+  border: 1px solid var(--rule);
+  padding: 6px;
+  box-shadow: 0 18px 40px -28px rgba(40, 28, 12, 0.6);
+}
+
+.plate figcaption {
+  display: flex;
+  gap: 0.75rem;
+  align-items: baseline;
+  margin-top: 0.7rem;
+  font-size: 0.92rem;
+  color: var(--ink-muted);
+  line-height: 1.4;
+}
+
+.plate figcaption .label {
+  flex: none;
+  color: var(--ochre);
+}
+
+.textlink {
+  display: inline-block;
+  font-family: var(--font-label);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* Full-bleed umber band */
+.band {
+  margin-top: var(--space-3xl);
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  background: var(--umber);
+  color: var(--umber-text);
+  padding: var(--space-3xl) var(--space-lg);
+}
+
+.band__inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--space-lg);
+}
+
+.band h2,
+.band h3 {
+  color: var(--umber-text);
+}
+
+.band h2 em {
+  color: var(--gold-pale);
+}
+
+.band p {
+  color: var(--umber-muted);
+}
+
+/* Closing call to action */
+.cta-box {
+  margin-top: var(--space-3xl);
+  text-align: center;
+  padding: var(--space-2xl) var(--space-lg);
+  border: 1px solid var(--rule);
+  background:
+    radial-gradient(circle at 50% 0%, color-mix(in srgb, var(--gold) 16%, transparent), transparent 60%),
+    var(--paper-bright);
+}
+
+.cta-box h2 {
+  margin: 0 auto var(--space-sm);
+}
+
+.cta-box p {
+  color: var(--ink-muted);
+  margin-bottom: var(--space-lg);
+  font-size: 1.1rem;
+}
+
+/* Scroll reveal: only hides content once JS has marked the page */
+.js .reveal {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.js .reveal.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+@media (max-width: 768px) {
+  .band {
+    padding: var(--space-2xl) 0;
+  }
+
+  .band__inner {
+    padding: 0 16px;
+  }
+}

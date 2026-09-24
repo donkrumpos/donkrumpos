@@ -1,146 +1,276 @@
 ---
+// Services under the Place & Story umbrella (rewritten 2026-09-23).
+// One practice, several forms: murals are the core; maps/interpretive
+// work and donor/CRM systems are the winter forms; enterprise design
+// leadership stays as the corporate door.
+// FIELD_STUDY_PUBLIC stays false until 2027-01-01 (the /field-study page is
+// unlisted while the DCLT contract runs). Flip it with the page's launch.
 import Base from '../layouts/Base.astro';
+
+const FIELD_STUDY_PUBLIC = false;
+
+const forms = [
+  {
+    n: '01',
+    title: 'Public art & murals',
+    body: 'Walls for downtowns, businesses and institutions. I dig into the history and life of a place first, then design a wall that belongs there and nowhere else. Commissions run through Yonder, the studio I share with Erin LaBonte.',
+    proof: [
+      { label: 'Mill Madonnas, Oshkosh', href: '/work/oshkosh-mill-madonnas/' },
+      { label: 'Forty-some walls on the map', href: 'https://www.yonderartland.com/murals/' },
+    ],
+    img: '/images/field-study/mill-madonnas.jpg',
+    alt: 'The Mill Madonnas mural in Oshkosh.',
+  },
+  {
+    n: '02',
+    title: 'Maps & interpretive experiences',
+    body: 'Story maps, collection browsers, walking tours and archive interfaces that let people explore a place on their phone, or on a screen in the lobby. Hand-built and fast, and yours to keep, with no map vendor renting you access.',
+    proof: [
+      { label: 'Preserve Explorer', href: '/work/dclt-preserve-explorer/' },
+    ],
+    img: '/images/projects/dclt-explorer-thumb.jpg',
+    alt: 'An interactive map of nature preserves along a peninsula.',
+  },
+  {
+    n: '03',
+    title: 'Systems for mission-driven organizations',
+    body: 'Donation, registration and CRM systems for small organizations that have outgrown rented platforms. I design and build the whole path, from the form a donor fills out to the record in your database, and hand it to staff on infrastructure they own.',
+    proof: [
+      { label: 'An owned donor & registration pipeline', href: '/work/dclt-donor-pipeline/' },
+    ],
+    img: '/images/projects/dclt-pipeline-diagram.svg',
+    alt: 'A diagram of a donation flowing from a web form through Stripe and Supabase into Salesforce.',
+    contain: true,
+  },
+  {
+    n: '04',
+    title: 'Design leadership',
+    body: 'Twenty-five years of product and brand design, in-house and as a contract design lead: research, information architecture, and the design systems that hold a product together as it grows.',
+    proof: [
+      { label: 'NielsenIQ', href: '/work/nielseniq/' },
+      { label: 'Optum', href: '/work/optum/' },
+      { label: 'Patterson Dental', href: '/work/pattersondental/' },
+      { label: 'Nice Ride Minnesota', href: '/work/niceridemn/' },
+    ],
+    img: '/images/projects/niq-discover.jpg',
+    alt: 'The NielsenIQ Discover platform interface.',
+  },
+];
+
+const principles = [
+  { title: 'Research first', body: 'The content is the credibility. Every project starts by finding out what a place, a collection or an organization is actually carrying.' },
+  { title: 'Yours to keep', body: 'Owned infrastructure and handed-off files, not subscriptions you can’t leave. You should be able to run it without me.' },
+  { title: 'The next version, not upkeep', body: 'When it’s time for more, we build the next version as a new project. I don’t sell maintenance contracts.' },
+];
 ---
 
-<Base title="Services — Don Krumpos">
-  <div class="page-header">
-    <h1 class="page-header__title">Services</h1>
-    <p class="page-header__subtitle">One practice. Three current shapes.</p>
+<Base
+  title="Services | Don Krumpos"
+  description="Public art, interpretive maps and the systems behind them. One practice: finding the story of a place and giving it form."
+>
+  <header class="page-header svc-head">
+    <span class="label">Services</span>
+    <h1>One practice, <em>several forms</em></h1>
+    <p class="page-header__subtitle">
+      Everything I make starts the same way: notice what a place is carrying,
+      find the story in it, then choose the form that tells it best. Sometimes
+      that’s a wall. Sometimes it’s a map, a tool, or a whole system.
+    </p>
+  </header>
+
+  {FIELD_STUDY_PUBLIC && (
+    <section class="svc-start reveal">
+      <div>
+        <span class="label">Where most work starts</span>
+        <h2>The Place &amp; Story <em>Field Study</em></h2>
+        <p>
+          A short, paid visit. I spend time with your place, your collection
+          and your people, and come back with a field guide of what they
+          could become.
+        </p>
+      </div>
+      <a class="button" href="/field-study/">See the Field Study <span aria-hidden="true">→</span></a>
+    </section>
+  )}
+
+  <div class="forms">
+    {forms.map((f, i) => (
+      <section class:list={['form reveal', { 'form--flip': i % 2 === 1 }]}>
+        <figure class="plate form__plate">
+          <img src={f.img} alt={f.alt} loading={i === 0 ? 'eager' : 'lazy'} class:list={[{ 'is-contain': f.contain }]} />
+        </figure>
+        <div class="form__text">
+          <span class="form__n">{f.n}</span>
+          <h2>{f.title}</h2>
+          <p>{f.body}</p>
+          <ul class="form__proof">
+            {f.proof.map((p) => (
+              <li><a href={p.href}>{p.label}</a></li>
+            ))}
+          </ul>
+        </div>
+      </section>
+    ))}
   </div>
 
-  <div class="services-intro">
-    <p>
-      I help organizations build digital experiences that feel like a place,
-      not a product. The work below is three lenses on the same practice —
-      a senior designer's eye, applied at three different scales of organization.
-    </p>
-  </div>
-
-  <section class="service">
-    <h2 class="service__title">Senior UX &amp; Design Systems</h2>
-    <p>
-      Twenty-five years across enterprise products, healthcare platforms, and
-      data tools — in-house or as a contract design lead. The work shows up as
-      research, information architecture, interaction design, and the design
-      systems that hold a product together as it grows. The shape stays the
-      same regardless of domain: understand the people who use the thing, find
-      the structure the work actually wants, and build the components that let
-      a team ship coherently against it.
-    </p>
-    <p class="service__outcome">
-      <span class="service__outcome-label">A recent shape.</span>
-      Contract design lead on NielsenIQ's Discover platform — built the design
-      system from a 4px grid up, mapped the product information architecture,
-      and shaped the guided flows analysts now use to navigate retail data.
-      Related work for <a href="/work/optum/">Optum's care-management tools</a>
-      and <a href="/work/pattersondental/">Patterson Dental's customer-facing
-      site</a>. <a href="/work/nielseniq/">See the NielsenIQ work &rarr;</a>
-    </p>
+  <section class="band">
+    <div class="band__inner">
+      <span class="label label--gold">How I work</span>
+      <h2 class="band__title">Three things <em>every project gets</em></h2>
+      <div class="principles">
+        {principles.map((p) => (
+          <div class="principle">
+            <h3>{p.title}</h3>
+            <p>{p.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
   </section>
 
-  <section class="service">
-    <h2 class="service__title">Nonprofit Tech Strategy</h2>
-    <p>
-      Small organizations rarely need more software — they need the software
-      they already have to behave like a system. I work with mission-driven
-      teams on Salesforce, websites, photo and data archives, and the
-      operational scaffolding that connects them. The work usually starts at
-      the strategy layer — what are we actually trying to know about our work
-      and our people? — and ends in the tooling, not the other way around.
-      Built for budgets and staffing that have to outlast any one consultant.
-    </p>
-    <p class="service__outcome">
-      <span class="service__outcome-label">A recent shape.</span>
-      Designed and built an integrated strategic operating system for a small
-      mission-driven nonprofit — Salesforce as the system of record, a
-      public-facing website aligned to the program calendar, and an
-      AI-assisted photo indexer that turned a decade of unsearchable event
-      photography into institutional memory.
-      <a href="/work/dclt-donor-pipeline/">Read the donor-pipeline case study &rarr;</a>
-    </p>
+  <section class="cta-box reveal">
+    <h2>What is your place <em>carrying?</em></h2>
+    <p>Tell me what you’re working on. If I’m not the right fit, I’ll say so.</p>
+    <a class="button" href="/contact/">Start a conversation <span aria-hidden="true">→</span></a>
   </section>
-
-  <section class="service">
-    <h2 class="service__title">Small Site Builds</h2>
-    <p>
-      Modern, owner-operated websites for artists, small organizations, and
-      people who need a single clean signal on the open web. Built in Astro —
-      fast, accessible, dependency-light, easy to maintain. The goal is a site
-      you can keep without me: a calm structure, content you can edit in plain
-      Markdown, and no surprise renewal fees from a platform you don't control.
-    </p>
-    <p class="service__outcome">
-      <span class="service__outcome-label">A recent shape.</span>
-      A freelance murals portfolio, a personal site at krumpos.org, and a
-      regional arts site — each handed off to its owner running on
-      infrastructure they understand.
-    </p>
-  </section>
-
-  <div class="services-cta">
-    <p>
-      If any of this looks like a shape your work is asking for, the best next
-      step is a short note. Tell me what you're working on, and I'll tell you
-      whether I'm the right fit.
-    </p>
-    <p>
-      <a href="/contact/">Send me a note</a>
-    </p>
-  </div>
 </Base>
 
 <style>
-  .services-intro {
-    max-width: var(--max-width-prose);
+  .svc-head {
+    max-width: 46rem;
+  }
+
+  .svc-head h1 {
+    margin: 0.8rem 0 var(--space-md);
+  }
+
+  .svc-start {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-lg);
     margin-top: var(--space-xl);
+    padding: var(--space-lg);
+    background: var(--paper-bright);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--gold);
   }
 
-  .services-intro p {
-    font-size: 1.05rem;
-    color: var(--color-text-muted);
+  .svc-start h2 {
+    margin: 0.3rem 0 0.5rem;
   }
 
-  .service {
-    max-width: var(--max-width-prose);
+  .svc-start p {
+    color: var(--ink-muted);
+    max-width: 34rem;
+  }
+
+  .forms {
     margin-top: var(--space-2xl);
-    padding-top: var(--space-xl);
-    border-top: 1px solid var(--color-border);
   }
 
-  .service__title {
-    font-size: 1.25rem;
-    margin-bottom: var(--space-md);
+  .form {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: var(--space-2xl);
+    align-items: center;
+    padding: var(--space-2xl) 0;
+    border-top: 1px solid var(--rule);
   }
 
-  .service p {
-    margin-bottom: var(--space-md);
+  .form--flip .form__plate {
+    order: 2;
   }
 
-  .service__outcome {
-    font-size: 0.95rem;
-    color: var(--color-text-muted);
-    padding-left: var(--space-md);
-    border-left: 2px solid var(--color-border);
+  .form__plate img {
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    object-position: center top;
+  }
+
+  .form__plate img.is-contain {
+    object-fit: contain;
+    background: var(--paper-bright);
+    padding: 1rem;
+  }
+
+  .form__n {
+    font-family: var(--font-label);
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    color: var(--ochre);
+  }
+
+  .form__text h2 {
+    margin: 0.5rem 0 var(--space-md);
+  }
+
+  .form__text p {
+    font-size: 1.1rem;
+    color: var(--ink-muted);
+  }
+
+  .form__proof {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.4rem;
     margin-top: var(--space-lg);
+    padding-top: var(--space-md);
+    border-top: 1px dashed var(--rule-strong);
   }
 
-  .service__outcome-label {
-    font-weight: 500;
-    color: var(--color-text);
+  .form__proof a {
+    font-family: var(--font-label);
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
   }
 
-  .services-cta {
-    max-width: var(--max-width-prose);
-    margin-top: var(--space-2xl);
-    padding-top: var(--space-xl);
-    border-top: 1px solid var(--color-border);
+  .form__proof a::after {
+    content: ' →';
   }
 
-  .services-cta p {
-    margin-bottom: var(--space-md);
+  .band__title {
+    margin: 0.5rem 0 var(--space-xl);
+    max-width: 22ch;
   }
 
-  .services-cta a {
-    font-size: 1.05rem;
+  .principles {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-xl);
+    border-top: 1px solid rgba(233, 223, 203, 0.2);
+    padding-top: var(--space-lg);
+  }
+
+  .principle h3 {
+    font-size: 1.35rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .principle p {
+    font-size: 1.02rem;
+  }
+
+  @media (max-width: 860px) {
+    .form {
+      grid-template-columns: 1fr;
+      gap: var(--space-lg);
+    }
+
+    .form--flip .form__plate {
+      order: 0;
+    }
+
+    .principles {
+      grid-template-columns: 1fr;
+      gap: var(--space-lg);
+    }
+
+    .svc-start {
+      flex-direction: column;
+      align-items: flex-start;
+    }
   }
 </style>
