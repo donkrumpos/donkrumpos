@@ -62,7 +62,9 @@ own version: one signature, then quiet; fewer, bigger proofs; framed with space.
    every page matches at launch.
 3. **Inner pages (done 2026-11-11):** restyle Work, case studies, About, Services and Contact in the print-shop
    language (plates, tickets, paper proofs). Content comes from `~/Documents/Projects/freelance`.
-4. **Launch:** check mobile and accessibility, then push. A push is not a deploy: confirm the
-   Cloudflare Pages check-run.
+4. **Launch (pushed and live 2026-11-11):** the accessibility pass and a phone-width check of
+   every inner page are still owed. A push is not a deploy: confirm the Cloudflare Pages check-run.
+   - Same day: murals and personal work came off the site, Work became four lead proofs plus a
+     ledger, and the header became sticky with a hard-edged frost. See `CLAUDE.md` for the list.
 5. **Later:** Foggy's own ornaments, the drawn-in animation, and maybe "Well Made" as a brand or
    domain.

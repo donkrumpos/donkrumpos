@@ -43,25 +43,48 @@ enterprise design leadership stays as the corporate door. Strategy source:
   ending, so the old "don't pitch conservation" rule is lifted. The DCLT case
   studies stay as past work.
 
-## "Well Made" print shop (chosen 2026-11-10; site converted 2026-11-11)
+## "Well Made" print shop (chosen 2026-11-10; live 2026-11-11)
 
-**Status (2026-11-11):** build-plan steps 1–3 are done locally, not yet pushed.
-The whole site is in the print-shop language: `global.css` holds the tokens (ink
-+ rust; the old `--ochre`/`--gold` names now alias rust), the shell (strip,
-DK wordmark header, colophon footer), `.page-header` (the small broadside with
-the screened woodcut at the window edges, used at the top of every inner page),
-and the proof card (`ProofCard.astro`, used on `/` and `/work`). `/field-study`
-keeps its own two-column hero. The Lens is at `/lab` only. Left: step 4 (mobile
-and accessibility pass, then push).
+**Status (2026-11-11): live on donkrumpos.com.** Build-plan steps 1–3 are
+done and deployed. The whole site is in the print-shop language: `global.css`
+holds the tokens (ink + rust; the old `--ochre`/`--gold` names alias rust),
+the shell, `.page-header`, and the proof card (`ProofCard.astro`). The Lens is
+at `/lab` only. Prototype and plan: `archive/prototypes/home-2026-11/` and
+`docs/design-direction-2026-11.md`.
 
-Foggy locked the **"well-run print shop"** direction: the "Well Made" Fraunces 900
-masthead, ink + rust, B · Paper proofs, a flat-ink DK monogram + DON KRUMPOS in
-Libre Franklin tracked caps, and a screened-back woodcut landscape behind the hero.
-It **replaces the Lens at `/`** (the Lens stays at `/lab`). The prototype and full
-build plan are in `archive/prototypes/home-2026-11/` and
-`docs/design-direction-2026-11.md`. Read that doc before building. The section
-below describes the Lens, which is still what is deployed at `/` until the
-print shop is pushed.
+Decisions made on 2026-11-11, all live:
+
+- **No murals or personal work on this site.** They live with Yonder; the
+  footer and the About bio link there. The Worlds page is deleted (`/worlds`
+  redirects to `/about/`), Mill Madonnas is a draft (its URL redirects to
+  `/work/`), and the murals service is off Services. This narrows the
+  "Murals lead" line in the positioning section above: on this site the
+  practice shows maps, systems and design leadership only. `/field-study`
+  (unlisted) is still built around the Mill Madonnas story.
+- **Work page** = four lead proofs (the `LEADS` list in `work/index.astro`:
+  Optum, NielsenIQ, donor pipeline, Preserve Explorer), then "Also in the
+  book", a one-line-per-job ledger, then an "ask about any job" line.
+- **Header** is sticky (the top strip scrolls away) with a frosted, hard-edged
+  paper sheet behind it. On wide windows the inner-page woodcut runs up behind
+  the header to the strip's rule. The header must not change height when
+  stuck. `body` uses `overflow-x: clip`, not `hidden`, or sticky breaks.
+- **Per-page woodcut crops:** `data-art="lighthouse|farm|road"` on
+  `.page-header` (Work, About, Services). Pages without it show the whole block.
+
+Open:
+
+- The ledger has four rows. Foggy wants the fuller portfolio captured; a row
+  needs only year, name, kind and an optional award, and rows without a
+  write-up should not be links. The award is read from the description text
+  for now and wants a real `award` field.
+- Patterson Dental shows 2010 in the ledger but is dated 2011-01-01 (timezone
+  slip in `getFullYear()`).
+- Case studies should suggest a next piece, since Foggy sends direct links to
+  the one that fits each inquiry. An `unlisted` flag for audience-specific
+  case studies (Samsara, Eaglesoft) was proposed, not built.
+- "Interpretive design" interests Foggy as a direction; not yet on the site.
+- Build-plan step 4 (accessibility pass, inner pages at phone width) is only
+  partly done.
 
 ## The Lens (homepage 2026-09-07 to 2026-11; now `/lab`)
 
