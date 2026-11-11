@@ -1,12 +1,147 @@
 ---
-// The homepage IS the Lens (decided 2026-09-07): the porthole deep map,
-// opening each day on a different overlooked place. The old featured-work
-// grid this replaced was a subset of /work, where everything still lives.
-import TheLens from '../components/TheLens.astro';
+// The homepage is the print shop (locked 2026-11-10): the "Well Made"
+// broadside over a screened-back woodcut landscape, then three paper proofs
+// from the job book. Ported from archive/prototypes/home-2026-11/print-shop.html;
+// direction and build plan in docs/design-direction-2026-11.md.
+// The Lens, which lived here from 2026-09-07, stays at /lab.
+// Header, strip, footer and the proof card are shared (Base.astro, global.css).
+import Base from '../layouts/Base.astro';
+import ProofCard from '../components/ProofCard.astro';
+
+const title = 'Don Krumpos — Design & Build';
+const description =
+  'Don Krumpos designs and builds software, maps and the systems behind them, for health-care teams, data companies, and the nonprofits and land trusts that care for places. Algoma, Wisconsin.';
+
+const jobs: any[] = [
+  {
+    href: '/work/optum/',
+    proof: 'Proof 01 · Appointments, provider view',
+    img: { src: '/images/home/optum-appts.webp', width: 1100, height: 475, alt: 'Optum care-plan appointment list, nurse view' },
+    kind: 'Design system · Health care',
+    title: 'Optum care-plan platform',
+    blurb: 'One design system across fragmented clinical tools, built from field research with nurses and coordinators.',
+    facts: [['Client', 'Optum / UnitedHealth'], ['Role', 'Design lead'], ['Run', '2021']],
+  },
+  {
+    href: '/work/dclt-preserve-explorer/',
+    proof: 'Proof 02 · Preserve list beside the map',
+    img: { src: '/images/home/dclt-explorer.webp', width: 1000, height: 750, alt: "Preserve Explorer map of a land trust's preserves" },
+    kind: 'Map · Build',
+    title: 'Preserve Explorer',
+    blurb: "An interactive map of a land trust's preserves on hand-authored cartography, with no map vendor renting access to the land.",
+    facts: [['Client', 'Door County Land Trust'], ['Role', 'Design & build'], ['Stack', 'MapLibre · Astro']],
+  },
+  {
+    href: '/work/dclt-donor-pipeline/',
+    proof: 'Proof 03 · Every gift becomes a CRM record',
+    img: { src: '/images/home/dclt-pipeline.svg', width: 1200, height: 900, alt: 'Diagram of the donor pipeline: form, Stripe, Supabase, Salesforce, Resend' },
+    kind: 'System · Build',
+    title: 'Owned donor pipeline',
+    blurb: 'A rented donation platform replaced with a Stripe-to-Salesforce pipeline the staff can run themselves.',
+    facts: [['Client', 'Door County Land Trust'], ['Role', 'Design & build'], ['Stack', 'Stripe · Supabase']],
+  },
+];
 ---
 
-<TheLens
-  title="Don Krumpos — Designer & Builder"
-  plate="DON KRUMPOS · DESIGNER & BUILDER"
-  description="Designer and builder. 25 years of UX, design systems, and hand-built web — digital experiences that feel like a place, not a product."
-/>
+<Base title={title} description={description} bleed>
+  <section class="broadside" aria-labelledby="mast">
+    <div class="sheet">
+      <div class="field">
+        <div class="art" role="img" aria-label="Woodcut of a Great Lakes shoreline (lighthouse, farm, road) that turns, left to right, into a survey map with a plotted route.">
+          <div class="half half--l"><img class="piece" src="/images/home/land-left.webp" width="1588" height="1000" alt="" decoding="async" /></div>
+          <div class="half half--r"><img class="piece" src="/images/home/land-right.webp" width="1619" height="1000" alt="" decoding="async" /></div>
+        </div>
+
+        <p class="kicker label">Printed for organizations that look after things</p>
+
+        <p class="line-gothic wood">Product design <span class="dot">·</span> Systems <span class="dot">·</span> Maps</p>
+
+        <h1 id="mast" class="mast">Well Made</h1>
+
+        <p class="line-italic">software, set by hand <b>&amp;</b> built to run</p>
+
+        <div class="stage">
+          <div class="copy">
+            <p class="plain"><strong>I design and build software, maps and the systems behind them</strong>, for health-care teams like Optum, data companies like NielsenIQ, and the nonprofits and land trusts that care for places. Twenty-five years of product and design-system work, start to finish.</p>
+            <div class="actions">
+              <a class="button" href="#jobs">See the work</a>
+              <a class="button button--ghost" href="/contact/">Start a project</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="imprint label">
+        <span>Health care · Data · Conservation</span>
+        <span>Algoma, Wisconsin</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="jobs" id="jobs" aria-labelledby="jobs-h">
+    <h2 id="jobs-h" class="work-section__title">
+      <span class="wood">From the job book</span>
+      <a href="/work/">All work →</a>
+    </h2>
+
+    <div class="project-grid">
+      {jobs.map((job) => <ProofCard {...job} />)}
+    </div>
+  </section>
+</Base>
+
+<style>
+/* ---------- the broadside ---------- */
+.broadside{max-width:var(--max-width);margin:8px auto 0;padding:0 var(--gutter)}
+.sheet{position:relative;text-align:center}
+.kicker{display:flex;align-items:center;gap:18px;justify-content:center;color:var(--rust)}
+.kicker::before,.kicker::after{content:"";height:1px;flex:1;max-width:220px;background:var(--rust)}
+
+.line-gothic{font-family:var(--font-gothic);font-weight:800;text-transform:uppercase;letter-spacing:.06em;font-size:clamp(22px,3.4vw,46px);line-height:1;margin-top:clamp(12px,1.6vw,20px)}
+.line-gothic .dot{color:var(--rust)}
+
+/* the masthead: one impression of ink, pressed into the paper.
+   No shadow; a speckle mask stands in for worn type and uneven inking. */
+.mast{position:relative;display:inline-block;text-transform:uppercase;font-size:calc(1.06 * clamp(52px,8.2vw,118px));line-height:.9;letter-spacing:-.01em;margin:clamp(8px,1.2vw,14px) 0 clamp(4px,.8vw,8px);
+  -webkit-mask-image:var(--wear);mask-image:var(--wear)}
+
+.line-italic{margin-top:0;font-family:var(--font-display);font-style:italic;font-weight:300;font-size:clamp(24px,3.2vw,44px);line-height:1.1;letter-spacing:-.01em}
+.line-italic b{font-weight:400;color:var(--rust)}
+
+/* the field: the landscape, screened back, is the ground the whole hero
+   is printed on. Two halves anchored to the window edges; the lake opens
+   in the middle and the masthead and copy sit in the water. */
+.field{position:relative;padding:clamp(28px,4vw,64px) 0 clamp(56px,7vw,110px)}
+.field > :not(.art){position:relative;z-index:1}
+.art{position:absolute;z-index:0;top:0;bottom:0;left:calc(50% - 50vw);width:100vw;pointer-events:none;overflow:hidden}
+.half{position:absolute;top:0;bottom:0}
+.half--l{left:var(--pull,-7vw)}.half--r{right:var(--pull,-7vw)}
+.piece{display:block;height:100%;width:auto;max-width:none;opacity:var(--screen,.2)}
+.stage{margin-top:clamp(14px,2vw,26px)}
+.copy{max-width:34em;margin:0 auto}
+@media (max-width:1000px){
+  .field{display:flex;flex-direction:column;padding-bottom:0}
+  .art{order:9;position:relative;left:auto;width:auto;height:36vw;margin:clamp(20px,4vw,32px) calc(-1 * var(--gutter)) 0}
+  .piece{opacity:1}
+  .half--l{left:0}.half--r{right:0}
+}
+@media (max-width:640px){.art{height:42vw}}
+
+.plain{max-width:40em;margin:0 auto;font-size:clamp(17px,1.35vw,19px);line-height:1.55;color:var(--ink-muted)}
+.plain strong{color:var(--ink);font-weight:400}
+.actions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:clamp(16px,2vw,24px)}
+
+.imprint{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:clamp(22px,2.6vw,32px);padding-top:14px;border-top:1px solid var(--rule-strong)}
+
+/* ---------- the job book ---------- */
+.jobs{max-width:var(--max-width);margin:clamp(40px,5vw,72px) auto 0;padding:0 var(--gutter)}
+
+@media (max-width:640px){
+  .imprint{justify-content:center;text-align:center}
+  .mast{font-size:calc(1.06 * 19vw)}
+}
+@media (max-width:1000px) and (min-width:769px){
+  .jobs :global(.project-grid){grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+.line-italic,.kicker,.plain{text-wrap:balance}
+</style>

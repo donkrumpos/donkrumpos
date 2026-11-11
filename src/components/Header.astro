@@ -1,4 +1,6 @@
 ---
+// The shop front: a top strip, then the DK monogram + tracked-caps wordmark
+// and the nav. Styles live in global.css (SHELL).
 import { getCollection } from 'astro:content';
 
 const currentPath = Astro.url.pathname;
@@ -16,25 +18,29 @@ const navLinks = [
 ];
 ---
 
+<div class="strip label">
+  <span>Don Krumpos · Design &amp; Build</span>
+  <span>Algoma, Wisconsin · 25 years at the trade</span>
+</div>
+
 <header class="site-header">
-  <div class="container">
-    <div class="site-name">
-      <a href="/">Don Krumpos</a>
-      <span class="site-name__sub">Place &amp; Story · Algoma, Wisconsin</span>
-    </div>
-    <nav aria-label="Main">
-      <ul class="site-nav">
-        {navLinks.map(link => (
-          <li>
-            <a
-              href={link.href}
-              class:list={[{ active: currentPath.startsWith(link.href) }]}
-            >
-              {link.label}
-            </a>
-          </li>
-        ))}
-      </ul>
-    </nav>
-  </div>
+  <a class="wm" href="/" aria-label="Don Krumpos, home">
+    <img class="wm__mark" src="/images/home/dk-ink.png" alt="" width="128" height="144" />
+    <span class="wm__name">Don Krumpos</span>
+  </a>
+  <nav aria-label="Main">
+    <ul class="site-nav">
+      {navLinks.map(link => (
+        <li>
+          <a
+            href={link.href}
+            class:list={[{ active: currentPath.startsWith(link.href) }]}
+            aria-current={currentPath.startsWith(link.href) ? 'page' : undefined}
+          >
+            {link.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </nav>
 </header>

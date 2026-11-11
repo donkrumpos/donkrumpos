@@ -1,0 +1,41 @@
+---
+// A paper proof with its job ticket: the one card the job book is made of.
+// Used on the homepage and on /work. Styles live in global.css (THE JOB BOOK).
+interface Props {
+  href: string;
+  /** The line along the top of the plate, e.g. "Proof 01 · Appointments, provider view" */
+  proof: string;
+  img: { src: string; alt: string; width?: number; height?: number };
+  kind: string;
+  title: string;
+  blurb: string;
+  /** Ticket rows, e.g. [['Client', 'Optum'], ['Role', 'Design lead']] */
+  facts?: [string, string][];
+  eager?: boolean;
+}
+
+const { href, proof, img, kind, title, blurb, facts = [], eager = false } = Astro.props;
+---
+
+<a class="job" href={href}>
+  <div class="job__plate">
+    <i class="reg"></i><i class="reg"></i><i class="reg"></i><i class="reg"></i>
+    <span class="job__no label">{proof}</span>
+    <img src={img.src} width={img.width} height={img.height} alt={img.alt} loading={eager ? 'eager' : 'lazy'} decoding="async" />
+  </div>
+  <div class="ticket">
+    <span class="label kind">{kind}</span>
+    <h3>{title}</h3>
+    <p>{blurb}</p>
+    {facts.length > 0 && (
+      <dl class="label">
+        {facts.map(([term, value]) => (
+          <>
+            <dt>{term}</dt>
+            <dd>{value}</dd>
+          </>
+        ))}
+      </dl>
+    )}
+  </div>
+</a>

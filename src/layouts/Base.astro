@@ -8,9 +8,11 @@ interface Props {
   description?: string;
   noindex?: boolean;
   ogImage?: string;
+  /** Full-bleed pages (the homepage) lay out their own sections. */
+  bleed?: boolean;
 }
 
-const { title, description = 'Portfolio of Don Krumpos — designer and builder. UX, design systems, and hand-built web.', noindex = false, ogImage } = Astro.props;
+const { title, description = 'Portfolio of Don Krumpos — designer and builder. UX, design systems, and hand-built web.', noindex = false, ogImage, bleed = false } = Astro.props;
 const ogImageUrl = ogImage ? new URL(ogImage, Astro.site) : undefined;
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
 ---
@@ -37,16 +39,27 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
     </>
   )}
 
-  <!-- Field-journal type: Fraunces (display), Newsreader (reading), IBM Plex Mono (field labels) -->
+  <link rel="canonical" href={canonicalUrl} />
+
+  <!-- Print-shop type: Fraunces (masthead, titles), Newsreader (reading),
+       IBM Plex Mono (labels), Big Shoulders (wood-type lines), Libre Franklin
+       (wordmark). Only the weights the site sets. -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..600,0..100,0..1;1,9..144,300..600,0..100,0..1&family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@800&family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..500&family=IBM+Plex+Mono:wght@400;500&family=Libre+Franklin:wght@600&family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..500&display=swap" rel="stylesheet">
   <meta name="theme-color" content="#f4efe4" />
 </head>
 <body>
   <script is:inline>document.documentElement.classList.add('js');</script>
+  <!-- ink squash: roughens wood-type edges (.wood) like a real impression -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <filter id="ink" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="7" result="t" />
+      <feDisplacementMap in="SourceGraphic" in2="t" scale="2.2" xChannelSelector="R" yChannelSelector="G" />
+    </filter>
+  </svg>
   <Header />
-  <main class="container">
+  <main class:list={[{ container: !bleed }]}>
     <slot />
   </main>
   <Footer />

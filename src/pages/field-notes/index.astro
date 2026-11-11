@@ -50,24 +50,15 @@ const pad = (n: number) => String(n).padStart(2, '0');
 </Base>
 
 <style>
-  .notes-head {
-    max-width: 46rem;
-  }
-
-  .notes-head h1 {
-    margin: 0.8rem 0 var(--space-md);
-  }
-
   .notes-empty {
-    margin-top: var(--space-xl);
+    text-align: center;
     font-style: italic;
     color: var(--ink-muted);
   }
 
   .notes {
     list-style: none;
-    margin-top: var(--space-2xl);
-    border-top: 1px solid var(--rule);
+    border-top: 2px solid var(--ink);
   }
 
   .note-row {

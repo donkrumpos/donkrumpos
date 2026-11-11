@@ -53,14 +53,14 @@ own version: one signature, then quiet; fewer, bigger proofs; framed with space.
 
 ## Build plan (next sessions)
 
-1. **Homepage:** port the prototype into Astro as `src/pages/index.astro`. The Lens moves off `/`
-   and stays at `/lab`.
+1. **Homepage (done 2026-11-10):** port the prototype into Astro as `src/pages/index.astro`. The
+   Lens moves off `/` and stays at `/lab`.
    - Convert the landscape halves to WebP; they are about 770 KB as PNG.
    - Load fonts with only the weights used.
    - Drop the prototype switcher.
-2. **Site-wide shell:** carry the new header, strip and footer imprint into the shared layout, so
+2. **Site-wide shell (done 2026-11-11):** carry the new header, strip and footer imprint into the shared layout, so
    every page matches at launch.
-3. **Inner pages:** restyle Work, case studies, About, Services and Contact in the print-shop
+3. **Inner pages (done 2026-11-11):** restyle Work, case studies, About, Services and Contact in the print-shop
    language (plates, tickets, paper proofs). Content comes from `~/Documents/Projects/freelance`.
 4. **Launch:** check mobile and accessibility, then push. A push is not a deploy: confirm the
    Cloudflare Pages check-run.

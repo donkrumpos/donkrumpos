@@ -25,11 +25,11 @@ const { liveUrl } = project.data;
   <div class="project-detail">
     <a href="/work/" class="back-link">&larr; Back to work</a>
 
-    <div class="project-detail__header">
-      <span class="project-detail__category">{project.data.category}</span>
-      <h1 class="project-detail__title">{project.data.title}</h1>
-      <p class="project-detail__lede">{project.data.description}</p>
-    </div>
+    <header class="page-header">
+      <span class="label">{project.data.category}</span>
+      <h1>{project.data.title}</h1>
+      <p class="page-header__subtitle">{project.data.description}</p>
+    </header>
 
     {/* Case study metadata */}
     <div class="project-detail__meta-grid">
@@ -46,7 +46,7 @@ const { liveUrl } = project.data;
         </div>
       )}
       <div class="meta-item">
-        <span class="meta-label">Year</span>
+        <span class="meta-label">Run</span>
         <span class="meta-value">{dateFormatted}</span>
       </div>
       {project.data.tools && project.data.tools.length > 0 && (
@@ -59,18 +59,21 @@ const { liveUrl } = project.data;
 
     {/* Hero image */}
     <div class="project-detail__hero">
-      {liveUrl ? (
-        <>
-          {/* Image link duplicates the CTA, so keep it out of the tab order */}
+      <div class="proof-sheet">
+        <i class="reg"></i><i class="reg"></i><i class="reg"></i><i class="reg"></i>
+        {liveUrl ? (
+          /* Image link duplicates the CTA, so keep it out of the tab order */
           <a href={liveUrl} target="_blank" rel="noopener" class="project-detail__hero-link" tabindex="-1" aria-hidden="true">
             <img src={heroSrc} alt="" />
           </a>
-          <a href={liveUrl} target="_blank" rel="noopener" class="project-detail__live-cta">
-            See it live right now &rarr;<span class="sr-only"> (opens in a new tab)</span>
-          </a>
-        </>
-      ) : (
-        <img src={heroSrc} alt={project.data.title} />
+        ) : (
+          <img src={heroSrc} alt={project.data.title} />
+        )}
+      </div>
+      {liveUrl && (
+        <a href={liveUrl} target="_blank" rel="noopener" class="project-detail__live-cta">
+          See it live right now &rarr;<span class="sr-only"> (opens in a new tab)</span>
+        </a>
       )}
     </div>
 

@@ -136,14 +136,6 @@ const principles = [
 </Base>
 
 <style>
-  .svc-head {
-    max-width: 46rem;
-  }
-
-  .svc-head h1 {
-    margin: 0.8rem 0 var(--space-md);
-  }
-
   .svc-start {
     display: flex;
     justify-content: space-between;
@@ -152,8 +144,8 @@ const principles = [
     margin-top: var(--space-xl);
     padding: var(--space-lg);
     background: var(--paper-bright);
-    border: 1px solid var(--rule);
-    border-left: 3px solid var(--gold);
+    border: 1px solid var(--ink);
+    border-left: 4px solid var(--rust);
   }
 
   .svc-start h2 {
@@ -166,7 +158,12 @@ const principles = [
   }
 
   .forms {
-    margin-top: var(--space-2xl);
+    margin-top: 0;
+  }
+
+  .form:first-child {
+    border-top: 0;
+    padding-top: var(--space-lg);
   }
 
   .form {
@@ -195,10 +192,12 @@ const principles = [
   }
 
   .form__n {
-    font-family: var(--font-label);
-    font-size: 0.7rem;
-    letter-spacing: 0.14em;
-    color: var(--ochre);
+    font-family: var(--font-gothic);
+    font-weight: 800;
+    font-size: 2rem;
+    line-height: 1;
+    letter-spacing: 0.04em;
+    color: var(--rust);
   }
 
   .form__text h2 {

@@ -16,10 +16,13 @@ const facts = [
   title="About | Don Krumpos"
   description="Don Krumpos is an artist, designer and builder in Algoma, Wisconsin, who finds the overlooked stories in places and gives them form."
 >
+  <header class="page-header">
+    <span class="label">About</span>
+    <h1>Artist, designer, <em>builder</em></h1>
+  </header>
+
   <section class="about">
     <div class="about__text">
-      <span class="label">About</span>
-      <h1>Artist, designer, <em>builder</em></h1>
 
       <p class="about__lede">
         I’m Don Krumpos. I live and work in Algoma, Wisconsin, a small town on
@@ -91,12 +94,7 @@ const facts = [
     display: grid;
     grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
     gap: var(--space-2xl);
-    margin-top: var(--space-2xl);
     align-items: start;
-  }
-
-  .about h1 {
-    margin: 0.8rem 0 var(--space-lg);
   }
 
   .about__text p {
@@ -148,16 +146,19 @@ const facts = [
     gap: 0.5rem;
     padding: 1.4rem;
     background: var(--paper-bright);
-    border: 1px solid var(--rule);
+    border: 1px solid var(--ink);
     text-decoration: none;
     color: var(--ink);
-    transition: border-color var(--transition), transform var(--transition);
+    transition: background var(--transition);
+  }
+
+  .about-link .label {
+    color: var(--rust);
   }
 
   .about-link:hover {
     color: var(--ink);
-    border-color: var(--rule-strong);
-    transform: translateY(-2px);
+    background: var(--paper-deep);
   }
 
   .about-link__title {

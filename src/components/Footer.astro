@@ -1,9 +1,10 @@
 ---
+// The colophon: a heavy rule, the practice line, and the imprint.
 const year = new Date().getFullYear();
 ---
 
 <footer class="site-footer">
-  <div class="container">
+  <div class="site-footer__inner">
     <div class="site-footer__main">
       <p class="site-footer__line">
         Finding the story of a place, and giving it form.
@@ -13,8 +14,8 @@ const year = new Date().getFullYear();
         gallery in Algoma, with Erin LaBonte. Murals, prints, and creative work.
       </p>
     </div>
-    <div class="site-footer__meta">
-      <span class="site-footer__coords">44.61° N · 87.43° W</span>
+    <div class="site-footer__meta label">
+      <span>Algoma, Wisconsin · 44.61° N · 87.43° W</span>
       <span>&copy; {year} Don Krumpos</span>
     </div>
   </div>
@@ -27,35 +28,31 @@ const year = new Date().getFullYear();
 
   .site-footer__line {
     font-family: var(--font-display);
-    font-size: 1.6rem;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 1.5rem;
     line-height: 1.2;
-    color: var(--umber-text);
-    margin-bottom: var(--space-md);
+    letter-spacing: -0.01em;
+    margin-bottom: var(--space-sm);
   }
 
   .site-footer__yonder {
-    font-size: 0.95rem;
-    color: var(--umber-muted);
+    font-size: 0.92rem;
+    color: var(--ink-muted);
   }
 
   .site-footer__meta {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    gap: 0.3rem;
-    font-family: var(--font-label);
-    font-size: 0.64rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-  }
-
-  .site-footer__coords {
-    color: var(--gold);
+    gap: 6px;
+    text-align: right;
   }
 
   @media (max-width: 768px) {
     .site-footer__meta {
       align-items: flex-start;
+      text-align: left;
     }
   }
 </style>

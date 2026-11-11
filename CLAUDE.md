@@ -30,9 +30,10 @@ Murals lead; maps/interpretive work and donor/CRM systems are further forms;
 enterprise design leadership stays as the corporate door. Strategy source:
 `reliquary/career/place-and-story-practice.md`.
 
-- **Design system:** the field journal (`src/styles/global.css`): Lens palette
-  site-wide, Fraunces / Newsreader / IBM Plex Mono, plates, pin-rules, umber
-  band. Foggy loved it; don't drift back to stock/minimal.
+- **Design system:** the print shop (`src/styles/global.css`), which grew out
+  of the field journal: paper, ink + rust, Fraunces / Newsreader / IBM Plex
+  Mono, paper proofs with registration marks, tickets, the umber band. Don't
+  drift back to stock/minimal.
 - **`/field-study`** is the entry offer, **unlisted until 2027-01-01** (noindex,
   sitemap filter, not in nav; `FIELD_STUDY_PUBLIC` in services.astro). To
   launch, flip all four.
@@ -42,7 +43,16 @@ enterprise design leadership stays as the corporate door. Strategy source:
   ending, so the old "don't pitch conservation" rule is lifted. The DCLT case
   studies stay as past work.
 
-## Next homepage: "Well Made" print shop (chosen 2026-11-10, not yet built)
+## "Well Made" print shop (chosen 2026-11-10; site converted 2026-11-11)
+
+**Status (2026-11-11):** build-plan steps 1–3 are done locally, not yet pushed.
+The whole site is in the print-shop language: `global.css` holds the tokens (ink
++ rust; the old `--ochre`/`--gold` names now alias rust), the shell (strip,
+DK wordmark header, colophon footer), `.page-header` (the small broadside with
+the screened woodcut at the window edges, used at the top of every inner page),
+and the proof card (`ProofCard.astro`, used on `/` and `/work`). `/field-study`
+keeps its own two-column hero. The Lens is at `/lab` only. Left: step 4 (mobile
+and accessibility pass, then push).
 
 Foggy locked the **"well-run print shop"** direction: the "Well Made" Fraunces 900
 masthead, ink + rust, B · Paper proofs, a flat-ink DK monogram + DON KRUMPOS in
@@ -50,11 +60,12 @@ Libre Franklin tracked caps, and a screened-back woodcut landscape behind the he
 It **replaces the Lens at `/`** (the Lens stays at `/lab`). The prototype and full
 build plan are in `archive/prototypes/home-2026-11/` and
 `docs/design-direction-2026-11.md`. Read that doc before building. The section
-below describes what is live today.
+below describes the Lens, which is still what is deployed at `/` until the
+print shop is pushed.
 
-## The homepage is the Lens (as of 2026-09-07)
+## The Lens (homepage 2026-09-07 to 2026-11; now `/lab`)
 
-`/` renders `src/components/TheLens.astro` — the fullscreen porthole deep map
+`src/components/TheLens.astro` is — the fullscreen porthole deep map
 (MapLibre over `public/map/dk-sepia.json`, gold mural pins from
 `public/lab/pins.json`, silver case-study pins, daily "overlooked place"
 opening). `/lab` is the same component mounted as the archived Lab 001

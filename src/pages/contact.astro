@@ -11,6 +11,7 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
 
 <Base title="Contact — Don Krumpos" description="Get in touch about design, web, and systems work.">
   <div class="page-header">
+    <span class="label">Start a project</span>
     <h1 class="page-header__title">Contact</h1>
   </div>
 
@@ -51,7 +52,7 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
           data-theme="auto"
         ></div>
       )}
-      <button type="submit" class="form-submit">Send message</button>
+      <button type="submit" class="button form-submit">Send message</button>
     </form>
     <script is:inline>
       // Arriving from /field-study: prompt for the place, not the project.
@@ -89,7 +90,9 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
 <style>
   .contact-form {
     margin-top: var(--space-lg);
-    max-width: 480px;
+    padding: clamp(18px, 3vw, 28px);
+    background: var(--paper-bright);
+    border: 1px solid var(--ink);
   }
 
   .form-group {
@@ -98,9 +101,12 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
 
   .form-group label {
     display: block;
-    font-size: 0.85rem;
-    color: var(--color-text-muted);
-    margin-bottom: var(--space-xs);
+    font-family: var(--font-label);
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-bottom: 6px;
   }
 
   .form-group input,
@@ -108,18 +114,19 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
     width: 100%;
     padding: 0.6rem 0.75rem;
     font-family: var(--font-body);
-    font-size: 0.95rem;
-    color: var(--color-text);
-    background: var(--color-surface);
-    border: 1px solid var(--color-border);
-    border-radius: 3px;
+    font-size: 1rem;
+    color: var(--ink);
+    background: var(--paper);
+    border: 1px solid var(--rule-strong);
+    border-radius: 0;
     transition: border-color var(--transition);
   }
 
   .form-group input:focus,
   .form-group textarea:focus {
-    outline: none;
-    border-color: var(--color-text-muted);
+    outline: 2px solid var(--rust);
+    outline-offset: 1px;
+    border-color: var(--ink);
   }
 
   .form-group textarea {
@@ -139,24 +146,6 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
     margin-bottom: var(--space-md);
   }
 
-  .form-submit {
-    display: inline-block;
-    padding: 0.6rem 1.5rem;
-    font-family: var(--font-body);
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: var(--color-bg);
-    background: var(--color-text);
-    border: 1px solid var(--color-text);
-    border-radius: 3px;
-    cursor: pointer;
-    transition: opacity var(--transition);
-  }
-
-  .form-submit:hover {
-    opacity: 0.85;
-  }
-
   .form-submit:disabled {
     opacity: 0.5;
     cursor: not-allowed;
@@ -165,12 +154,13 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
   .form-message {
     margin-top: var(--space-lg);
     padding: var(--space-md);
-    border: 1px solid var(--color-border);
-    border-radius: 3px;
+    background: var(--paper-bright);
+    border: 1px solid var(--ink);
   }
 
   .form-message--error {
-    border-color: #c44;
+    border-color: var(--rust);
+    border-left-width: 4px;
   }
 </style>
 
