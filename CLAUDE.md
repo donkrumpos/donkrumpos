@@ -38,8 +38,19 @@ enterprise design leadership stays as the corporate door. Strategy source:
   launch, flip all four.
 - **Field Notes** (`src/content/notes/`): Foggy's voice and hand only. Drafts
   build in dev only; nav link appears with the first published note.
-- **Never name Door County orgs as prospects or pitch conservation** while the
-  DCLT contract runs; the existing DCLT case studies stay as past work.
+- **Conservation is fair game again (2026-11-10):** the DCLT contract is
+  ending, so the old "don't pitch conservation" rule is lifted. The DCLT case
+  studies stay as past work.
+
+## Next homepage: "Well Made" print shop (chosen 2026-11-10, not yet built)
+
+Foggy locked the **"well-run print shop"** direction: the "Well Made" Fraunces 900
+masthead, ink + rust, B · Paper proofs, a flat-ink DK monogram + DON KRUMPOS in
+Libre Franklin tracked caps, and a screened-back woodcut landscape behind the hero.
+It **replaces the Lens at `/`** (the Lens stays at `/lab`). The prototype and full
+build plan are in `archive/prototypes/home-2026-11/` and
+`docs/design-direction-2026-11.md`. Read that doc before building. The section
+below describes what is live today.
 
 ## The homepage is the Lens (as of 2026-09-07)
 
