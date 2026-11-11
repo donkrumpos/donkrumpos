@@ -59,7 +59,6 @@ const { title, plate, description, noindex = false } = Astro.props;
       <nav id="navlinks">
         <a href="/work">Work</a>
         <a href="/services">Services</a>
-        <a href="/worlds">Worlds</a>
         <a href="/about">About</a>
         <a href="/contact">Contact</a>
       </nav>
@@ -82,16 +81,6 @@ const { title, plate, description, noindex = false } = Astro.props;
       <button class="chip gold on" data-register="walls">Walls</button>
       <button class="chip silver on" data-register="systems">Systems</button>
     </div>
-
-    <!-- the third register: gold is painted, silver is built — this door is
-         imagined. A marginal note off the map edge, pointing at /worlds. -->
-    <a id="dragons" href="/worlds" title="the imagined territory">
-      <svg viewBox="0 0 36 24" fill="none" stroke-width="1.4" stroke-linecap="round" aria-hidden="true">
-        <path d="M2 16 C 6 8, 10 8, 13 14 S 19 20, 23 14 S 28 7, 31 10" />
-        <path d="M31 10 c 2.2 -1.4, 3.4 -0.6, 3 1.8 c -1.6 0.4, -2.8 -0.2, -3 -1.8 z" fill="currentColor" stroke="none" />
-      </svg>
-      <span>here be dragons</span>
-    </a>
 
     <div id="caption">
       <div id="caption-over"></div>
@@ -935,7 +924,7 @@ const { title, plate, description, noindex = false } = Astro.props;
   // lens first, and `open` guards the rest.
   addEventListener('click', (e) => {
     if (open) return;
-    if ((e.target as HTMLElement).closest('#bar, #card, #chips, #dragons')) return;
+    if ((e.target as HTMLElement).closest('#bar, #card, #chips')) return;
     openLens();
   });
   addEventListener('wheel', (e) => { if (!open && e.deltaY > 0) openLens(); }, { passive: true });
