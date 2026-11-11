@@ -267,25 +267,23 @@ html { scroll-padding-top: 84px; }
    hairline along the bottom. The header keeps its height: resizing it while
    stuck shifts the page and makes the scroll position jump. */
 .site-header.is-stuck::before {
-  inset: 0;
+  /* reaches up past the top edge so nothing shows in the phone's status-bar area */
+  inset: -120px 0 0;
   background: color-mix(in srgb, var(--paper) 90%, transparent);
-  -webkit-mask-image: none;
-  mask-image: none;
-  border-bottom: 1px solid var(--rule-strong);
+  border-bottom-color: var(--rule-strong);
 }
 /* A frosted sheet under the wordmark and nav keeps them readable over the
-   woodcut. It dissolves toward the bottom so the art has no hard edge. */
+   woodcut. It ends in a hard edge with a hairline, like a sheet laid on top. */
 .site-header::before {
   content: '';
   position: absolute;
-  inset: 0 0 -28px;
+  inset: 0;
+  border-bottom: 1px solid var(--rule);
   z-index: -1;
   pointer-events: none;
   background: color-mix(in srgb, var(--paper) 62%, transparent);
   -webkit-backdrop-filter: blur(5px);
   backdrop-filter: blur(5px);
-  -webkit-mask-image: linear-gradient(to bottom, #000 55%, transparent);
-  mask-image: linear-gradient(to bottom, #000 55%, transparent);
 }
 @media (min-width: 901px) {
   main .page-header::before { top: calc(-1 * var(--header-h, 80px)); }
