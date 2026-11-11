@@ -64,6 +64,14 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
   </main>
   <Footer />
   <script>
+    // The header sticks; mark it once the page has scrolled under it.
+    const head = document.querySelector('.site-header');
+    if (head) {
+      const mark = () => head.classList.toggle('is-stuck', head.getBoundingClientRect().top <= 0 && scrollY > 8);
+      addEventListener('scroll', mark, { passive: true });
+      mark();
+    }
+
     // Reveal-on-scroll for any element marked .reveal
     const els = document.querySelectorAll('.reveal');
     if (!('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) {

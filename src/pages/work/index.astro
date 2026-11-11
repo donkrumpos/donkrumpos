@@ -13,65 +13,86 @@ const projects = (await getCollection('projects', ({ data }) => !data.draft))
     return b.data.date.getTime() - a.data.date.getTime();
   });
 
-// Group by category. Murals are off this site (2026-11-11; they live with
-// Yonder), so 'Public Art' entries stay drafts. The schema enum is unchanged.
-const categories = ['Public Art', 'Web & Systems', 'Design Systems', 'UI/UX', 'Branding', 'Print'] as const;
-const displayName: Record<string, string> = {
-  'Public Art': 'Walls',
+// The book has two parts (2026-11-11): a few lead proofs shown large, then a
+// ledger of everything else, one line per job. Murals are off this site (they
+// live with Yonder), so 'Public Art' entries stay drafts.
+const LEADS = ['optum', 'nielseniq', 'dclt-donor-pipeline', 'dclt-preserve-explorer'];
+const kindName: Record<string, string> = {
   'Web & Systems': 'Maps, tools & systems',
-  'Design Systems': 'Design systems',
+  'Design Systems': 'Design system',
   'UI/UX': 'Product & web design',
   'Branding': 'Brand',
   'Print': 'Print',
 };
-const grouped = categories
-  .map(cat => ({
-    name: cat,
-    projects: projects.filter(p => p.data.category === cat),
-  }))
-  .filter(g => g.projects.length > 0);
+const leads = LEADS.map(id => projects.find(p => p.id === id)).filter(p => !!p);
+const ledger = projects
+  .filter(p => !LEADS.includes(p.id))
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 
-// Proofs are numbered straight through the book, across sections.
-let proofNo = 0;
+// "Client — What it was" titles split into the two ledger columns.
+const split = (title: string) => {
+  const [name, ...rest] = title.split(' — ');
+  return { name, what: rest.join(' — ') };
+};
+// Until there is an `award` field, read it from the description.
+const award = (d: { description: string }) =>
+  d.description.includes('Awwwards') ? 'Awwwards Site of the Day' : '';
 ---
 
 <Base title="Work | Don Krumpos" description="Product design, design systems, maps and the systems behind them: twenty-five years of work by Don Krumpos.">
   <div class="page-header" data-art="lighthouse">
     <span class="label">The job book</span>
-    <h1 class="page-header__title">Software, maps <em>&amp; systems</em></h1>
+    <h1 class="page-header__title">Software, maps &amp; <em>systems</em></h1>
     <p class="page-header__subtitle">Product design, design systems, maps and the tools behind them. Twenty-five years of work, start to finish.</p>
   </div>
 
-  {grouped.map(group => (
-    <section class="work-section">
-      <h2 class="work-section__title">
-        <span class="wood">{displayName[group.name] ?? group.name}</span>
-        {group.name === 'Public Art' && (
-          <a href="https://www.yonderartland.com/murals/">Every wall on the map →</a>
-        )}
-      </h2>
-      <div class="project-grid">
-        {group.projects.map(project => {
-          proofNo += 1;
-          const d = project.data;
-          const facts: [string, string][] = [];
-          if (d.client) facts.push(['Client', d.client]);
-          if (d.role) facts.push(['Role', d.role]);
-          facts.push(['Run', String(d.date.getFullYear())]);
-          return (
-            <ProofCard
-              href={`/work/${project.id}/`}
-              proof={`Proof ${String(proofNo).padStart(2, '0')}${d.client ? ` · ${d.client}` : ''}`}
-              img={{ src: d.thumbnail, alt: '' }}
-              kind={displayName[d.category] ?? d.category}
-              title={d.title}
-              blurb={d.description}
-              facts={facts}
-              eager={proofNo <= 3}
-            />
-          );
-        })}
-      </div>
-    </section>
-  ))}
+  <section class="work-section">
+    <h2 class="work-section__title"><span class="wood">Lead proofs</span></h2>
+    <div class="project-grid project-grid--lead">
+      {leads.map((project, i) => {
+        const d = project.data;
+        const facts: [string, string][] = [];
+        if (d.client) facts.push(['Client', d.client]);
+        if (d.role) facts.push(['Role', d.role]);
+        facts.push(['Run', String(d.date.getFullYear())]);
+        return (
+          <ProofCard
+            href={`/work/${project.id}/`}
+            proof={`Proof ${String(i + 1).padStart(2, '0')}${d.client ? ` · ${d.client}` : ''}`}
+            img={{ src: d.thumbnail, alt: '' }}
+            kind={kindName[d.category] ?? d.category}
+            title={d.title}
+            blurb={d.description}
+            facts={facts}
+            eager={i < 2}
+          />
+        );
+      })}
+    </div>
+  </section>
+
+  <section class="work-section">
+    <h2 class="work-section__title"><span class="wood">Also in the book</span></h2>
+    <ol class="ledger">
+      {ledger.map(project => {
+        const d = project.data;
+        const { name } = split(d.title);
+        return (
+          <li>
+            <a class="ledger__row" href={`/work/${project.id}/`}>
+              <span class="ledger__year label">{d.date.getFullYear()}</span>
+              <span class="ledger__name">{name}</span>
+              <span class="ledger__what">{kindName[d.category] ?? d.category}</span>
+              <span class="ledger__note label">{award(d)}</span>
+              <span class="ledger__go" aria-hidden="true">→</span>
+            </a>
+          </li>
+        );
+      })}
+    </ol>
+    <p class="ledger__ask">
+      There is more in the drawers than fits on this page.
+      <a href="/contact/">Ask about any job in the book →</a>
+    </p>
+  </section>
 </Base>
