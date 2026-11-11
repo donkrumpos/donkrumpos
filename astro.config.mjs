@@ -10,7 +10,8 @@ export default defineConfig({
   // until 2027-01-01 — keep all three out of the sitemap.
   integrations: [mdx(), sitemap({ filter: (page) => !page.includes('/articles') && !page.includes('/lab') && !page.includes('/field-study') })],
   // The personal-work page came off the site 2026-11-11; Yonder carries it.
-  redirects: { '/worlds': '/about/' },
+  redirects: { '/worlds': '/about/',
+    '/work/oshkosh-mill-madonnas': '/work/' },
   output: 'static',
   // Static by default; individual routes opt into on-demand rendering with
   // `export const prerender = false` (the contact form endpoint uses this).

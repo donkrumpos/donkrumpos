@@ -13,8 +13,8 @@ const projects = (await getCollection('projects', ({ data }) => !data.draft))
     return b.data.date.getTime() - a.data.date.getTime();
   });
 
-// Group by category. Murals lead (they're the core of the practice); the
-// display names speak Place & Story while the schema enum stays unchanged.
+// Group by category. Murals are off this site (2026-11-11; they live with
+// Yonder), so 'Public Art' entries stay drafts. The schema enum is unchanged.
 const categories = ['Public Art', 'Web & Systems', 'Design Systems', 'UI/UX', 'Branding', 'Print'] as const;
 const displayName: Record<string, string> = {
   'Public Art': 'Walls',
@@ -35,11 +35,11 @@ const grouped = categories
 let proofNo = 0;
 ---
 
-<Base title="Work | Don Krumpos" description="Murals, interpretive maps, the systems behind them, and twenty-five years of product and brand design.">
-  <div class="page-header">
+<Base title="Work | Don Krumpos" description="Product design, design systems, maps and the systems behind them: twenty-five years of work by Don Krumpos.">
+  <div class="page-header" data-art="lighthouse">
     <span class="label">The job book</span>
-    <h1 class="page-header__title">Walls, maps <em>&amp; systems</em></h1>
-    <p class="page-header__subtitle">Murals, interpretive maps and the systems behind them, plus twenty-five years of product and brand design.</p>
+    <h1 class="page-header__title">Software, maps <em>&amp; systems</em></h1>
+    <p class="page-header__subtitle">Product design, design systems, maps and the tools behind them. Twenty-five years of work, start to finish.</p>
   </div>
 
   {grouped.map(group => (

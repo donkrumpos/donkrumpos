@@ -1,8 +1,8 @@
 ---
 // Services under the Place & Story umbrella (rewritten 2026-09-23).
-// One practice, several forms: murals are the core; maps/interpretive
-// work and donor/CRM systems are the winter forms; enterprise design
-// leadership stays as the corporate door.
+// One practice, several forms: maps/interpretive work, donor/CRM systems,
+// and design leadership. Murals came off this site 2026-11-11 (they live
+// with Yonder).
 // FIELD_STUDY_PUBLIC stays false until 2027-01-01 (the /field-study page is
 // unlisted while the DCLT contract runs). Flip it with the page's launch.
 import Base from '../layouts/Base.astro';
@@ -12,17 +12,6 @@ const FIELD_STUDY_PUBLIC = false;
 const forms = [
   {
     n: '01',
-    title: 'Public art & murals',
-    body: 'Walls for downtowns, businesses and institutions. I dig into the history and life of a place first, then design a wall that belongs there and nowhere else. Commissions run through Yonder, the studio I share with Erin LaBonte.',
-    proof: [
-      { label: 'Mill Madonnas, Oshkosh', href: '/work/oshkosh-mill-madonnas/' },
-      { label: 'Forty-some walls on the map', href: 'https://www.yonderartland.com/murals/' },
-    ],
-    img: '/images/field-study/mill-madonnas.jpg',
-    alt: 'The Mill Madonnas mural in Oshkosh.',
-  },
-  {
-    n: '02',
     title: 'Maps & interpretive experiences',
     body: 'Story maps, collection browsers, walking tours and archive interfaces that let people explore a place on their phone, or on a screen in the lobby. Hand-built and fast, and yours to keep, with no map vendor renting you access.',
     proof: [
@@ -32,7 +21,7 @@ const forms = [
     alt: 'An interactive map of nature preserves along a peninsula.',
   },
   {
-    n: '03',
+    n: '02',
     title: 'Systems for mission-driven organizations',
     body: 'Donation, registration and CRM systems for small organizations that have outgrown rented platforms. I design and build the whole path, from the form a donor fills out to the record in your database, and hand it to staff on infrastructure they own.',
     proof: [
@@ -43,7 +32,7 @@ const forms = [
     contain: true,
   },
   {
-    n: '04',
+    n: '03',
     title: 'Design leadership',
     body: 'Twenty-five years of product and brand design, in-house and as a contract design lead: research, information architecture, and the design systems that hold a product together as it grows.',
     proof: [
@@ -66,15 +55,15 @@ const principles = [
 
 <Base
   title="Services | Don Krumpos"
-  description="Public art, interpretive maps and the systems behind them. One practice: finding the story of a place and giving it form."
+  description="Interpretive maps, the systems behind them, and design leadership. One practice: finding the story of a place and giving it form."
 >
-  <header class="page-header svc-head">
+  <header class="page-header svc-head" data-art="road">
     <span class="label">Services</span>
     <h1>One practice, <em>several forms</em></h1>
     <p class="page-header__subtitle">
       Everything I make starts the same way: notice what a place is carrying,
       find the story in it, then choose the form that tells it best. Sometimes
-      that’s a wall. Sometimes it’s a map, a tool, or a whole system.
+      that’s a map. Sometimes it’s a tool, or a whole system.
     </p>
   </header>
 

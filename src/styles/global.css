@@ -380,9 +380,16 @@ p + p { margin-top: var(--space-md); }
   pointer-events: none;
   opacity: 0.2;
   background:
-    url('/images/home/land-left.webp') left top / auto 100% no-repeat,
-    url('/images/home/land-right.webp') right top / auto 100% no-repeat;
+    url('/images/home/land-left.webp') left var(--art-l, 0%) / auto var(--art-zoom, 100%) no-repeat,
+    url('/images/home/land-right.webp') right var(--art-r, 0%) / auto var(--art-zoom, 100%) no-repeat;
 }
+
+/* Each page looks at a different part of the same woodcut: the block is
+   enlarged and slid up or down, so the corners show a different detail. */
+.page-header[data-art] { --art-zoom: 165%; }
+.page-header[data-art='lighthouse'] { --art-l: 100%; --art-r: 100%; } /* lighthouse · the plotted route */
+.page-header[data-art='farm'] { --art-l: 0%; --art-r: 0%; }           /* water tower and barn · the survey grid */
+.page-header[data-art='road'] { --art-l: 48%; --art-r: 45%; }         /* the pole line · the shore */
 
 .page-header > .label {
   color: var(--rust);
