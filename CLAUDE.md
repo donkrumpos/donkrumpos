@@ -80,10 +80,12 @@ contact is the form only.
 
 Open:
 
-- The ledger has four rows. Foggy wants the fuller portfolio captured; a row
-  needs only year, name, kind and an optional award, and rows without a
-  write-up should not be links. The award is read from the description text
-  for now and wants a real `award` field.
+- The ledger (2026-11-12) lists jobs with a write-up (linked) plus one-line
+  jobs from `src/data/ledger.json` (year, name, what, optional note; not
+  linked). Source for the one-liners: the old portfolio site copy in
+  `~/Documents/portfolio/new work images/var/www/html/donkrumpos.com/work/`
+  (text plus images for 43 jobs). Motion and print jobs are left off. The
+  award is still read from the description text and wants a real `award` field.
 - Case studies should suggest a next piece, since Foggy sends direct links to
   the one that fits each inquiry. Audience-specific case studies use
   `unlisted: true` (built 2026-11-11; Eaglesoft uses it): reachable by direct

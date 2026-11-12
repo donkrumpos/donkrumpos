@@ -4,6 +4,7 @@ import ProofCard from '../../components/ProofCard.astro';
 import { getCollection } from 'astro:content';
 import { jobBook, kindName } from '../../lib/work';
 import { imageSize } from '../../lib/images';
+import moreJobs from '../../data/ledger.json';
 
 // The book has two parts (2026-11-11): a few lead proofs shown large, then a
 // ledger of everything else, one line per job. Murals are off this site (they
@@ -19,6 +20,20 @@ const split = (title: string) => {
 // Until there is an `award` field, read it from the description.
 const award = (d: { description: string }) =>
   d.description.includes('Awwwards') ? 'Awwwards Site of the Day' : '';
+
+// The ledger: jobs with a write-up (linked) and the one-line jobs in
+// src/data/ledger.json (not linked), newest first.
+type Row = { year: number; name: string; what: string; note?: string; href?: string };
+const rows: Row[] = [
+  ...ledger.map((p) => ({
+    year: p.data.date.getUTCFullYear(),
+    name: split(p.data.title).name,
+    what: kindName[p.data.category] ?? p.data.category,
+    note: award(p.data),
+    href: `/work/${p.id}/`,
+  })),
+  ...(moreJobs as Row[]),
+].sort((a, b) => b.year - a.year || Number(!!b.href) - Number(!!a.href));
 ---
 
 <Base title="Work | Don Krumpos" description="Product design, design systems, maps and the systems behind them: twenty-five years of work by Don Krumpos.">
@@ -56,21 +71,27 @@ const award = (d: { description: string }) =>
   <section class="work-section">
     <h2 class="work-section__title"><span class="wood">Also in the book</span></h2>
     <ol class="ledger">
-      {ledger.map(project => {
-        const d = project.data;
-        const { name } = split(d.title);
-        return (
-          <li>
-            <a class="ledger__row" href={`/work/${project.id}/`}>
-              <span class="ledger__year label">{d.date.getUTCFullYear()}</span>
-              <span class="ledger__name">{name}</span>
-              <span class="ledger__what">{kindName[d.category] ?? d.category}</span>
-              <span class="ledger__note label">{award(d)}</span>
+      {rows.map(row => (
+        <li>
+          {row.href ? (
+            <a class="ledger__row" href={row.href}>
+              <span class="ledger__year label">{row.year}</span>
+              <span class="ledger__name">{row.name}</span>
+              <span class="ledger__what">{row.what}</span>
+              <span class="ledger__note label">{row.note}</span>
               <span class="ledger__go" aria-hidden="true">→</span>
             </a>
-          </li>
-        );
-      })}
+          ) : (
+            <div class="ledger__row">
+              <span class="ledger__year label">{row.year}</span>
+              <span class="ledger__name">{row.name}</span>
+              <span class="ledger__what">{row.what}</span>
+              <span class="ledger__note label">{row.note}</span>
+              <span class="ledger__go" aria-hidden="true"></span>
+            </div>
+          )}
+        </li>
+      ))}
     </ol>
     <p class="ledger__ask">
       There is more in the drawers than fits on this page.
