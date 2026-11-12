@@ -1,53 +1,86 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" font-family="Georgia, 'Times New Roman', serif">
-  <rect width="1600" height="900" fill="#f6f1e9"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-label="Before: gifts went to a rented platform, and staff cleaned up exports and keyed them into Salesforce by hand. After: the website form hands the gift to Stripe, a Supabase edge function receives the payment and writes the full record to Salesforce, and Resend sends the receipt. In the first season, 316 of 340 registrations reached Salesforce with no one re-keying them.">
+  <!-- The donor pipeline as two routes, in full. Before: the line breaks where
+       staff carried the data by hand. After: the same trip with the break
+       closed. Rust marks the one step that changed. Colors are the site's
+       tokens. The short version is dclt-pipeline-thumb.svg. -->
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#221c16"/></marker>
+    <marker id="a-old" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#857662"/></marker>
+    <marker id="a-rust" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#97522b"/></marker>
+  </defs>
 
-  <!-- title -->
-  <text x="80" y="110" font-size="46" fill="#26302a" font-weight="bold">Owned donor &amp; registration pipeline</text>
-  <text x="80" y="158" font-size="26" fill="#5c6b60" font-family="Helvetica, Arial, sans-serif">Door County Land Trust — payments, data, and CRM in accounts the nonprofit controls</text>
+  <rect width="1600" height="900" fill="#fbf8f1"/>
 
-  <!-- flow row -->
-  <g font-family="Helvetica, Arial, sans-serif">
-    <!-- Astro form -->
-    <rect x="80" y="360" width="280" height="150" rx="14" fill="#ffffff" stroke="#c9bfa9" stroke-width="2"/>
-    <text x="220" y="430" font-size="30" fill="#26302a" text-anchor="middle" font-weight="bold">Astro form</text>
-    <text x="220" y="466" font-size="21" fill="#5c6b60" text-anchor="middle">donation + registration</text>
+  <!-- section labels -->
+  <g font-family="'IBM Plex Mono', ui-monospace, Menlo, Consolas, monospace" font-size="24" letter-spacing="4" fill="#5e5346">
+    <text x="100" y="78">BEFORE · A RENTED PLATFORM</text>
+    <text x="100" y="392">AFTER · A PIPELINE THE LAND TRUST OWNS</text>
+  </g>
+  <line x1="100" y1="322" x2="1500" y2="322" stroke="#d6c9b0" stroke-width="2"/>
 
-    <!-- Stripe -->
-    <rect x="470" y="360" width="260" height="150" rx="14" fill="#ffffff" stroke="#c9bfa9" stroke-width="2"/>
-    <text x="600" y="430" font-size="30" fill="#26302a" text-anchor="middle" font-weight="bold">Stripe</text>
-    <text x="600" y="466" font-size="21" fill="#5c6b60" text-anchor="middle">payments + ACH</text>
-
-    <!-- Supabase edge function (emphasized) -->
-    <rect x="840" y="345" width="340" height="180" rx="16" fill="#26302a" stroke="#26302a" stroke-width="2"/>
-    <text x="1010" y="415" font-size="31" fill="#f6f1e9" text-anchor="middle" font-weight="bold">Supabase</text>
-    <text x="1010" y="452" font-size="24" fill="#cdd8ce" text-anchor="middle">edge function</text>
-    <text x="1010" y="490" font-size="19" fill="#9db0a1" text-anchor="middle">the logic layer</text>
-
-    <!-- Salesforce -->
-    <rect x="1290" y="360" width="240" height="150" rx="14" fill="#ffffff" stroke="#c9bfa9" stroke-width="2"/>
-    <text x="1410" y="424" font-size="28" fill="#26302a" text-anchor="middle" font-weight="bold">Salesforce</text>
-    <text x="1410" y="458" font-size="21" fill="#5c6b60" text-anchor="middle">NPSP — record</text>
-
-    <!-- arrows -->
-    <g stroke="#8a7d63" stroke-width="3" fill="none" marker-end="url(#arrow)">
-      <line x1="360" y1="435" x2="466" y2="435"/>
-      <line x1="730" y1="435" x2="836" y2="435"/>
-      <line x1="1180" y1="435" x2="1286" y2="435"/>
-    </g>
-
-    <!-- Resend branch -->
-    <rect x="840" y="640" width="340" height="130" rx="14" fill="#ffffff" stroke="#c9bfa9" stroke-width="2"/>
-    <text x="1010" y="700" font-size="27" fill="#26302a" text-anchor="middle" font-weight="bold">Resend</text>
-    <text x="1010" y="734" font-size="20" fill="#5c6b60" text-anchor="middle">receipts + confirmations</text>
-    <line x1="1010" y1="525" x2="1010" y2="636" stroke="#8a7d63" stroke-width="3" marker-end="url(#arrow)"/>
+  <!-- BEFORE -->
+  <g font-family="'Fraunces', 'Iowan Old Style', Palatino, Georgia, serif" font-size="34" fill="#5e5346" text-anchor="middle">
+    <text x="180" y="150">Gift</text>
+    <text x="540" y="150">Rented platform</text>
+    <text x="1260" y="150">Salesforce</text>
+  </g>
+  <line x1="204" y1="192" x2="512" y2="192" stroke="#857662" stroke-width="4" marker-end="url(#a-old)"/>
+  <line x1="566" y1="192" x2="1232" y2="192" stroke="#97522b" stroke-width="4" stroke-dasharray="4 16" stroke-linecap="round" marker-end="url(#a-rust)"/>
+  <g fill="#fbf8f1" stroke="#857662" stroke-width="4">
+    <circle cx="180" cy="192" r="14"/>
+    <circle cx="540" cy="192" r="14"/>
+    <circle cx="1260" cy="192" r="14"/>
+  </g>
+  <g font-family="'IBM Plex Mono', ui-monospace, Menlo, Consolas, monospace" font-size="22" fill="#5e5346" text-anchor="middle">
+    <text x="540" y="246">cards only</text>
+    <text x="540" y="278">7% surcharge by default</text>
+    <text x="930" y="246" fill="#97522b">exports keyed in by staff</text>
+    <text x="930" y="278">cancellations never synced</text>
   </g>
 
-  <!-- caption -->
-  <text x="80" y="840" font-size="23" fill="#5c6b60" font-family="Helvetica, Arial, sans-serif">One payment becomes a complete CRM record — donor, gift, recurring plan, fund allocation, receipt — with no manual step.</text>
+  <!-- AFTER -->
+  <g font-family="'Fraunces', 'Iowan Old Style', Palatino, Georgia, serif" font-size="34" font-weight="600" fill="#221c16" text-anchor="middle">
+    <text x="180" y="464">Gift</text>
+    <text x="540" y="464">Stripe</text>
+    <text x="900" y="464">Edge function</text>
+    <text x="1260" y="464">Salesforce</text>
+    <text x="936" y="690" text-anchor="start">Receipt email</text>
+  </g>
+  <g stroke="#221c16" stroke-width="6">
+    <line x1="180" y1="508" x2="512" y2="508" marker-end="url(#a-ink)"/>
+    <line x1="540" y1="508" x2="872" y2="508" marker-end="url(#a-ink)"/>
+    <line x1="900" y1="508" x2="1232" y2="508" marker-end="url(#a-ink)"/>
+    <line x1="900" y1="508" x2="900" y2="652" marker-end="url(#a-ink)"/>
+  </g>
+  <g fill="#221c16" stroke="#fbf8f1" stroke-width="3">
+    <circle cx="180" cy="508" r="16"/>
+    <circle cx="540" cy="508" r="16"/>
+    <circle cx="1260" cy="508" r="16"/>
+    <circle cx="900" cy="680" r="16"/>
+  </g>
+  <circle cx="900" cy="508" r="20" fill="#97522b" stroke="#fbf8f1" stroke-width="3"/>
 
-  <defs>
-    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M 0 0 L 10 5 L 0 10 z" fill="#8a7d63"/>
-    </marker>
-  </defs>
+  <g font-family="'IBM Plex Mono', ui-monospace, Menlo, Consolas, monospace" font-size="22" fill="#5e5346" text-anchor="middle">
+    <!-- what moves along each leg -->
+    <text x="360" y="490">checkout</text>
+    <text x="720" y="490">payment event</text>
+    <text x="1080" y="490">writes</text>
+    <!-- what each stop is -->
+    <text x="180" y="562">website form</text>
+    <text x="540" y="562">cards + ACH</text>
+    <text x="878" y="562" text-anchor="end">Supabase</text>
+    <text x="878" y="594" text-anchor="end">the logic layer</text>
+    <text x="1260" y="562">contact · household</text>
+    <text x="1260" y="594">gift · recurring plan</text>
+    <text x="1260" y="626">fund allocation · payment</text>
+    <text x="936" y="722" text-anchor="start">sent by Resend</text>
+  </g>
+
+  <!-- the result: one bar, 340 registrations wide -->
+  <g font-family="'IBM Plex Mono', ui-monospace, Menlo, Consolas, monospace" font-size="22" letter-spacing="2" fill="#221c16">
+    <text x="100" y="800">316 OF 340 REGISTRATIONS REACHED SALESFORCE WITH NO ONE RE-KEYING THEM</text>
+    <text x="1500" y="800" text-anchor="end" fill="#5e5346">FIRST SEASON</text>
+  </g>
+  <rect x="100" y="818" width="1299" height="24" rx="4" fill="#221c16"/>
+  <rect x="1403" y="818" width="97" height="24" rx="4" fill="#ebe3d2" stroke="#b9a888" stroke-width="1.5"/>
 </svg>

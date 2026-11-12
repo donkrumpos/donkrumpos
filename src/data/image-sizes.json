@@ -19,10 +19,6 @@
   1000,
   750
  ],
- "/images/home/dclt-pipeline.svg": [
-  1200,
-  900
- ],
  "/images/home/dk-ink.png": [
   128,
   144
@@ -44,6 +40,10 @@
   630
  ],
  "/images/og/default.jpg": [
+  1200,
+  630
+ ],
+ "/images/og/pattersondental.jpg": [
   1200,
   630
  ],
@@ -73,7 +73,7 @@
  ],
  "/images/projects/dclt-pipeline-thumb.svg": [
   1200,
-  900
+  675
  ],
  "/images/projects/eaglesoft.jpg": [
   1138,

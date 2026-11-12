@@ -38,6 +38,9 @@ for (const ref of [...used].sort()) {
   const img = sharp(file).resize({ width: MAX_W, withoutEnlargement: true });
 
   if (thumbs.has(ref)) {
+    // An indexed PNG has already been through here; quantizing it again
+    // would only cost quality.
+    if (isPng && (await sharp(file).metadata()).paletteBitDepth) continue;
     const buf = isPng
       ? await img.png({ palette: true, quality: 90, compressionLevel: 9 }).toBuffer()
       : await img.jpeg({ quality: 80, mozjpeg: true }).toBuffer();
