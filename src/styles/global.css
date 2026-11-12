@@ -618,8 +618,6 @@ time.page-header__subtitle {
 a.ledger__row:hover { color: var(--ink); }
 a.ledger__row:hover .ledger__name { color: var(--rust); }
 a.ledger__row:hover .ledger__go { transform: translateX(4px); }
-div.ledger__row { padding: 12px 0; }
-div.ledger__row .ledger__name { font-size: clamp(18px, 1.5vw, 21px); font-weight: 500; }
 .ledger__ask { margin-top: var(--space-md); color: var(--ink-muted); }
 @media (max-width: 768px) {
   .ledger__row { grid-template-columns: 3.5rem minmax(0, 1fr) 1.25rem; gap: 2px 14px; padding: 16px 0; }

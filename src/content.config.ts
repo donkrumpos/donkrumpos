@@ -13,6 +13,9 @@ const projects = defineCollection({
     role: z.string().optional(),
     category: z.enum(['Web & Systems', 'Public Art', 'UI/UX', 'Branding', 'Design Systems', 'Print']),
     tools: z.array(z.string()).optional(),
+    // The short line shown beside the job in the Work page ledger. Left out,
+    // the ledger shows the category.
+    what: z.string().optional(),
     // Images
     thumbnail: z.string(),
     images: z.array(z.string()).optional(),

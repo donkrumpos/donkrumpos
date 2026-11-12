@@ -28,7 +28,7 @@ const rows: Row[] = [
   ...ledger.map((p) => ({
     year: p.data.date.getUTCFullYear(),
     name: split(p.data.title).name,
-    what: kindName[p.data.category] ?? p.data.category,
+    what: p.data.what ?? kindName[p.data.category] ?? p.data.category,
     note: award(p.data),
     href: `/work/${p.id}/`,
   })),

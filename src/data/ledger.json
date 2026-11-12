@@ -1,25 +1,3 @@
 [
-  { "year": 2024, "name": "Navex", "what": "Shopping cart, Stripe to Salesforce" },
-  { "year": 2020, "name": "Benefits Communication", "what": "Insurance enrollment app" },
-  { "year": 2020, "name": "CHI Northwest Hospital", "what": "Baby-tracking app for new parents" },
-  { "year": 2019, "name": "TASC", "what": "Donation app for federal employees" },
-  { "year": 2019, "name": "Schneider", "what": "OrangeHub freight-tracking app" },
-  { "year": 2018, "name": "Minnetonka Audio", "what": "Interface for broadcast audio tools" },
-  { "year": 2018, "name": "Cancer Center of Western Wisconsin", "what": "Website for a rebrand" },
-  { "year": 2017, "name": "WG&R Furniture", "what": "E-commerce design and build" },
-  { "year": 2017, "name": "CentraCare", "what": "Website and brand refresh" },
-  { "year": 2017, "name": "Tru Cabinetry", "what": "Website and content system" },
-  { "year": 2017, "name": "Industrial Transport Services", "what": "Website and brand" },
-  { "year": 2016, "name": "Medtronic", "what": "Medical device monitor app" },
-  { "year": 2016, "name": "Marvin Windows", "what": "Trade-show iPad app" },
-  { "year": 2016, "name": "Premier Research", "what": "Website" },
-  { "year": 2016, "name": "Adoption Option Council of Minnesota", "what": "Website" },
-  { "year": 2015, "name": "Boston Scientific", "what": "Marathon microsite" },
-  { "year": 2015, "name": "ARRT", "what": "Nominations microsite and trade-show quiz" },
-  { "year": 2013, "name": "Capella University", "what": "Mobile learning app" },
-  { "year": 2013, "name": "Sanus", "what": "E-commerce and MountFinder" },
-  { "year": 2013, "name": "TiVo", "what": "Sales-force support site" },
-  { "year": 2013, "name": "Medtronic", "what": "iPad training apps for sales staff" },
-  { "year": 2010, "name": "Under Armour", "what": "Product-launch microsite" },
-  { "year": 2009, "name": "Patterson Companies", "what": "Corporate website" }
+  { "year": 2024, "name": "Navex", "what": "Shopping cart, Stripe to Salesforce" }
 ]

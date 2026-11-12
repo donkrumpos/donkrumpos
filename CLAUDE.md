@@ -80,12 +80,14 @@ contact is the form only.
 
 Open:
 
-- The ledger (2026-11-12) lists jobs with a write-up (linked) plus one-line
-  jobs from `src/data/ledger.json` (year, name, what, optional note; not
-  linked). Source for the one-liners: the old portfolio site copy in
-  `~/Documents/portfolio/new work images/var/www/html/donkrumpos.com/work/`
-  (text plus images for 43 jobs). Motion and print jobs are left off. The
-  award is still read from the description text and wants a real `award` field.
+- The ledger (2026-11-12): 22 jobs from the old portfolio now have short
+  pages (one image, the old site's description, a full-page capture where one
+  exists). Their ledger line comes from the `what` frontmatter field. Jobs
+  with no page (Navex) are rows in `src/data/ledger.json`, not linked. Source
+  material: `~/Documents/portfolio/` (the old site copy is under
+  `new work images/var/www/html/donkrumpos.com/work/`). Motion and print jobs
+  are left off. The award is still read from the description text and wants a
+  real `award` field.
 - Case studies should suggest a next piece, since Foggy sends direct links to
   the one that fits each inquiry. Audience-specific case studies use
   `unlisted: true` (built 2026-11-11; Eaglesoft uses it): reachable by direct
