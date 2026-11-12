@@ -704,11 +704,15 @@ time.page-header__subtitle {
   box-shadow: 0 1px 0 var(--rule-strong), 0 14px 32px rgba(60, 45, 30, 0.16);
 }
 
+/* Full width, so the image inside sizes against the sheet and not against
+   a link that is shrinking to fit the image */
 .project-detail__hero-link {
   display: block;
+  width: 100%;
 }
 
 .project-detail__hero-link img {
+  margin: 0 auto;
   transition: opacity var(--transition);
 }
 

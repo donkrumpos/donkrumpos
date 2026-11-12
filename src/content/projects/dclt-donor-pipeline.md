@@ -1,6 +1,6 @@
 ---
-title: "Owned Donor & Registration Pipeline"
-description: "Replaced a rented donation platform with an owned Stripe-to-Salesforce pipeline the nonprofit's own staff can run."
+title: "No More Re-Typing Online Gifts"
+description: "Door County Land Trust re-entered every online gift and event sign-up into its donor database by hand. I replaced the rented giving platform with a pipeline the Land Trust owns, so each gift now lands in Salesforce on its own."
 date: 2026-03-23
 client: "Door County Land Trust"
 role: "Design, engineering & systems integration (sole developer)"
@@ -8,6 +8,7 @@ category: "Web & Systems"
 tools: ["Astro", "Supabase Edge Functions", "Stripe", "Salesforce / NPSP", "Resend", "TypeScript"]
 thumbnail: "/images/projects/dclt-pipeline-thumb.svg"
 images: []
+liveUrl: "https://doorcountylandtrust.org/donate/"
 fit:
   heading: "Is this your situation?"
   points:
@@ -62,6 +63,10 @@ The architecture is a clean separation of concerns. An Astro donation form takes
 
 The donation form creates a Stripe Checkout session through an edge function, packing all the gift context (fund designation, tribute, recurring frequency, which program referred the gift) into Stripe metadata so nothing is lost in the handoff.
 
+![The Land Trust's donation form on its own website: the donor's details, a choice of membership or special gift, preset amounts, and a button that continues to payment.](/images/projects/dclt-donate-form.webp)
+
+*The donation form, on the Land Trust's own site and in its own design. Step two is payment, handled by Stripe.*
+
 When the donor pays, Stripe fires a webhook to a Supabase edge function that does everything the staff used to do by hand and more. It records the donor and the gift, then writes the full picture into Salesforce: the Contact, the household Account, the Opportunity, a linked Recurring Donation for monthly, quarterly, or annual gifts, the fund allocation that tells finance which bucket the money belongs to, and the payment record with the Stripe charge reference. Then it sends the donor a thank-you email. Recurring renewals and cancellations flow through the same function so the CRM stays current on its own.
 
 Free program registration runs on the same spine. It checks capacity, waitlists people automatically when an event is full, and lets anyone cancel through a link in their confirmation email. A cancellation automatically promotes the next person off the waitlist, emails them, and updates the campaign status in Salesforce on both ends.
@@ -88,5 +93,11 @@ The same backend runs the organization's donation and intake rails. It has proce
 The old platform could not do most of this: ACH payments, automatic confirmation emails, waitlist auto-promotion, self-service cancellation that keeps the CRM in sync both ways, the full recurring-gift lifecycle, and automatic fund allocation.
 
 Most important, the Land Trust owns all of it. The code, the donor data, the contact list, and the accounts are theirs. They can run it without me, and if they ever want to leave, they take everything with them.
+
+## Two Fair Questions
+
+**What does it cost, next to a free platform?** The old platform was free to the Land Trust. It paid for itself with a 7 percent tip added to each donor's gift, in a box that was checked by default. Card-processing fees apply either way; no platform makes those go away. What the free platform really cost was staff time and data. It wrote only a few fields to Salesforce, so the rest was typed in by hand, and every report was built on hand-keyed records. The owned pipeline is not free either: it took a build, and it runs on a handful of services in the Land Trust's own accounts. In return every field arrives complete, and reports can run on data nobody had to type.
+
+**Who fixes it if it breaks?** Right now, I do. That is a real dependency, and it is worth saying plainly. The old platform was a dependency too: when something broke there, the Land Trust had a support ticket, and a change built just for them was never going to happen. The difference is who holds the keys. The code and every account belong to the Land Trust, so the work can be handed to another developer, and nothing is locked inside a vendor.
 
 *Honest scope note: this was a phased migration. Every new gift and registration now runs on the owned system. The old platform stays live only to finish out recurring donors who signed up there, and it retires as they lapse.*
