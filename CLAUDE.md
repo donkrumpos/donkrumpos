@@ -71,14 +71,19 @@ Decisions made on 2026-11-11, all live:
 - **Per-page woodcut crops:** `data-art="lighthouse|farm|road"` on
   `.page-header` (Work, About, Services). Pages without it show the whole block.
 
+Images (2026-11-11): after adding case-study images, run
+`node scripts/optimize-images.mjs` (caps width, converts non-thumbnail images
+to WebP, rewrites references, and writes `src/data/image-sizes.json`, which
+pages use for width and height). `node scripts/build-og.mjs` rebuilds the
+link-preview cards in `public/images/og/`. No email address goes on the site;
+contact is the form only.
+
 Open:
 
 - The ledger has four rows. Foggy wants the fuller portfolio captured; a row
   needs only year, name, kind and an optional award, and rows without a
   write-up should not be links. The award is read from the description text
   for now and wants a real `award` field.
-- Patterson Dental shows 2010 in the ledger but is dated 2011-01-01 (timezone
-  slip in `getFullYear()`).
 - Case studies should suggest a next piece, since Foggy sends direct links to
   the one that fits each inquiry. Audience-specific case studies use
   `unlisted: true` (built 2026-11-11; Eaglesoft uses it): reachable by direct

@@ -28,17 +28,17 @@ The illustration style was deliberately inclusive and joyful. The characters rep
 
 The site was structured as a series of long-scroll pages, each built around alternating content bands with distinct color palettes — teal for mission and history, green for community and action, warm earth tones for the Juárez Mexico partnership. Parallax animation layered the illustrated cityscape and characters against the content, giving the site depth and movement as users scrolled.
 
-![The How We Help page showing parallax cityscape, Twin Cities section, and the Juárez Mexico partnership](/images/projects/aceinthecity01.jpg)
+![The How We Help page showing parallax cityscape, Twin Cities section, and the Juárez Mexico partnership](/images/projects/aceinthecity01.webp)
 
 Each page opened with an embedded video paired with illustrated framing and hand-lettered headings, setting the narrative tone immediately. The typography mixed custom hand-lettering for section titles with clean sans-serif body text — readable without losing personality.
 
-![Who We Are page with organization history, illustrated characters, and team profiles mixing photography with illustrated frames](/images/projects/aceinthecity02.jpg)
+![Who We Are page with organization history, illustrated characters, and team profiles mixing photography with illustrated frames](/images/projects/aceinthecity02.webp)
 
 The team section was a design challenge: how do you present real people within a heavily illustrated world without it feeling jarring? I framed the staff photos within illustrated polaroid-style containers surrounded by the character artwork, so the photography felt like windows into the real world rather than a break from the design language.
 
 The donation section translated giving into tangible outcomes through illustrated icons — $50 provides a day of food, lodging, and transportation; $100 supplies arts and crafts materials; $250 provides materials for a "fiesta." Making the impact visual and specific lowered the barrier to giving.
 
-![How We Help page showing the full scroll with donation mechanic and illustrated impact icons](/images/projects/aceinthecity03.jpg)
+![How We Help page showing the full scroll with donation mechanic and illustrated impact icons](/images/projects/aceinthecity03.webp)
 
 ## Results
 

@@ -27,11 +27,11 @@ The illustration style was a deliberate choice. A photographic approach would ha
 
 On desktop, the site used a horizontal scrolling mechanic powered by CSS transitions and JavaScript scroll events. The illustrated scene moved laterally around the central character, who stayed fixed in the viewport. As users scrolled through scenarios demonstrating tip-over dangers, the character accumulated visible injuries, eventually receiving a cast. Each section functioned as a distinct scene — the living room, the emergency room, the statistics — and the horizontal movement gave the experience a storybook quality that matched the illustration style.
 
-![Desktop experience showing the horizontal scroll with statistics and illustrated scenes](/images/projects/tvsafety02.jpg)
+![Desktop experience showing the horizontal scroll with statistics and illustrated scenes](/images/projects/tvsafety02.webp)
 
 The data was woven directly into the illustrations. Impact force comparisons (a falling TV hits with 10x the force of an NFL lineman), injury statistics from the CPSC, and demographic breakdowns were presented as colorful infographic elements integrated into the scene rather than as dry callout boxes.
 
-![Interactive infographic sections with animated data visualization](/images/projects/tvsafety03.jpg)
+![Interactive infographic sections with animated data visualization](/images/projects/tvsafety03.webp)
 
 For mobile, the horizontal scroll was restructured into a vertical infographic. The same illustrations, data, and narrative flow were preserved, but recomposed for single-column reading. This wasn't a scaled-down desktop — it was a considered redesign of the interaction model for how people actually use phones.
 

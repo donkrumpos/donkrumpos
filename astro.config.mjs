@@ -16,6 +16,21 @@ const entries = (dir) =>
       return { slug: f.replace(/\.mdx?$/, ''), flag };
     });
 
+// Markdown images get their width and height (from the manifest written by
+// scripts/optimize-images.mjs) and load lazily, so case studies do not jump.
+const imageSizes = JSON.parse(readFileSync(new URL('./src/data/image-sizes.json', import.meta.url), 'utf8'));
+const sizeImages = () => (tree) => {
+  const visit = (node) => {
+    if (node.tagName === 'img') {
+      const size = imageSizes[node.properties?.src];
+      if (size) Object.assign(node.properties, { width: size[0], height: size[1] });
+      Object.assign(node.properties, { loading: 'lazy', decoding: 'async' });
+    }
+    node.children?.forEach(visit);
+  };
+  visit(tree);
+};
+
 // Unlisted case studies are built but stay out of the sitemap.
 const unlistedWork = entries('projects')
   .filter((e) => e.flag('unlisted') === 'true')
@@ -40,6 +55,7 @@ const hidden = [
 export default defineConfig({
   // The bare domain redirects to www, so www is the canonical host.
   site: 'https://www.donkrumpos.com',
+  markdown: { rehypePlugins: [sizeImages] },
   integrations: [mdx(), sitemap({ filter: (page) => !hidden.some((path) => page.includes(path)) })],
   // The personal-work page came off the site 2026-11-11; Yonder carries it.
   redirects: { '/worlds': '/about/',

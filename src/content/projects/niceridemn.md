@@ -29,31 +29,31 @@ The design had to work within the Bixi system's branding framework while giving 
 
 Beyond the logo, I designed the physical touchpoint system — the pieces riders actually interact with when they walk up to a station for the first time. The kiosk panel walks users through a six-step rental process, designed for quick comprehension by someone standing outdoors, possibly in a hurry, possibly a tourist who's never used a bike share before.
 
-![Kiosk instructional panel showing the six-step rental process with pricing and subscription information](/images/projects/niceride-kiosk.png)
+![Kiosk instructional panel showing the six-step rental process with pricing and subscription information](/images/projects/niceride-kiosk.webp)
 
 The information hierarchy was critical: the numbered steps needed to dominate, with secondary details (pricing, subscription options, edge cases like "No Empty Bike Docks?") accessible but not competing for attention. The dark background with green and white typography maintained contrast in direct sunlight.
 
-![Pricing and trip fee signage explaining the subscription model](/images/projects/niceride-pricing.png)
+![Pricing and trip fee signage explaining the subscription model](/images/projects/niceride-pricing.webp)
 
 The docking station and handlebar decals handled a different UX problem — what to do when something goes wrong. "Bike not working? Press red repair button." These needed to be readable at arm's length, in all weather, on a surface that gets rained on, snowed on, and baked in the sun.
 
-![Cassette/docking station decals, kiosk decals, and handlebar decals with repair and safety information](/images/projects/niceride-decals.png)
+![Cassette/docking station decals, kiosk decals, and handlebar decals with repair and safety information](/images/projects/niceride-decals.webp)
 
 ## Advertising Campaign
 
 I designed the launch advertising campaign across outdoor and print formats. The bus shelter ad featured an illustrated Minneapolis landscape — lakes, parks, the downtown skyline — with a rider moving through it, tying the program to the city's identity. The tagline "Minnesota Nice, with gears and a basket" positioned bike share as a natural extension of the culture.
 
-![Bus shelter ad with illustrated Minneapolis landscape and rider](/images/projects/niceride-busad.png)
+![Bus shelter ad with illustrated Minneapolis landscape and rider](/images/projects/niceride-busad.webp)
 
 The poster campaign paired photography of real Minneapolis riders against local murals and street art, grounding the brand in the city's visual culture. Each ad used a different playful tagline — "Be your own food delivery guy" — keeping the tone approachable and fun while the logo and green colorway maintained brand consistency.
 
-![Poster ad featuring rider against Minneapolis street mural with "Be your own food delivery guy" tagline](/images/projects/niceride-poster.png)
+![Poster ad featuring rider against Minneapolis street mural with "Be your own food delivery guy" tagline](/images/projects/niceride-poster.webp)
 
 ## Print Collateral
 
 The launch brochure and pocket map served as the primary takeaway for events and kiosk displays. The front featured founding subscriber information and sponsor recognition, while the interior included a full Phase 1 station map showing every kiosk location, bike trails, and points of interest across Minneapolis. The map background used a stylized transit line pattern in the brand's dark palette, reinforcing the idea that bike share is part of the city's transit infrastructure, not just recreation.
 
-![Launch brochure with Phase 1 station map, sponsor information, and founding subscriber details](/images/projects/niceride-brochure.png)
+![Launch brochure with Phase 1 station map, sponsor information, and founding subscriber details](/images/projects/niceride-brochure.webp)
 
 ## Results
 

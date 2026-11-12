@@ -1,7 +1,9 @@
 ---
 import Base from '../../layouts/Base.astro';
 import { getCollection, render } from 'astro:content';
+import { existsSync } from 'node:fs';
 import { kindName, nextProject } from '../../lib/work';
+import { imageSize } from '../../lib/images';
 
 export async function getStaticPaths() {
   // Drafts are never built. Unlisted projects are built but noindexed.
@@ -17,14 +19,15 @@ const { Content } = await render(project);
 
 const dateFormatted = project.data.date.toLocaleDateString('en-US', {
   year: 'numeric',
+  timeZone: 'UTC', // dates are written as plain days; local time would slip a year
 });
 
 const heroSrc = project.data.images?.[0] || project.data.thumbnail;
 const { liveUrl } = project.data;
 
-// Link previews cannot show an SVG. A case study whose thumbnail is one gets
-// a raster card from scripts/build-og.mjs, named for the project.
-const shareImage = project.data.thumbnail.endsWith('.svg')
+// Link previews use the thumbnail, unless scripts/build-og.mjs has made a
+// card for this project (it does for SVG and very tall thumbnails).
+const shareImage = existsSync(`public/images/og/${project.id}.jpg`)
   ? `/images/og/${project.id}.jpg`
   : project.data.thumbnail;
 ---
@@ -72,10 +75,10 @@ const shareImage = project.data.thumbnail.endsWith('.svg')
         {liveUrl ? (
           /* Image link duplicates the CTA, so keep it out of the tab order */
           <a href={liveUrl} target="_blank" rel="noopener" class="project-detail__hero-link" tabindex="-1" aria-hidden="true">
-            <img src={heroSrc} alt="" />
+            <img src={heroSrc} alt="" {...imageSize(heroSrc)} />
           </a>
         ) : (
-          <img src={heroSrc} alt={project.data.title} />
+          <img src={heroSrc} alt={project.data.title} {...imageSize(heroSrc)} />
         )}
       </div>
       {liveUrl && (
@@ -94,7 +97,7 @@ const shareImage = project.data.thumbnail.endsWith('.svg')
     {project.data.images && project.data.images.length > 1 && (
       <div class="project-detail__gallery">
         {project.data.images.slice(1).map((img, i) => (
-          <img src={img} alt={`${project.data.title} — detail ${i + 2}`} loading="lazy" />
+          <img src={img} alt={`${project.data.title} — detail ${i + 2}`} loading="lazy" decoding="async" {...imageSize(img)} />
         ))}
       </div>
     )}

@@ -23,7 +23,7 @@ The stakes in healthcare UX are fundamentally different from other domains. A co
 
 Before designing anything, I conducted user research to understand the people who would actually use these tools. The resulting personas weren't marketing archetypes — they were detailed profiles built from interviews and observation, documenting real workflows, pain points, goals, and the emotional texture of the work.
 
-![Persona cards for Herman (field nurse), Cynthia (member with complex conditions), Maryanne (member), and Penelope (Optum nurse on the phone)](/images/projects/optum-personas.jpg)
+![Persona cards for Herman (field nurse), Cynthia (member with complex conditions), Maryanne (member), and Penelope (Optum nurse on the phone)](/images/projects/optum-personas.webp)
 
 Herman is a field nurse who spends most of his day in a car driving between home visits, using a laptop in unpredictable environments. He needs to assess a member's status quickly, update records, and move on. Cynthia is a member with multiple diagnoses who struggles to coordinate her own care across providers. Maryanne is overwhelmed by managing her condition while raising five kids and working full time. Penelope is an Optum nurse on the phone, handling back-to-back calls on a quota, trying to provide compassionate care while navigating complex clinical documentation.
 
@@ -33,7 +33,7 @@ These personas shaped every design decision. When we debated information density
 
 I led research into the broader case management workflow — mapping the process from brainstorming sessions through prototyping, review, and iteration. This work documented how care teams actually coordinate, where handoffs break down, and where the tools could reduce friction.
 
-![Mural board showing case management research — process flows, brainstorming, competitive analysis, device considerations, and support metrics](/images/projects/optum-research.jpg)
+![Mural board showing case management research — process flows, brainstorming, competitive analysis, device considerations, and support metrics](/images/projects/optum-research.webp)
 
 The research surface included process flow mapping, competitive analysis, brainstorming outputs, device-specific considerations (mobile, desktop, Surface Hub), and support metrics that revealed where users were struggling most with existing tools.
 
@@ -41,7 +41,7 @@ The research surface included process flow mapping, competitive analysis, brains
 
 I contributed to Optum's design system, defining components that needed to work across multiple product surfaces — care plans, letters, virtual care, and administrative dashboards. The system used Optum's signature black and gold palette with a component library covering buttons at multiple sizes and states, icon buttons, controls (toggles, checkboxes, radio buttons, sliders), tags, dropdowns, and form elements.
 
-![Optum Design System — Buttons & Controls page showing component states, sizing variants, and interaction patterns](/images/projects/optum-design-system.png)
+![Optum Design System — Buttons & Controls page showing component states, sizing variants, and interaction patterns](/images/projects/optum-design-system.webp)
 
 Healthcare interfaces demand particular rigor in component design. Every state — default, hover, active, disabled — matters when a nurse is working quickly through a patient record. The contrast and sizing decisions had to meet accessibility standards while supporting the dense information layouts that clinical tools require.
 
@@ -49,11 +49,11 @@ Healthcare interfaces demand particular rigor in component design. Every state �
 
 My primary product ownership was the Care Plan platform. This is the tool care coordinators use to manage patient care — scheduling appointments, tracking visit history, reviewing health summaries, managing documents and medications, and coordinating across providers.
 
-![Care Plan dashboard showing provider view with upcoming appointment, patient health summary, documents, medications, and appointment timeline](/images/projects/optum-careplan-3.png)
+![Care Plan dashboard showing provider view with upcoming appointment, patient health summary, documents, medications, and appointment timeline](/images/projects/optum-careplan-3.webp)
 
 The dashboard was designed around the provider's immediate needs: who's next, what's their status, what do I need to know before this visit starts. The health summary card, document and medication counts, and "Start Virtual Visit" action are all within one viewport — no scrolling to find the critical information.
 
-![Appointments view showing the daily schedule with patient details, visit reasons, document counts, and status indicators](/images/projects/optum-careplan-2.png)
+![Appointments view showing the daily schedule with patient details, visit reasons, document counts, and status indicators](/images/projects/optum-careplan-2.webp)
 
 The appointments list view balanced information density with scannability. Care coordinators managing a full day of patients need to see appointment times, patient names, locations, visit reasons, document status, and assignment — all in a single row without the table becoming overwhelming.
 
@@ -61,7 +61,7 @@ The appointments list view balanced information density with scannability. Care 
 
 I also designed the OCM (Outreach Communications Management) Letters interface — the tool for managing patient correspondence including PPO notifications, denials, prior authorizations, and other compliance-driven communications.
 
-![OCM Letters interface showing patient record with letter history, delivery methods, generation status, and status indicators](/images/projects/optum-careplan-1.png)
+![OCM Letters interface showing patient record with letter history, delivery methods, generation status, and status indicators](/images/projects/optum-careplan-1.webp)
 
 This was a data-dense regulatory interface where clarity wasn't optional. Each letter has a template type, generation method (auto vs. manual), delivery method (fax, email, direct mail), and status that care teams need to track across hundreds of patients. The color-coded status badges (Sent, Created, Error) provide at-a-glance triage so coordinators can quickly identify what needs attention.
 

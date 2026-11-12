@@ -6,6 +6,7 @@
 // FIELD_STUDY_PUBLIC stays false until 2027-01-01 (the /field-study page is
 // unlisted while the DCLT contract runs). Flip it with the page's launch.
 import Base from '../layouts/Base.astro';
+import { imageSize } from '../lib/images';
 
 const FIELD_STUDY_PUBLIC = false;
 
@@ -86,7 +87,7 @@ const principles = [
     {forms.map((f, i) => (
       <section class:list={['form reveal', { 'form--flip': i % 2 === 1 }]}>
         <figure class="plate form__plate">
-          <img src={f.img} alt={f.alt} loading={i === 0 ? 'eager' : 'lazy'} class:list={[{ 'is-contain': f.contain }]} />
+          <img src={f.img} alt={f.alt} {...imageSize(f.img)} loading={i === 0 ? 'eager' : 'lazy'} class:list={[{ 'is-contain': f.contain }]} />
         </figure>
         <div class="form__text">
           <span class="form__n">{f.n}</span>

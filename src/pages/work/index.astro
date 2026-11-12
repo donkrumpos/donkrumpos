@@ -3,6 +3,7 @@ import Base from '../../layouts/Base.astro';
 import ProofCard from '../../components/ProofCard.astro';
 import { getCollection } from 'astro:content';
 import { jobBook, kindName } from '../../lib/work';
+import { imageSize } from '../../lib/images';
 
 // The book has two parts (2026-11-11): a few lead proofs shown large, then a
 // ledger of everything else, one line per job. Murals are off this site (they
@@ -35,12 +36,12 @@ const award = (d: { description: string }) =>
         const facts: [string, string][] = [];
         if (d.client) facts.push(['Client', d.client]);
         if (d.role) facts.push(['Role', d.role]);
-        facts.push(['Run', String(d.date.getFullYear())]);
+        facts.push(['Run', String(d.date.getUTCFullYear())]);
         return (
           <ProofCard
             href={`/work/${project.id}/`}
             proof={`Proof ${String(i + 1).padStart(2, '0')}${d.client ? ` · ${d.client}` : ''}`}
-            img={{ src: d.thumbnail, alt: '' }}
+            img={{ src: d.thumbnail, alt: '', ...imageSize(d.thumbnail) }}
             kind={kindName[d.category] ?? d.category}
             title={d.title}
             blurb={d.description}
@@ -61,7 +62,7 @@ const award = (d: { description: string }) =>
         return (
           <li>
             <a class="ledger__row" href={`/work/${project.id}/`}>
-              <span class="ledger__year label">{d.date.getFullYear()}</span>
+              <span class="ledger__year label">{d.date.getUTCFullYear()}</span>
               <span class="ledger__name">{name}</span>
               <span class="ledger__what">{kindName[d.category] ?? d.category}</span>
               <span class="ledger__note label">{award(d)}</span>
