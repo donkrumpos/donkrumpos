@@ -20,7 +20,7 @@ fit:
   button: "Tell me what you use now"
 ask:
   heading: "Still re-keying gifts by hand?"
-  body: "Tell me which giving platform and donor database you use. I'll tell you honestly whether this approach fits."
+  body: "Tell me which giving platform and donor database you use. I'll tell you honestly whether this approach fits, or whether a plugin is all you need. A good first step is a short, fixed-price review of how a gift travels today and what that costs you in hours and fees."
   prompt: "Which giving platform and donor database do you use, and what gets done by hand today?"
 statsNote: "Spring and summer 2026"
 stats:
@@ -94,10 +94,12 @@ The old platform could not do most of this: ACH payments, automatic confirmation
 
 Most important, the Land Trust owns all of it. The code, the donor data, the contact list, and the accounts are theirs. They can run it without me, and if they ever want to leave, they take everything with them.
 
-## Two Fair Questions
+## Fair Questions
 
-**What does it cost, next to a free platform?** The old platform was free to the Land Trust. It paid for itself with a 7 percent tip added to each donor's gift, in a box that was checked by default. Card-processing fees apply either way; no platform makes those go away. What the free platform really cost was staff time and data. It wrote only a few fields to Salesforce, so the rest was typed in by hand, and every report was built on hand-keyed records. The owned pipeline is not free either: it took a build, and it runs on a handful of services in the Land Trust's own accounts. In return every field arrives complete, and reports can run on data nobody had to type.
+**Would a plugin or a hosted widget do the job?** For some organizations, yes. If you take a few dozen online gifts a year, a hosted form is the right tool, and I will tell you so. The limits show up as the volume grows. A widget is someone else's form set into your page, with its own fonts, its own fields and its own idea of what to ask a donor. You cannot add a field or change one. It hands your database only the fields it chooses to. And every plugin is more code on your site that someone else writes and you have to keep updated. The owned form is part of the website, in the organization's own design, and card details go straight to Stripe without touching the site.
 
-**Who fixes it if it breaks?** Right now, I do. That is a real dependency, and it is worth saying plainly. The old platform was a dependency too: when something broke there, the Land Trust had a support ticket, and a change built just for them was never going to happen. The difference is who holds the keys. The code and every account belong to the Land Trust, so the work can be handed to another developer, and nothing is locked inside a vendor.
+**What does it cost, next to a free platform?** The old platform was free to the Land Trust. It paid for itself with a 7 percent tip added to each donor's gift, in a box that was checked by default. Card-processing fees apply either way; no platform makes those go away. What the free platform really cost was staff time and data. It wrote only a few fields to Salesforce, so the rest was typed in by hand, and every report was built on hand-keyed records. The owned pipeline is not free either: it takes a build up front, and it runs on a handful of services in the organization's own accounts. The fair comparison is that one-time build against what the current setup costs every year: the hours spent re-typing, the tip your donors pay, and reports nobody fully trusts.
+
+**Who fixes it if it breaks?** Whoever builds a system like this is a dependency, and it is worth saying plainly. The old platform was one too: when something broke there, the Land Trust had a support ticket, and a change built just for them was never going to happen. So I build the answer into the job, in three parts. The handoff comes with it: a written runbook, every account in your organization's name, and alerts that tell staff when a gift fails to reach the database. After launch I offer a care plan, a small monthly fee that covers monitoring, fixes and a set number of changes, so there is a name to call. And there is a way out. The pipeline runs on standard parts (Stripe, Supabase, Salesforce), so any capable developer can take it over, and nothing is locked inside a vendor.
 
 *Honest scope note: this was a phased migration. Every new gift and registration now runs on the owned system. The old platform stays live only to finish out recurring donors who signed up there, and it retires as they lapse.*
