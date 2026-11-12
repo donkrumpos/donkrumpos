@@ -18,7 +18,7 @@ fit:
     - "The platform adds a fee or a pre-checked surcharge to your donors' gifts."
   note: "If some of this sounds familiar, the same approach may fit your organization. Tell me what you use now, and I'll tell you honestly whether it does."
   button: "Tell me what you use now"
-next: dclt-preserve-explorer
+next: dclt-program-registration
 ask:
   button: "Tell me what you use now"
   heading: "Still re-keying gifts by hand?"
