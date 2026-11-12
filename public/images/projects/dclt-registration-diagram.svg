@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 860" role="img" aria-label="Two routes. When someone signs up, the website form sends the registration to an edge function, which checks the places left, writes a campaign member to Salesforce and sends a confirmation email with a cancel link. When someone cancels, the cancel link reaches the same edge function, which frees the place, updates Salesforce, and moves the next person up from the waitlist and emails them.">
+  <!-- Event registration under the hood, as two routes: a sign-up and a
+       cancellation. Rust marks the step that does the work a coordinator
+       used to do. Colors are the site's tokens. Companion to
+       dclt-pipeline-diagram.svg. -->
+  <defs>
+    <marker id="r-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#221c16"/></marker>
+  </defs>
+  <rect width="1600" height="860" fill="#fbf8f1"/>
+
+  <g font-family="'IBM Plex Mono', ui-monospace, Menlo, Consolas, monospace" font-size="24" letter-spacing="4" fill="#5e5346">
+    <text x="100" y="78">WHEN SOMEONE SIGNS UP</text>
+    <text x="100" y="496">WHEN SOMEONE CANCELS</text>
+  </g>
+  <line x1="100" y1="426" x2="1500" y2="426" stroke="#d6c9b0" stroke-width="2"/>
+
+  <!-- SIGN-UP -->
+  <g font-family="'Fraunces', 'Iowan Old Style', Palatino, Georgia, serif" font-size="34" font-weight="600" fill="#221c16" text-anchor="middle">
+    <text x="200" y="150">Sign-up</text>
+    <text x="720" y="150">Edge function</text>
+    <text x="1300" y="150">Salesforce</text>
+    <text x="756" y="344" text-anchor="start">Confirmation email</text>
+    <text x="200" y="568">Cancel link</text>
+    <text x="720" y="568">Edge function</text>
+    <text x="1300" y="568">Salesforce</text>
+    <text x="756" y="762" text-anchor="start">Next on the waitlist</text>
+  </g>
+  <g stroke="#221c16" stroke-width="6">
+    <line x1="200" y1="194" x2="692" y2="194" marker-end="url(#r-ink)"/>
+    <line x1="720" y1="194" x2="1272" y2="194" marker-end="url(#r-ink)"/>
+    <line x1="720" y1="194" x2="720" y2="306" marker-end="url(#r-ink)"/>
+    <line x1="200" y1="612" x2="692" y2="612" marker-end="url(#r-ink)"/>
+    <line x1="720" y1="612" x2="1272" y2="612" marker-end="url(#r-ink)"/>
+    <line x1="720" y1="612" x2="720" y2="724" marker-end="url(#r-ink)"/>
+  </g>
+  <g fill="#221c16" stroke="#fbf8f1" stroke-width="3">
+    <circle cx="200" cy="194" r="16"/>
+    <circle cx="1300" cy="194" r="16"/>
+    <circle cx="720" cy="334" r="16"/>
+    <circle cx="200" cy="612" r="16"/>
+    <circle cx="1300" cy="612" r="16"/>
+    <circle cx="720" cy="752" r="16"/>
+  </g>
+  <g fill="#97522b" stroke="#fbf8f1" stroke-width="3">
+    <circle cx="720" cy="194" r="20"/>
+    <circle cx="720" cy="612" r="20"/>
+  </g>
+
+  <g font-family="'IBM Plex Mono', ui-monospace, Menlo, Consolas, monospace" font-size="22" fill="#5e5346" text-anchor="middle">
+    <text x="446" y="176">registration</text>
+    <text x="996" y="176">writes</text>
+    <text x="200" y="248">website form</text>
+    <text x="698" y="248" text-anchor="end">checks the places left</text>
+    <text x="698" y="280" text-anchor="end" fill="#97522b">full? joins the waitlist</text>
+    <text x="1300" y="248">campaign</text>
+    <text x="1300" y="280">campaign member</text>
+    <text x="756" y="376" text-anchor="start">carries the cancel link</text>
+
+    <text x="446" y="594">two-step confirm</text>
+    <text x="996" y="594">updates</text>
+    <text x="200" y="666">in the email</text>
+    <text x="698" y="666" text-anchor="end" fill="#97522b">frees the place</text>
+    <text x="1300" y="666">campaign member</text>
+    <text x="756" y="794" text-anchor="start">moved up and emailed</text>
+  </g>
+</svg>

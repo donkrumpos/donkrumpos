@@ -51,7 +51,15 @@ An event is now entered once, on the website. Everything after that follows from
 - **Cancellation.** Every confirmation email carries a link to cancel, so a registrant can free their own spot without calling the office.
 - **The database.** Each registration is written to Salesforce as a campaign member, and the campaign itself is created from the program.
 
+![A program page on the Land Trust's website for a family creek program. A notice says the program is full, and the form beside the photo offers to join the waitlist.](/images/projects/dclt-programs-waitlist.webp)
+
+*A full program. The page says so, and the form becomes a waitlist sign-up on its own.*
+
 ## Solution
+
+![Diagram of two routes. A sign-up goes from the website form to an edge function, which checks the places left, writes a campaign member to Salesforce and sends a confirmation email carrying a cancel link. A cancellation goes from that link to the same edge function, which frees the place, updates Salesforce, and moves up and emails the next person on the waitlist.](/images/projects/dclt-registration-diagram.svg)
+
+*Under the hood: one function handles a sign-up and a cancellation, and Salesforce hears about both.*
 
 Registration runs on Supabase edge functions in the Land Trust's own account, with Salesforce as the system of record and Resend sending the email. Free and ticketed programs use the same path; ticketed ones add a payment step through Stripe.
 
