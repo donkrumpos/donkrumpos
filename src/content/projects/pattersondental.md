@@ -6,9 +6,10 @@ client: "Patterson Dental (in-house)"
 role: "Art Director"
 category: "UI/UX"
 tools: ["Adobe Creative Suite", "HTML/CSS", "Human Factors International methodology"]
-thumbnail: "/images/projects/pattersondental.jpg"
+thumbnail: "/images/projects/pattersondental-top.jpg"
 images:
-  - "/images/projects/pattersondental.jpg"
+  - "/images/projects/pattersondental-top.jpg"
+fullPage: "/images/projects/pattersondental.webp"
 featured: true
 order: 1
 ---

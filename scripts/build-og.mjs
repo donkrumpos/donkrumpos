@@ -2,9 +2,9 @@
 //   node scripts/build-og.mjs
 // default.jpg  : scripts/og-card.html, rendered by a headless Chromium
 //                (set CHROME to the binary if it is not in /Applications).
-// <slug>.jpg   : for case studies whose thumbnail is an SVG (link previews
-//                cannot show one) or a very tall full-page capture. The case
-//                study uses this card whenever the file exists.
+// <slug>.jpg   : for case studies whose thumbnail is an SVG, which link
+//                previews cannot show; the SVG is set on a paper card. The
+//                case study uses this card whenever the file exists.
 import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import sharp from 'sharp';
@@ -34,14 +34,6 @@ for (const [slug, src] of Object.entries(svgCards)) {
   await sharp({ create: { width: W, height: H, channels: 3, background: PAPER } })
     .composite([{ input: art, gravity: 'centre' }])
     .jpeg({ quality: 88 })
-    .toFile(out(`${slug}.jpg`));
-}
-// Very tall thumbnails (full-page captures) -> the top of the page, cropped.
-const tallCards = { pattersondental: 'public/images/projects/pattersondental.jpg' };
-for (const [slug, src] of Object.entries(tallCards)) {
-  await sharp(fileURLToPath(new URL(src, root)))
-    .resize(W, H, { fit: 'cover', position: 'top' })
-    .jpeg({ quality: 84 })
     .toFile(out(`${slug}.jpg`));
 }
 console.log('og images written to public/images/og/');

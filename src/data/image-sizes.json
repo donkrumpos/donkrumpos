@@ -43,10 +43,6 @@
   1200,
   630
  ],
- "/images/og/pattersondental.jpg": [
-  1200,
-  630
- ],
  "/images/projects/aceinthecity.jpg": [
   900,
   650
@@ -163,7 +159,11 @@
   1200,
   900
  ],
- "/images/projects/pattersondental.jpg": [
+ "/images/projects/pattersondental-top.jpg": [
+  900,
+  540
+ ],
+ "/images/projects/pattersondental.webp": [
   900,
   6306
  ],

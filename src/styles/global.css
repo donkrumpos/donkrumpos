@@ -772,6 +772,30 @@ time.page-header__subtitle {
   border: 1px solid var(--ink);
 }
 
+/* A full-page capture at reading size, scrolled inside its own frame */
+.page-scroll {
+  max-width: 900px;
+  margin: var(--space-xl) auto 0;
+  text-align: center;
+}
+
+.page-scroll__frame {
+  max-height: min(76vh, 720px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  border: 1px solid var(--ink);
+  background: var(--paper-bright);
+  box-shadow: 0 1px 0 var(--rule-strong), 0 14px 32px rgba(60, 45, 30, 0.16);
+}
+
+.page-scroll__frame img {
+  width: 100%;
+}
+
+.page-scroll figcaption {
+  margin-top: 0.8rem;
+}
+
 /* How a case study ends: the next piece beside a way to get in touch */
 .case-end {
   display: grid;

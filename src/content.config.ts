@@ -16,6 +16,9 @@ const projects = defineCollection({
     // Images
     thumbnail: z.string(),
     images: z.array(z.string()).optional(),
+    // A full-page capture, shown after the write-up in a frame the reader
+    // scrolls, so a very tall image never has to shrink to fit the screen.
+    fullPage: z.string().optional(),
     // Live product — when set, the hero image links out to it
     liveUrl: z.string().url().optional(),
     // Display control

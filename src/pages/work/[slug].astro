@@ -23,7 +23,7 @@ const dateFormatted = project.data.date.toLocaleDateString('en-US', {
 });
 
 const heroSrc = project.data.images?.[0] || project.data.thumbnail;
-const { liveUrl } = project.data;
+const { liveUrl, fullPage } = project.data;
 
 // Link previews use the thumbnail, unless scripts/build-og.mjs has made a
 // card for this project (it does for SVG and very tall thumbnails).
@@ -92,6 +92,16 @@ const shareImage = existsSync(`public/images/og/${project.id}.jpg`)
     <div class="project-detail__body post-body">
       <Content />
     </div>
+
+    {/* The full-page capture, in a frame that scrolls */}
+    {fullPage && (
+      <figure class="page-scroll">
+        <div class="page-scroll__frame" tabindex="0" role="region" aria-label={`${project.data.title}: the full page, scrollable`}>
+          <img src={fullPage} alt={`${project.data.title}: the full page, top to bottom`} loading="lazy" decoding="async" {...imageSize(fullPage)} />
+        </div>
+        <figcaption class="label">The whole page · scroll inside the frame</figcaption>
+      </figure>
+    )}
 
     {/* Additional images */}
     {project.data.images && project.data.images.length > 1 && (
