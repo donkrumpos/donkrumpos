@@ -23,7 +23,9 @@ const dateFormatted = project.data.date.toLocaleDateString('en-US', {
 });
 
 const heroSrc = project.data.images?.[0] || project.data.thumbnail;
-const { liveUrl, fullPage, stats, statsNote } = project.data;
+const { liveUrl, fullPage, stats, statsNote, fit, ask } = project.data;
+// Inquiries from a case study arrive labelled with it.
+const contactHref = `/contact/?about=${project.id}`;
 
 // Link previews use the thumbnail, unless scripts/build-og.mjs has made a
 // card for this project (it does for SVG and very tall thumbnails).
@@ -103,6 +105,22 @@ const shareImage = existsSync(`public/images/og/${project.id}.jpg`)
       </section>
     )}
 
+    {/* Is this your situation? */}
+    {fit && (
+      <section class="fit" aria-labelledby="fit-h">
+        <div>
+          <h2 id="fit-h">{fit.heading}</h2>
+          <ul class="fit__points">
+            {fit.points.map((point) => <li>{point}</li>)}
+          </ul>
+        </div>
+        <div class="fit__ask">
+          {fit.note && <p>{fit.note}</p>}
+          <a class="button" href={contactHref}>{fit.button} <span aria-hidden="true">→</span></a>
+        </div>
+      </section>
+    )}
+
     {/* Case study body — markdown */}
     <div class="project-detail__body post-body">
       <Content />
@@ -138,9 +156,10 @@ const shareImage = existsSync(`public/images/og/${project.id}.jpg`)
       )}
       <div class="case-end__card">
         <span class="label">Start a project</span>
-        <p class="case-end__title">Working on something like this?</p>
+        <p class="case-end__title">{ask?.heading ?? 'Working on something like this?'}</p>
+        {ask?.body && <p class="case-end__body">{ask.body}</p>}
         <p class="case-end__actions">
-          <a class="button" href="/contact/">Start a conversation <span aria-hidden="true">→</span></a>
+          <a class="button" href={contactHref}>Start a conversation <span aria-hidden="true">→</span></a>
           <a class="button button--ghost" href="/work/">All work</a>
         </p>
       </div>

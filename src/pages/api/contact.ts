@@ -40,6 +40,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
   let email = '';
   let message = '';
   let honeypot = '';
+  let topic = '';
   let turnstileToken = '';
 
   try {
@@ -49,6 +50,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
       email = String(form.get('email') ?? '');
       message = String(form.get('message') ?? '');
       honeypot = String(form.get('company') ?? '');
+      topic = String(form.get('topic') ?? '');
       turnstileToken = String(form.get('cf-turnstile-response') ?? '');
     } else {
       const body = await request.json();
@@ -56,6 +58,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
       email = String(body.email ?? '');
       message = String(body.message ?? '');
       honeypot = String(body.company ?? '');
+      topic = String(body.topic ?? '');
       turnstileToken = String(body['cf-turnstile-response'] ?? '');
     }
   } catch {
@@ -91,6 +94,8 @@ export const POST: APIRoute = async ({ request, locals }) => {
   name = name.trim();
   email = email.trim();
   message = message.trim();
+  // The case study the visitor came from, if any. Never trusted: one line, capped.
+  topic = topic.replace(/[\r\n]+/g, ' ').trim().slice(0, 120);
 
   if (
     !name ||
@@ -107,12 +112,12 @@ export const POST: APIRoute = async ({ request, locals }) => {
     return json({ ok: false, error: 'The contact form is not configured yet.' }, 500);
   }
 
-  const html = `<p><strong>Name:</strong> ${escapeHtml(name)}</p>
+  const html = `${topic ? `<p><strong>About:</strong> ${escapeHtml(topic)}</p>\n` : ''}<p><strong>Name:</strong> ${escapeHtml(name)}</p>
 <p><strong>Email:</strong> ${escapeHtml(email)}</p>
 <p><strong>Message:</strong></p>
 <p>${escapeHtml(message).replace(/\n/g, '<br>')}</p>`;
 
-  const text = `Name: ${name}\nEmail: ${email}\n\n${message}`;
+  const text = `${topic ? `About: ${topic}\n` : ''}Name: ${name}\nEmail: ${email}\n\n${message}`;
 
   const send = await fetch('https://api.resend.com/emails', {
     method: 'POST',
@@ -124,7 +129,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
       from: FROM,
       to: [CONTACT_TO_EMAIL],
       reply_to: email,
-      subject: `Contact form — ${name}`,
+      subject: topic ? `Contact form — ${name} (${topic})` : `Contact form — ${name}`,
       html,
       text,
     }),

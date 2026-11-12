@@ -1,7 +1,18 @@
 ---
 import Base from '../layouts/Base.astro';
 
+import { getCollection } from 'astro:content';
+
 const success = Astro.url.searchParams.get('success') === 'true';
+
+// A link from a case study arrives as /contact/?about=<project>. The form then
+// says what the message is about, sends that along, and may change its hint.
+const topics = Object.fromEntries(
+  (await getCollection('projects', ({ data }) => !data.draft)).map((p) => [
+    p.id,
+    { title: p.data.title, prompt: p.data.ask?.prompt ?? '' },
+  ]),
+);
 
 // Set PUBLIC_TURNSTILE_SITE_KEY in the Cloudflare Pages BUILD environment (this
 // page is static, so the key bakes in at build time). Widget renders only when
@@ -31,6 +42,8 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
       method="POST"
       style={success ? 'display:none;' : ''}
     >
+      <p id="form-topic" class="form-topic label" hidden>About: <span></span></p>
+      <input type="hidden" id="topic" name="topic" value="" />
       <div class="form-group">
         <label for="name">Name</label>
         <input type="text" id="name" name="name" required />
@@ -56,11 +69,21 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
       )}
       <button type="submit" class="button form-submit">Send message</button>
     </form>
-    <script is:inline>
+    <script is:inline define:vars={{ topics }}>
+      var about = new URLSearchParams(location.search).get('about');
+      var m = document.getElementById('message');
       // Arriving from /field-study: prompt for the place, not the project.
-      if (new URLSearchParams(location.search).get('about') === 'field-study') {
-        var m = document.getElementById('message');
+      if (about === 'field-study') {
         if (m) m.placeholder = 'Tell me about your place: what it is, what you hold, and what you wish more people noticed.';
+      }
+      // Arriving from a case study: say so, send it along, and use its hint.
+      var topic = about && Object.prototype.hasOwnProperty.call(topics, about) ? topics[about] : null;
+      if (topic) {
+        var line = document.getElementById('form-topic');
+        line.querySelector('span').textContent = topic.title;
+        line.hidden = false;
+        document.getElementById('topic').value = topic.title;
+        if (m && topic.prompt) m.placeholder = topic.prompt;
       }
     </script>
     {turnstileSiteKey && (
@@ -95,6 +118,12 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
     padding: clamp(18px, 3vw, 28px);
     background: var(--paper-bright);
     border: 1px solid var(--ink);
+  }
+
+  .form-topic {
+    display: block;
+    margin-bottom: var(--space-md);
+    color: var(--rust);
   }
 
   .form-group {
@@ -188,6 +217,7 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
           email: data.get('email'),
           message: data.get('message'),
           company: data.get('company'),
+          topic: data.get('topic'),
           'cf-turnstile-response': data.get('cf-turnstile-response'),
         }),
       });

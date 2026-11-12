@@ -837,6 +837,60 @@ time.page-header__subtitle {
   .stat-band__row { flex-direction: column; align-items: flex-start; }
 }
 
+/* "Is this your situation?": the reader's checklist, with a way to answer */
+.fit {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+  gap: clamp(20px, 4vw, 56px);
+  align-items: center;
+  margin: 0 auto var(--space-xl);
+  padding: clamp(20px, 3.4vw, 40px);
+  background: var(--paper-bright);
+  border: 1px solid var(--ink);
+  border-left: 4px solid var(--rust);
+}
+
+.fit h2 {
+  margin-bottom: var(--space-md);
+}
+
+.fit__points {
+  list-style: none;
+  display: grid;
+  gap: 0.7rem;
+}
+
+.fit__points li {
+  position: relative;
+  padding-left: 1.9rem;
+  font-size: 1.08rem;
+  line-height: 1.45;
+}
+
+/* an empty tick box, for the reader to fill in their head */
+.fit__points li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.32em;
+  width: 0.8rem;
+  height: 0.8rem;
+  border: 1.5px solid var(--rust);
+}
+
+.fit__ask p {
+  color: var(--ink-muted);
+  margin-bottom: var(--space-md);
+}
+
+.case-end__body {
+  color: var(--ink-muted);
+}
+
+@media (max-width: 860px) {
+  .fit { grid-template-columns: 1fr; }
+}
+
 /* A full-page capture at reading size, scrolled inside its own frame */
 .page-scroll {
   max-width: 900px;

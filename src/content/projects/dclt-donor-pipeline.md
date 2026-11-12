@@ -8,6 +8,19 @@ category: "Web & Systems"
 tools: ["Astro", "Supabase Edge Functions", "Stripe", "Salesforce / NPSP", "Resend", "TypeScript"]
 thumbnail: "/images/projects/dclt-pipeline-thumb.svg"
 images: []
+fit:
+  heading: "Is this your situation?"
+  points:
+    - "Online gifts or event sign-ups come in through a hosted platform, and someone re-types them into your donor database."
+    - "When a donor cancels a recurring gift, your database doesn't know until somebody notices."
+    - "Every event gets built twice: once on your website and once on the platform."
+    - "The platform adds a fee or a pre-checked surcharge to your donors' gifts."
+  note: "If some of this sounds familiar, the same approach may fit your organization. Tell me what you use now, and I'll tell you honestly whether it does."
+  button: "Tell me what you use now"
+ask:
+  heading: "Still re-keying gifts by hand?"
+  body: "Tell me which giving platform and donor database you use. I'll tell you honestly whether this approach fits."
+  prompt: "Which giving platform and donor database do you use, and what gets done by hand today?"
 statsNote: "Spring and summer 2026"
 stats:
   - value: "93%"

@@ -23,6 +23,22 @@ const projects = defineCollection({
     // read best. `statsNote` is the line above them (e.g. the period).
     stats: z.array(z.object({ value: z.string(), label: z.string() })).optional(),
     statsNote: z.string().optional(),
+    // "Is this your situation?": a short list a reader can recognise their
+    // own organization in, with a button to the contact form. Shown under the
+    // results, before the write-up.
+    fit: z.object({
+      heading: z.string().default('Is this your situation?'),
+      points: z.array(z.string()),
+      note: z.string().optional(),
+      button: z.string().default('Tell me what you use now'),
+    }).optional(),
+    // The closing prompt. Left out, the case study ends with the general one.
+    // `prompt` becomes the hint in the contact form's message box.
+    ask: z.object({
+      heading: z.string(),
+      body: z.string().optional(),
+      prompt: z.string().optional(),
+    }).optional(),
     // Live product — when set, the hero image links out to it
     liveUrl: z.string().url().optional(),
     // Display control
