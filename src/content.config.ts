@@ -19,6 +19,10 @@ const projects = defineCollection({
     // A full-page capture, shown after the write-up in a frame the reader
     // scrolls, so a very tall image never has to shrink to fit the screen.
     fullPage: z.string().optional(),
+    // Headline results, shown as large figures under the hero. Two or three
+    // read best. `statsNote` is the line above them (e.g. the period).
+    stats: z.array(z.object({ value: z.string(), label: z.string() })).optional(),
+    statsNote: z.string().optional(),
     // Live product — when set, the hero image links out to it
     liveUrl: z.string().url().optional(),
     // Display control

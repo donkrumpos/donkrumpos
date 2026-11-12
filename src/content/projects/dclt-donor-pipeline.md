@@ -8,6 +8,12 @@ category: "Web & Systems"
 tools: ["Astro", "Supabase Edge Functions", "Stripe", "Salesforce / NPSP", "Resend", "TypeScript"]
 thumbnail: "/images/projects/dclt-pipeline-thumb.svg"
 images: []
+statsNote: "Spring and summer 2026"
+stats:
+  - value: "93%"
+    label: "of registrations synced to Salesforce automatically (316 of 340)"
+  - value: "340"
+    label: "online registrations, for 566 attendees"
 featured: true
 draft: false
 order: 1

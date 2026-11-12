@@ -23,7 +23,7 @@ const dateFormatted = project.data.date.toLocaleDateString('en-US', {
 });
 
 const heroSrc = project.data.images?.[0] || project.data.thumbnail;
-const { liveUrl, fullPage } = project.data;
+const { liveUrl, fullPage, stats, statsNote } = project.data;
 
 // Link previews use the thumbnail, unless scripts/build-og.mjs has made a
 // card for this project (it does for SVG and very tall thumbnails).
@@ -87,6 +87,21 @@ const shareImage = existsSync(`public/images/og/${project.id}.jpg`)
         </a>
       )}
     </div>
+
+    {/* Headline results */}
+    {stats && stats.length > 0 && (
+      <section class="stat-band" aria-label="Results at a glance">
+        {statsNote && <p class="stat-band__note label">{statsNote}</p>}
+        <ul class="stat-band__row">
+          {stats.map((s) => (
+            <li class="stat">
+              <span class="stat__value">{s.value}</span>
+              <span class="stat__label">{s.label}</span>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
 
     {/* Case study body — markdown */}
     <div class="project-detail__body post-body">
