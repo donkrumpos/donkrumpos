@@ -33,6 +33,10 @@ The real problem was not any single feature. It was that donor data lived in a r
 
 The first decision was to migrate in parallel rather than rip the old platform out. All new gifts and registrations route through the new owned system, while existing recurring donors stay on the old platform until they lapse. A small nonprofit cannot absorb a hard-cutover failure during a giving season, so the system was built to outgrow the old one instead of replacing it in a single move.
 
+![Migration timeline. At launch, new gifts and registrations move from the rented platform to the owned pipeline. Existing recurring donors stay on the rented platform until each gift lapses, and then the old platform retires.](/images/projects/dclt-migration-timeline.svg)
+
+*The migration: new gifts moved to the owned pipeline at launch, while recurring gifts already on the old platform stay there until they lapse.*
+
 The second decision was ownership. Every piece runs in accounts the Land Trust controls: its own Stripe, its own Supabase database, its own Salesforce, its own website repository. No platform sits between the organization and its donors, renting it access to its own list.
 
 The architecture is a clean separation of concerns. An Astro donation form takes the gift. Stripe handles the money. A Supabase edge function receives the payment event and does the real work. Salesforce with the Nonprofit Success Pack (NPSP) stays the system of record. Resend sends the transactional email. Each system does one job, and the data flows one direction through them.

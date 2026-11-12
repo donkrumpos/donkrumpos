@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 540" role="img" aria-label="Migration timeline. At launch, new gifts and registrations move from the rented platform to the owned pipeline. Existing recurring donors stay on the rented platform until each gift lapses, and then the old platform retires.">
+  <!-- The phased migration. Line weight says which system carries the work:
+       thin and muted is the rented platform, heavy ink is the owned pipeline.
+       Rust marks launch, the one moment anything switched. Same tokens and
+       type as dclt-pipeline-diagram.svg. -->
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#221c16"/></marker>
+  </defs>
+
+  <rect width="1600" height="540" fill="#fbf8f1"/>
+
+  <g font-family="'IBM Plex Mono', ui-monospace, Menlo, Consolas, monospace" font-size="24" letter-spacing="4" fill="#5e5346">
+    <text x="100" y="78">THE MIGRATION</text>
+    <g font-size="24" letter-spacing="3" text-anchor="middle">
+      <text x="660" y="150">BEFORE</text>
+      <text x="800" y="150" fill="#97522b">LAUNCH</text>
+      <text x="1340" y="150">OLD PLATFORM RETIRES</text>
+    </g>
+  </g>
+
+  <!-- the two moments -->
+  <line x1="800" y1="170" x2="800" y2="480" stroke="#97522b" stroke-width="2" stroke-dasharray="6 8"/>
+  <line x1="1340" y1="170" x2="1340" y2="480" stroke="#b9a888" stroke-width="2" stroke-dasharray="6 8"/>
+  <line x1="100" y1="335" x2="1500" y2="335" stroke="#d6c9b0" stroke-width="2"/>
+
+  <!-- row names -->
+  <g font-family="'Fraunces', 'Iowan Old Style', Palatino, Georgia, serif" font-size="34" font-weight="600" fill="#221c16">
+    <text x="100" y="244">New gifts and</text>
+    <text x="100" y="286">registrations</text>
+    <text x="100" y="414">Existing</text>
+    <text x="100" y="456">recurring donors</text>
+  </g>
+
+  <!-- which system carries each stretch -->
+  <g font-family="'IBM Plex Mono', ui-monospace, Menlo, Consolas, monospace" font-size="26" fill="#5e5346" text-anchor="middle">
+    <text x="660" y="232">rented platform</text>
+    <text x="1150" y="232" fill="#221c16">owned pipeline</text>
+    <text x="660" y="402">rented platform</text>
+    <text x="1070" y="402">stays until each gift lapses</text>
+  </g>
+
+  <!-- row 1: switches at launch -->
+  <line x1="520" y1="258" x2="800" y2="258" stroke="#857662" stroke-width="4"/>
+  <line x1="800" y1="258" x2="1500" y2="258" stroke="#221c16" stroke-width="6" marker-end="url(#a-ink)"/>
+  <circle cx="800" cy="258" r="20" fill="#97522b" stroke="#fbf8f1" stroke-width="3"/>
+
+  <!-- row 2: stays put, thins out, ends -->
+  <line x1="520" y1="428" x2="1060" y2="428" stroke="#857662" stroke-width="4"/>
+  <line x1="1076" y1="428" x2="1318" y2="428" stroke="#857662" stroke-width="4" stroke-dasharray="4 16" stroke-linecap="round"/>
+  <circle cx="1340" cy="428" r="14" fill="#fbf8f1" stroke="#857662" stroke-width="4"/>
+</svg>
