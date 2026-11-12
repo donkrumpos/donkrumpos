@@ -9,6 +9,10 @@ tools: ["Figma", "Mural", "Axure"]
 thumbnail: "/images/projects/optum-hero.jpg"
 images:
   - "/images/projects/optum-hero.jpg"
+ask:
+  heading: "Too many tools doing one job?"
+  body: "I take on product design and design-system work as a contract lead. Tell me about the product and the team using it."
+  prompt: "What is the product, who uses it, and where does it get in their way?"
 featured: true
 order: 6
 ---

@@ -9,6 +9,10 @@ tools: ["Figma", "Miro", "InVision"]
 thumbnail: "/images/projects/niq-discover.jpg"
 images:
   - "/images/projects/niq-discover.jpg"
+ask:
+  heading: "Building a design system for a data product?"
+  body: "I take on product design and design-system work as a contract lead. Tell me about the platform and where the teams building it disagree."
+  prompt: "What is the platform, how many teams build on it, and what is inconsistent today?"
 featured: true
 order: 5
 ---

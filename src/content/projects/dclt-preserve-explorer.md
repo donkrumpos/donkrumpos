@@ -9,6 +9,19 @@ tools: ["Astro", "React", "MapLibre GL", "TypeScript", "GDAL", "GeoPandas", "Clo
 thumbnail: "/images/projects/dclt-explorer-thumb.jpg"
 images: []
 liveUrl: "https://doorcountylandtrust.org/properties/"
+fit:
+  heading: "Is this your situation?"
+  points:
+    - "Your preserves, parks or trails appear online as a list, or as pins on someone else's map."
+    - "Visitors can't tell which place suits them without opening a page for each one."
+    - "You pay a mapping service by the view, or expect to as traffic grows."
+    - "You already hold boundary and trail files that the public never sees."
+  note: "I work with land trusts, parks and historic sites to turn the places they care for into maps visitors can explore. Tell me what you have, and I'll tell you honestly what it would take."
+  button: "Tell me about your land"
+ask:
+  heading: "Have land that deserves a better map?"
+  body: "Tell me what you protect and what map data you already hold. I'll tell you what a map like this would take."
+  prompt: "What places would go on the map, and what data do you already have for them (boundaries, trails, photos)?"
 featured: false
 draft: false
 order: 2

@@ -11,6 +11,15 @@ thumbnail: "/images/projects/yonder-mural-map.png"
 images:
   - "/images/projects/yonder-mural-map.png"
 liveUrl: "https://www.yonderartland.com/murals/"
+fit:
+  heading: "Does your place have stories like this?"
+  points:
+    - "Your town, site or collection has stories tied to particular places, and they live in a binder, a PDF or one person's memory."
+    - "Visitors ask where things are and what they are looking at, and the answer is a printed list."
+    - "You would like a self-guided walk, without paying a map company by the view."
+    - "You want to own the map and everything on it, not rent them."
+  note: "I help museums, historic sites, libraries and arts organizations find the stories in their places and collections. I work with staff to turn those stories into something visitors can explore: interactive maps, self-guided walks and printed walk cards."
+  button: "Tell me about your place"
 ask:
   heading: "Want a map like this for your town?"
   body: "Murals, historic buildings, trails, a downtown walk: if your place has stories tied to locations, tell me what you have and I'll tell you what a map of it would take."
