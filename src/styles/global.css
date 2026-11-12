@@ -98,6 +98,11 @@ body {
      browsers, which stops the sticky header from sticking */
   overflow-x: clip;
 }
+/* The root clips too, so nothing wider than the window can make a phone
+   scroll sideways. */
+html {
+  overflow-x: clip;
+}
 
 /* Paper tooth: a faint fibre noise over everything */
 body::before {
