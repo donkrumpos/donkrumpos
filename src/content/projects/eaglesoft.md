@@ -11,7 +11,7 @@ images:
   - "/images/projects/eaglesoft.jpg"
 featured: true
 order: 1
-draft: true
+unlisted: true
 ---
 
 ## The Challenge

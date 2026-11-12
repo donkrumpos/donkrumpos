@@ -1,0 +1,4 @@
+# Trailing-slash forms of the redirects in astro.config.mjs (Pages matches
+# these exactly, so each form needs its own line).
+/worlds/ /about/ 301
+/work/oshkosh-mill-madonnas/ /work/ 301

@@ -3,7 +3,7 @@ import Base from '../../layouts/Base.astro';
 import ProofCard from '../../components/ProofCard.astro';
 import { getCollection } from 'astro:content';
 
-const projects = (await getCollection('projects', ({ data }) => !data.draft))
+const projects = (await getCollection('projects', ({ data }) => !data.draft && !data.unlisted))
   .sort((a, b) => {
     if (a.data.order !== undefined && b.data.order !== undefined) {
       return a.data.order - b.data.order;

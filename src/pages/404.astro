@@ -1,0 +1,29 @@
+---
+// Served with a 404 status for any URL the site does not have.
+import Base from '../layouts/Base.astro';
+---
+
+<Base title="Page not found | Don Krumpos" description="That page is not in the book." noindex>
+  <div class="page-header">
+    <span class="label">Error 404</span>
+    <h1 class="page-header__title">Not in <em>the book</em></h1>
+    <p class="page-header__subtitle">
+      That page has moved or was never printed. The work and the way to reach
+      me are both still here.
+    </p>
+  </div>
+
+  <p class="lost__actions">
+    <a class="button" href="/work/">See the work</a>
+    <a class="button button--ghost" href="/contact/">Get in touch</a>
+  </p>
+</Base>
+
+<style>
+  .lost__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: var(--space-lg);
+  }
+</style>

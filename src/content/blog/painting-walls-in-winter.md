@@ -3,6 +3,7 @@ title: "The Case for Slow Design"
 description: "Why I still start most projects on paper before opening any design tool."
 date: 2025-02-01
 tags: ["process", "design thinking"]
+draft: true
 ---
 
 There's a temptation in digital design to jump straight into Figma. The tools are so good now that you can start pixel-pushing before you've really understood the problem. I've learned — sometimes the hard way — that the best interfaces start on paper.

@@ -80,8 +80,10 @@ Open:
 - Patterson Dental shows 2010 in the ledger but is dated 2011-01-01 (timezone
   slip in `getFullYear()`).
 - Case studies should suggest a next piece, since Foggy sends direct links to
-  the one that fits each inquiry. An `unlisted` flag for audience-specific
-  case studies (Samsara, Eaglesoft) was proposed, not built.
+  the one that fits each inquiry. Audience-specific case studies use
+  `unlisted: true` (built 2026-11-11; Eaglesoft uses it): reachable by direct
+  link, but off the Work page, out of the sitemap and noindexed. `draft: true`
+  projects and blog posts are not built at all.
 - "Interpretive design" interests Foggy as a direction; not yet on the site.
 - Build-plan step 4 (accessibility pass, inner pages at phone width) is only
   partly done.

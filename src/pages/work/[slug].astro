@@ -3,7 +3,8 @@ import Base from '../../layouts/Base.astro';
 import { getCollection, render } from 'astro:content';
 
 export async function getStaticPaths() {
-  const projects = await getCollection('projects');
+  // Drafts are never built. Unlisted projects are built but noindexed.
+  const projects = await getCollection('projects', ({ data }) => !data.draft);
   return projects.map(project => ({
     params: { slug: project.id },
     props: { project },
@@ -21,7 +22,7 @@ const heroSrc = project.data.images?.[0] || project.data.thumbnail;
 const { liveUrl } = project.data;
 ---
 
-<Base title={`${project.data.title} — Don Krumpos`} description={project.data.description}>
+<Base title={`${project.data.title} — Don Krumpos`} description={project.data.description} noindex={project.data.unlisted}>
   <div class="project-detail">
     <a href="/work/" class="back-link">&larr; Back to work</a>
 
