@@ -9,8 +9,6 @@ tools: ["Adobe Illustrator", "Photoshop", "HTML/CSS", "JavaScript"]
 thumbnail: "/images/projects/tvsafety.jpg"
 images:
   - "/images/projects/tvsafety.jpg"
-  - "/images/projects/tvsafety-responsive.png"
-  - "/images/projects/tvsafety-mobile.png"
 featured: true
 order: 3
 ---

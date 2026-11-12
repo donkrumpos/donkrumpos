@@ -12,6 +12,7 @@ images:
 featured: true
 order: 1
 unlisted: true
+next: pattersondental
 ---
 
 ## The Challenge

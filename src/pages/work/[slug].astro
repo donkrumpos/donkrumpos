@@ -1,17 +1,18 @@
 ---
 import Base from '../../layouts/Base.astro';
 import { getCollection, render } from 'astro:content';
+import { kindName, nextProject } from '../../lib/work';
 
 export async function getStaticPaths() {
   // Drafts are never built. Unlisted projects are built but noindexed.
   const projects = await getCollection('projects', ({ data }) => !data.draft);
   return projects.map(project => ({
     params: { slug: project.id },
-    props: { project },
+    props: { project, next: nextProject(project, projects) },
   }));
 }
 
-const { project } = Astro.props;
+const { project, next } = Astro.props;
 const { Content } = await render(project);
 
 const dateFormatted = project.data.date.toLocaleDateString('en-US', {
@@ -20,9 +21,15 @@ const dateFormatted = project.data.date.toLocaleDateString('en-US', {
 
 const heroSrc = project.data.images?.[0] || project.data.thumbnail;
 const { liveUrl } = project.data;
+
+// Link previews cannot show an SVG. A case study whose thumbnail is one gets
+// a raster card from scripts/build-og.mjs, named for the project.
+const shareImage = project.data.thumbnail.endsWith('.svg')
+  ? `/images/og/${project.id}.jpg`
+  : project.data.thumbnail;
 ---
 
-<Base title={`${project.data.title} — Don Krumpos`} description={project.data.description} noindex={project.data.unlisted}>
+<Base title={`${project.data.title} — Don Krumpos`} description={project.data.description} noindex={project.data.unlisted} ogImage={shareImage}>
   <div class="project-detail">
     <a href="/work/" class="back-link">&larr; Back to work</a>
 
@@ -91,5 +98,24 @@ const { liveUrl } = project.data;
         ))}
       </div>
     )}
+
+    {/* The ending: the next piece, and a way to start a conversation */}
+    <footer class="case-end">
+      {next && (
+        <a class="case-end__card case-end__next" href={`/work/${next.id}/`}>
+          <span class="label">Next in the book</span>
+          <span class="case-end__title">{next.data.title}</span>
+          <span class="case-end__kind label">{kindName[next.data.category] ?? next.data.category} <span aria-hidden="true">→</span></span>
+        </a>
+      )}
+      <div class="case-end__card">
+        <span class="label">Start a project</span>
+        <p class="case-end__title">Working on something like this?</p>
+        <p class="case-end__actions">
+          <a class="button" href="/contact/">Start a conversation <span aria-hidden="true">→</span></a>
+          <a class="button button--ghost" href="/work/">All work</a>
+        </p>
+      </div>
+    </footer>
   </div>
 </Base>

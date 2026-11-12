@@ -772,6 +772,60 @@ time.page-header__subtitle {
   border: 1px solid var(--ink);
 }
 
+/* How a case study ends: the next piece beside a way to get in touch */
+.case-end {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+  gap: var(--grid-gap);
+  margin-top: var(--space-3xl);
+  padding-top: var(--space-xl);
+  border-top: 2px solid var(--ink);
+}
+
+.case-end__card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: clamp(18px, 3vw, 28px);
+  background: var(--paper-bright);
+  border: 1px solid var(--ink);
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.case-end__card > .label:first-child {
+  color: var(--rust);
+}
+
+.case-end__next {
+  transition: background var(--transition);
+}
+
+.case-end__next:hover {
+  color: var(--ink);
+  background: var(--paper-deep);
+}
+
+.case-end__title {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+.case-end__kind {
+  margin-top: auto;
+  color: var(--ink-muted);
+}
+
+.case-end__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: auto;
+  padding-top: 0.4rem;
+}
+
 /* ============================================
    WORK SECTIONS (category groups)
    ============================================ */

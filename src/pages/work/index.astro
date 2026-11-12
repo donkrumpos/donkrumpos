@@ -2,32 +2,13 @@
 import Base from '../../layouts/Base.astro';
 import ProofCard from '../../components/ProofCard.astro';
 import { getCollection } from 'astro:content';
-
-const projects = (await getCollection('projects', ({ data }) => !data.draft && !data.unlisted))
-  .sort((a, b) => {
-    if (a.data.order !== undefined && b.data.order !== undefined) {
-      return a.data.order - b.data.order;
-    }
-    if (a.data.order !== undefined) return -1;
-    if (b.data.order !== undefined) return 1;
-    return b.data.date.getTime() - a.data.date.getTime();
-  });
+import { jobBook, kindName } from '../../lib/work';
 
 // The book has two parts (2026-11-11): a few lead proofs shown large, then a
 // ledger of everything else, one line per job. Murals are off this site (they
-// live with Yonder), so 'Public Art' entries stay drafts.
-const LEADS = ['optum', 'nielseniq', 'dclt-donor-pipeline', 'dclt-preserve-explorer'];
-const kindName: Record<string, string> = {
-  'Web & Systems': 'Maps, tools & systems',
-  'Design Systems': 'Design system',
-  'UI/UX': 'Product & web design',
-  'Branding': 'Brand',
-  'Print': 'Print',
-};
-const leads = LEADS.map(id => projects.find(p => p.id === id)).filter(p => !!p);
-const ledger = projects
-  .filter(p => !LEADS.includes(p.id))
-  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+// live with Yonder), so 'Public Art' entries stay drafts. The order lives in
+// src/lib/work.ts.
+const { leads, ledger } = jobBook(await getCollection('projects'));
 
 // "Client — What it was" titles split into the two ledger columns.
 const split = (title: string) => {

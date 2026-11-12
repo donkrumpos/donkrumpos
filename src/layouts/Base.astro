@@ -13,7 +13,9 @@ interface Props {
 }
 
 const { title, description = 'Portfolio of Don Krumpos — designer and builder. UX, design systems, and hand-built web.', noindex = false, ogImage, bleed = false } = Astro.props;
-const ogImageUrl = ogImage ? new URL(ogImage, Astro.site) : undefined;
+// Link previews: the page's own image, or the print-shop card
+// (regenerate with `node scripts/build-og.mjs`).
+const ogImageUrl = new URL(ogImage || '/images/og/default.jpg', Astro.site);
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
 ---
 
@@ -31,13 +33,10 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
   <meta property="og:description" content={description} />
   <meta property="og:type" content="website" />
   <meta property="og:url" content={canonicalUrl} />
-  {ogImageUrl && (
-    <>
-      <meta property="og:image" content={ogImageUrl} />
-      <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:image" content={ogImageUrl} />
-    </>
-  )}
+  <meta property="og:site_name" content="Don Krumpos" />
+  <meta property="og:image" content={ogImageUrl} />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content={ogImageUrl} />
 
   <link rel="canonical" href={canonicalUrl} />
 

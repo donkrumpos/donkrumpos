@@ -24,6 +24,9 @@ const projects = defineCollection({
     // Unlisted: the page is built and reachable by direct link, but stays off
     // the Work page, out of the sitemap, and noindexed.
     unlisted: z.boolean().default(false),
+    // The piece to suggest at the end of this one (a project file name without
+    // .md). Left out, it is the next job in the Work page's order.
+    next: z.string().optional(),
     order: z.number().optional(),
   }),
 });

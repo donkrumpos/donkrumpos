@@ -1,0 +1,33 @@
+<!doctype html>
+<!-- The default share card (1200 x 630), in the homepage broadside's language.
+     Rendered to public/images/og/default.jpg by scripts/build-og.mjs. -->
+<html lang="en">
+<meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@800&family=Fraunces:ital,opsz,wght@0,9..144,900;1,9..144,300&family=IBM+Plex+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;box-sizing:border-box}
+  body{width:1200px;height:630px;overflow:hidden;background:#f4efe4;color:#221c16;position:relative;text-align:center}
+  .half{position:absolute;top:0;height:630px;opacity:.2}
+  .half--l{left:-150px}.half--r{right:-150px}
+  .frame{position:absolute;inset:26px;border:1.5px solid #221c16}
+  .in{position:relative;padding-top:118px}
+  .label{font:400 17px 'IBM Plex Mono',monospace;letter-spacing:.16em;text-transform:uppercase}
+  .kicker{color:#97522b}
+  .gothic{font:800 44px/1 'Big Shoulders Display',sans-serif;letter-spacing:.06em;text-transform:uppercase;margin-top:22px}
+  .gothic span{color:#97522b}
+  h1{font:900 150px/.9 'Fraunces',serif;font-variation-settings:'opsz' 144;letter-spacing:-.01em;text-transform:uppercase;margin-top:16px}
+  .italic{font:italic 300 44px/1.1 'Fraunces',serif;margin-top:10px}
+  .italic b{font-weight:300;color:#97522b}
+  .imprint{position:absolute;left:60px;right:60px;bottom:52px;display:flex;justify-content:space-between;padding-top:14px;border-top:1px solid #221c16}
+</style>
+<img class="half half--l" src="../public/images/home/land-left.webp" alt="">
+<img class="half half--r" src="../public/images/home/land-right.webp" alt="">
+<div class="frame"></div>
+<div class="in">
+  <p class="label kicker">Printed for organizations that look after things</p>
+  <p class="gothic">Product design <span>·</span> Systems <span>·</span> Maps</p>
+  <h1>Well Made</h1>
+  <p class="italic">software, set by hand <b>&amp;</b> built to run</p>
+</div>
+<div class="imprint label"><span>Don Krumpos · Design &amp; Build</span><span>Algoma, Wisconsin</span></div>
+</html>
