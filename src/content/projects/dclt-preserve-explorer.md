@@ -18,7 +18,16 @@ fit:
     - "You already hold boundary and trail files that the public never sees."
   note: "I work with land trusts, parks and historic sites to turn the places they care for into maps visitors can explore. Tell me what you have, and I'll tell you honestly what it would take."
   button: "Tell me about your land"
+next: yonder-mural-map
+stats:
+  - value: "15"
+    label: "preserves on one map"
+  - value: "2,600+"
+    label: "acres a visitor can explore before leaving home"
+  - value: "$0"
+    label: "paid to a map company, per view or per month"
 ask:
+  button: "Tell me about your land"
   heading: "Have land that deserves a better map?"
   body: "Tell me what you protect and what map data you already hold. I'll tell you what a map like this would take."
   prompt: "What places would go on the map, and what data do you already have for them (boundaries, trails, photos)?"

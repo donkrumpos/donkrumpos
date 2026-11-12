@@ -41,6 +41,8 @@ const projects = defineCollection({
       heading: z.string(),
       body: z.string().optional(),
       prompt: z.string().optional(),
+      // The closing button's words. Left out: "Start a conversation".
+      button: z.string().optional(),
     }).optional(),
     // Live product — when set, the hero image links out to it
     liveUrl: z.string().url().optional(),

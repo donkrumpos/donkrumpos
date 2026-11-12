@@ -10,7 +10,12 @@ const success = Astro.url.searchParams.get('success') === 'true';
 const topics = Object.fromEntries(
   (await getCollection('projects', ({ data }) => !data.draft)).map((p) => [
     p.id,
-    { title: p.data.title, prompt: p.data.ask?.prompt ?? '' },
+    {
+      title: p.data.title,
+      prompt: p.data.ask?.prompt ?? '',
+      // What the page says in place of the general introduction.
+      intro: p.data.ask?.body ?? '',
+    },
   ]),
 );
 
@@ -27,7 +32,7 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
   </div>
 
   <div class="contact-content">
-    <p>
+    <p id="contact-intro">
       Tell me what you're working on, and I'll tell you honestly whether I'm the
       right fit. I design and build software, maps and the systems behind them,
       as a design lead for product teams and start to finish for nonprofits and
@@ -53,7 +58,7 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
         <input type="email" id="email" name="email" required />
       </div>
       <div class="form-group">
-        <label for="message">Message</label>
+        <label for="message" id="message-label">Message</label>
         <textarea id="message" name="message" rows="6" required></textarea>
       </div>
       <!-- honeypot: real people leave this empty; bots fill it -->
@@ -83,7 +88,10 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
         line.querySelector('span').textContent = topic.title;
         line.hidden = false;
         document.getElementById('topic').value = topic.title;
-        if (m && topic.prompt) m.placeholder = topic.prompt;
+        // The page's own question becomes the label, so it stays in view
+        // while the visitor types, and its closing line replaces the intro.
+        if (topic.prompt) document.getElementById('message-label').textContent = topic.prompt;
+        if (topic.intro) document.getElementById('contact-intro').textContent = topic.intro + ' Whatever I build is yours to own and run.';
       }
     </script>
     {turnstileSiteKey && (

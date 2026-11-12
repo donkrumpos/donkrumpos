@@ -18,7 +18,9 @@ fit:
     - "The platform adds a fee or a pre-checked surcharge to your donors' gifts."
   note: "If some of this sounds familiar, the same approach may fit your organization. Tell me what you use now, and I'll tell you honestly whether it does."
   button: "Tell me what you use now"
+next: dclt-preserve-explorer
 ask:
+  button: "Tell me what you use now"
   heading: "Still re-keying gifts by hand?"
   body: "Tell me which giving platform and donor database you use. I'll tell you honestly whether this approach fits, or whether a plugin is all you need. A good first step is a short, fixed-price review of how a gift travels today and what that costs you in hours and fees."
   prompt: "Which giving platform and donor database do you use, and what gets done by hand today?"

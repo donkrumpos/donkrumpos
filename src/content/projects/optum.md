@@ -9,7 +9,17 @@ tools: ["Figma", "Mural", "Axure"]
 thumbnail: "/images/projects/optum-hero.jpg"
 images:
   - "/images/projects/optum-hero.jpg"
+next: nielseniq
+fit:
+  heading: "Is this your team?"
+  points:
+    - "Your product is several tools that grew up separately, and each one looks and behaves differently."
+    - "Design decisions rest on assumptions about the people using it, because nobody has watched them work."
+    - "You need one lead who can run the research, set the system and design the screens."
+  note: "I do this work as a contract design lead, most often for health-care and data companies."
+  button: "Tell me about your product"
 ask:
+  button: "Tell me about your product"
   heading: "Too many tools doing one job?"
   body: "I take on product design and design-system work as a contract lead. Tell me about the product and the team using it."
   prompt: "What is the product, who uses it, and where does it get in their way?"

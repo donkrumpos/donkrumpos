@@ -9,7 +9,17 @@ tools: ["Figma", "Miro", "InVision"]
 thumbnail: "/images/projects/niq-discover.jpg"
 images:
   - "/images/projects/niq-discover.jpg"
+next: optum
+fit:
+  heading: "Is this your team?"
+  points:
+    - "Every new module invents its own way for users to get started."
+    - "Screens are dense with data, and new users struggle to find their way in."
+    - "Inconsistent patterns slow each release, and nobody owns the system."
+  note: "I do this work as a contract design lead, most often for data and health-care companies."
+  button: "Tell me about your product"
 ask:
+  button: "Tell me about your product"
   heading: "Building a design system for a data product?"
   body: "I take on product design and design-system work as a contract lead. Tell me about the platform and where the teams building it disagree."
   prompt: "What is the platform, how many teams build on it, and what is inconsistent today?"

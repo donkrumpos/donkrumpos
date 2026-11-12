@@ -149,7 +149,7 @@ const shareImage = existsSync(`public/images/og/${project.id}.jpg`)
     <footer class="case-end">
       {next && (
         <a class="case-end__card case-end__next" href={`/work/${next.id}/`}>
-          <span class="label">Next in the book</span>
+          <span class="label">{project.data.next ? 'More like this' : 'Next in the book'}</span>
           <span class="case-end__title">{next.data.title}</span>
           <span class="case-end__kind label">{kindName[next.data.category] ?? next.data.category} <span aria-hidden="true">→</span></span>
         </a>
@@ -159,7 +159,7 @@ const shareImage = existsSync(`public/images/og/${project.id}.jpg`)
         <p class="case-end__title">{ask?.heading ?? 'Working on something like this?'}</p>
         {ask?.body && <p class="case-end__body">{ask.body}</p>}
         <p class="case-end__actions">
-          <a class="button" href={contactHref}>Start a conversation <span aria-hidden="true">→</span></a>
+          <a class="button" href={contactHref}>{ask?.button ?? 'Start a conversation'} <span aria-hidden="true">→</span></a>
           <a class="button button--ghost" href="/work/">All work</a>
         </p>
       </div>

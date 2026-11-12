@@ -20,7 +20,17 @@ fit:
     - "You want to own the map and everything on it, not rent them."
   note: "I help museums, historic sites, libraries and arts organizations find the stories in their places and collections. I work with staff to turn those stories into something visitors can explore: interactive maps, self-guided walks and printed walk cards."
   button: "Tell me about your place"
+next: dclt-preserve-explorer
+statsNote: "Live on yonderartland.com"
+stats:
+  - value: "55"
+    label: "walls on the map, each with its photo, story and directions"
+  - value: "2"
+    label: "self-guided walks, with printable cards"
+  - value: "$0"
+    label: "paid to a map company, per view or per month"
 ask:
+  button: "Tell me about your place"
   heading: "Want a map like this for your town?"
   body: "Murals, historic buildings, trails, a downtown walk: if your place has stories tied to locations, tell me what you have and I'll tell you what a map of it would take."
   prompt: "What would you like to put on the map, and who is it for?"
